@@ -17,11 +17,9 @@ body.works-page { background: #fff; }
 .works-page .header-nav .nav-link,
 .works-page .header-logo,
 .works-page .menu-btn { color: var(--ink); }
-/* 흰 배경 위 헤더이므로 roll 하이라이트도 반전 (원본 측정: bg #212121) */
-.works-page .site-header .roll .roll-box span:last-child {
-  background: var(--ink);
-  color: var(--light);
-}
+/* 흰 배경 위 헤더이므로 차오르는 배경도 반전 (원본 측정: bg #212121) */
+.works-page .site-header .roll .roll-box::before { background: var(--ink); }
+.works-page .site-header .roll:hover .roll-box span { color: var(--light); }
 /* 메뉴 오버레이는 노란 배경이므로 원래 색(#2b2b2b)을 유지 */
 .works-page .menu-overlay .header-logo,
 .works-page .menu-close { color: var(--ink2); }
