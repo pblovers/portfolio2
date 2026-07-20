@@ -51,4 +51,30 @@
 
   /* footer disciplines exist on every page */
   WR.appear('.services a');
+
+  /* ---------- Footer wordmark fit ----------
+     원본은 고정 119.539px 폰트를 가로로만 scaleX 늘려 좌우 여백까지
+     정확히 채운다(높이 불변). CSS 로는 length/length 비율을 못 구하므로
+     자연폭을 재서 scaleX 를 직접 준다. 모든 페이지 공통. */
+  var wordmark = document.querySelector('.wordmark');
+  if (wordmark) {
+    var fitWordmark = function () {
+      wordmark.style.transform = 'none';
+      var natural = wordmark.getBoundingClientRect().width;   // scaleX 해제 상태의 자연폭
+      if (!natural) return;
+      var cs = getComputedStyle(wordmark);
+      var avail = wordmark.parentElement.clientWidth
+        - parseFloat(cs.left || 0)
+        - (parseFloat(getComputedStyle(wordmark.parentElement).paddingRight) || 0)
+        - parseFloat(cs.right && cs.right !== 'auto' ? cs.right : 0);
+      // 좌우 여백(--margin)만 뺀 가용폭
+      var margin = parseFloat(cs.left) || 0;
+      avail = wordmark.parentElement.clientWidth - margin * 2;
+      wordmark.style.transformOrigin = 'left bottom';
+      wordmark.style.transform = 'scaleX(' + (avail / natural) + ')';
+    };
+    fitWordmark();
+    window.addEventListener('resize', fitWordmark);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitWordmark);
+  }
 })();

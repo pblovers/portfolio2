@@ -310,19 +310,25 @@ a:hover .arr { transform: translateX(5px); }
 /* 원본 링크 폭은 글자 폭(42px)이다. 셀 전체(344px)로 늘리면
    빈 여백에서도 호버가 걸린다. */
 .footer-links a { justify-self: start; }
+/* 원본은 고정 119.539px 폰트를 ancestor 의 scaleX 로 가로만 늘려
+   좌우 여백까지 정확히 채운다 (높이는 불변). 자연폭은 로컬 폰트에서
+   1216.11px 로 원본(1216)과 동일. scaleX = (가용폭)/자연폭. */
 .wordmark {
   position: absolute;
   left: var(--margin);
-  right: var(--margin);
   bottom: 52px;
+  width: max-content;
   font-family: var(--serif-trial);
   font-weight: 300;
-  font-size: calc((100vw - 64px) / 10.17);
-  line-height: 0.8;
+  font-size: 119.539px;
+  line-height: 95.6315px;
   color: var(--muted);
   white-space: nowrap;
-  /* 장식용(aria-hidden)이다. line-height(0.8)보다 글리프 상자가 커서
-     위로 27px 넘치는데, 그대로 두면 바로 위의 푸터 링크 호버·클릭을 가로챈다. */
+  transform-origin: left bottom;
+  /* scaleX 는 common.js 의 fitWordmark() 가 자연폭을 재서 직접 준다
+     (CSS 로는 length/length 비율을 계산할 수 없다). */
+  /* 장식용(aria-hidden)이다. 글리프 상자가 line-height 보다 커서
+     위로 넘치는데, 그대로 두면 위의 푸터 링크 호버·클릭을 가로챈다. */
   pointer-events: none;
 }
 .footer-bottom {

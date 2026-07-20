@@ -5,8 +5,9 @@
 import { chromium } from 'playwright';
 
 const PAGES = [
-  ['index', 'file:///D:/임소현/portfolio2/index.html'],
-  ['works', 'file:///D:/임소현/portfolio2/works.html']
+  ['index', 'file:///D:/이젠아카데미/portfolio2/index.html'],
+  ['works', 'file:///D:/이젠아카데미/portfolio2/works.html'],
+  ['motion', 'file:///D:/이젠아카데미/portfolio2/works-motion.html']
 ];
 // 경계값 포함 (1280 은 데스크톱, 1279 부터 적층 레이아웃)
 const SIZES = [

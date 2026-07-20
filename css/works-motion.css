@@ -16,7 +16,9 @@
      태그 영상   -31.18,88  385.21x385.21  autoplay loop muted
    ============================================================ */
 
-body.motion-page { background: #fff; }
+/* body 배경은 푸터색. 푸터가 뷰포트에 고정되고, 흰 섹션이 그 위를
+   덮은 채 스크롤로 걷히면 아래 고정 푸터가 드러난다 (원본 구조). */
+body.motion-page { background: var(--footer-bg); }
 
 /* 흰 배경 위 헤더이므로 글자색과 roll 하이라이트를 반전 */
 .motion-page .header-nav .nav-link,
@@ -27,14 +29,37 @@ body.motion-page { background: #fff; }
 .motion-page .menu-overlay .header-logo,
 .motion-page .menu-close { color: var(--ink2); }
 
+/* 푸터: 뷰포트에 고정된 배경 레이어. 원본은 스크롤과 무관하게
+   워드마크가 vy=743 에 고정돼 있다. */
+.motion-page .footer {
+  position: fixed;
+  inset: 0;
+  height: 100vh;
+  z-index: 0;
+}
+
 /* ============================================================
-   섹션
+   섹션 — 흰 커버 (정상 흐름, z:1). 위로 스크롤되며 걷힌다.
+   좌·우 콘텐츠는 .msec-sticky 로 상단에 붙었다가 220px 뒤 함께 밀린다.
    ============================================================ */
 .msec {
   position: relative;
-  height: 757.55px;
+  z-index: 1;
+  height: 760px;
   background: #fff;
-  overflow: hidden;
+}
+.msec-sticky {
+  position: sticky;
+  top: 0;
+  height: 540px;
+}
+/* 스크롤 거리 확보 — 이 구간은 투명해 고정 푸터가 드러난다.
+   문서 높이 = 760(msec) + 900(spacer) = 1660 (원본과 동일). */
+.msec-spacer {
+  position: relative;
+  z-index: 1;
+  height: 900px;
+  pointer-events: none;
 }
 
 /* ---------- 좌측: 돌아가기 링크 ---------- */
@@ -42,6 +67,7 @@ body.motion-page { background: #fff; }
   position: absolute;
   top: 80px;
   left: var(--margin);
+  z-index: 2;              /* 태그 영상이 위를 덮지 않도록 */
   display: inline-flex;
   align-items: center;
   font-size: 14px;
@@ -49,8 +75,12 @@ body.motion-page { background: #fff; }
   text-transform: uppercase;
   color: var(--ink);
 }
-/* 화살표가 글자 앞에 온다 (works 의 .arr 은 뒤) */
+/* 화살표가 글자 앞에 온다 (works 의 .arr 은 뒤).
+   원본 화살표 상자는 16.8px(=글자 2칸) 폭이라 글자가 x54.8 에서 시작한다.
+   mono 글리프 advance(8.4)만으로는 8px 왼쪽으로 밀려 총폭 132→123 이 된다. */
 .arr-back {
+  display: inline-block;
+  width: 16.8px;
   margin-left: 0;
   margin-right: 6px;
 }
@@ -60,9 +90,9 @@ body.motion-page { background: #fff; }
 .m-tag {
   position: absolute;
   top: 88px;
-  left: -31.18px;
-  width: 385.21px;
-  height: 385.21px;
+  left: -31.97px;
+  width: 390px;
+  height: 390px;
   pointer-events: none;
 }
 .m-tag video {
@@ -80,15 +110,13 @@ body.motion-page { background: #fff; }
   top: 80px;
   left: calc((100% - 64px) / 4);
   right: 0;
-  bottom: 208px;
 }
 
 /* 탭 스트립 */
 .m-tab {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: calc((100% + 64px) / 4 * 0 + 324.17px);
+  position: relative;
+  z-index: 1;
+  width: 328px;
   height: 40px;
   background: var(--light);
   border-radius: 6px 0 0 0;
@@ -115,14 +143,9 @@ body.motion-page { background: #fff; }
 
 /* 본문 */
 .m-body {
-  position: absolute;
-  top: 40px;
-  left: 0;
-  right: 0;
-  bottom: 0;
   background: var(--light);
   border-radius: 0 0 0 6px;
-  padding: 0 var(--margin);
+  padding: 0 var(--margin) 24px;
 }
 .m-title {
   margin-top: 16px;
@@ -132,8 +155,9 @@ body.motion-page { background: #fff; }
   line-height: 80px;
   color: var(--ink);
 }
+/* 구분선은 패딩을 뚫고 패널 좌우 끝까지 닿는다 (원본은 풀블리드) */
 .m-divider {
-  margin-top: 32px;
+  margin: 31px calc(var(--margin) * -1) 0;
   border-top: 1px dotted rgba(33, 33, 33, 0.45);
 }
 
@@ -183,35 +207,54 @@ body.motion-page { background: #fff; }
 
 /* ============================================================
    Tablet (810 ~ 1279px)
+   원본 실측(1024): 태그 영상 없음, 패널은 풀블리드(x0), 카드 2열.
+   리빌(고정 푸터 + 스페이서) 구조는 유지된다. docH 1537 = 흰 커버 + 900.
    ============================================================ */
 @media (min-width: 810px) and (max-width: 1279.98px) {
-  .msec { height: auto; padding-bottom: 160px; }
-  .m-panel { position: relative; top: auto; left: auto; right: auto; bottom: auto; margin: 80px 0 0 calc((100% - 64px) / 4); }
-  .m-body { position: relative; top: auto; bottom: auto; padding-bottom: 40px; }
-  .m-tag { top: 96px; left: -40px; width: 320px; height: 320px; }
+  /* 태그 영상은 데스크톱(≥1280) 전용 */
+  .m-tag { display: none; }
+
+  /* 패널이 화면 전체 폭을 쓴다 (좌측 컬럼 없음). 뒤로가기 링크(y80)
+     아래로 내려오므로 top 144 (원본 실측: 탭 y144). */
+  .m-panel { top: 144px; left: 0; }
+  .m-tab { width: 304px; }
+
+  /* 카드 2열 */
+  .m-grid { grid-template-columns: repeat(2, 1fr); row-gap: 66px; }
+
+  /* 흰 커버 높이: 2행 카드가 들어가도록. 스페이서로 리빌 거리 확보 */
+  .msec { height: 999px; }
+  .msec-sticky { height: 999px; }
+  .msec-spacer { height: 538px; }
 }
 
 /* ============================================================
-   Phone (≤ 809px) — 한 열로 적층
+   Phone (≤ 809px) — 정상 흐름 적층 (리빌 없음)
+   원본 실측(768): 영상 없음, 패널 풀블리드, 카드 1열 16:9,
+   푸터는 콘텐츠 뒤에 정상 흐름으로 쌓인다 (docH 2687, 고정 아님).
    ============================================================ */
 @media (max-width: 809.98px) {
-  .msec { height: auto; padding-bottom: 80px; }
-  .m-back { position: static; display: inline-flex; margin: 80px 0 0 var(--margin); }
-  .m-tag {
-    position: relative;
-    top: auto; left: 50%;
-    width: 260px; height: 260px;
-    margin: 8px 0 0;
-    transform: translateX(-50%);
-  }
-  .m-panel {
-    position: relative;
-    top: auto; left: auto; right: auto; bottom: auto;
-    margin-top: 24px;
-  }
-  .m-tab { width: calc(66.686vw - 21.45px); align-items: center; padding-left: var(--margin); }
-  .m-body { position: relative; top: auto; bottom: auto; padding-bottom: 32px; }
-  .m-title { font-size: 48px; line-height: 56px; margin-top: 8px; }
-  .m-divider { margin-top: 24px; }
-  .m-grid { grid-template-columns: 1fr; row-gap: 32px; margin-top: 24px; }
+  /* 리빌 해제 — 정상 흐름 */
+  body.motion-page { background: #fff; }
+  .motion-page .footer { position: relative; inset: auto; z-index: auto; }
+  .msec { height: auto; z-index: auto; }
+  .msec-sticky { position: static; height: auto; }
+  .msec-spacer { display: none; }
+
+  .m-tag { display: none; }
+
+  .m-back { top: 80px; }
+
+  .m-panel { position: relative; top: 0; left: 0; right: auto; padding-top: 144px; }
+  .m-tab { width: 352px; }
+
+  .m-body { padding-bottom: 40px; }
+  /* 모바일 제목은 48/56 (태블릿·데스크톱은 72/80) */
+  .m-title { margin-top: 16px; font-size: 48px; line-height: 56px; }
+  /* 원본: 제목 하단(256) → 카드(296) = 40px. divider 20 + grid 19. */
+  .m-divider { margin-top: 20px; }
+  /* 원본 카드 행 피치 471 = 이미지414 + 제목여백16 + 제목24 + 간격17. */
+  .m-grid { grid-template-columns: 1fr; row-gap: 17px; margin-top: 19px; }
+  .m-card img { aspect-ratio: 736 / 414; }   /* 원본 실측 16:9 */
+  .m-card-title { margin-top: 16px; }
 }

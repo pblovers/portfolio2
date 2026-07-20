@@ -12,7 +12,7 @@ mkdirSync('./diff', { recursive: true });
 
 const browser = await chromium.launch();
 const files = {};
-for (const [tag, url] of [['orig', 'https://www.wildyriftian.com/'], ['mine', 'file:///D:/임소현/portfolio2/index.html']]) {
+for (const [tag, url] of [['orig', 'https://www.wildyriftian.com/'], ['mine', 'file:///D:/이젠아카데미/portfolio2/index.html']]) {
   const ctx = await browser.newContext({ viewport: { width: W, height: H }, deviceScaleFactor: 1 });
   const p = await ctx.newPage();
   await p.goto(url, { waitUntil: 'networkidle', timeout: 60000 });

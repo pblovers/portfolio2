@@ -8,7 +8,7 @@ const W = Number(process.argv[2] || 1440);
 const H = W >= 1920 ? 1080 : W >= 1440 ? 900 : W >= 1280 ? 800 : W >= 768 ? 1024 : W >= 430 ? 932 : 812;
 
 const ORIG = 'https://www.wildyriftian.com/works';
-const MINE = 'file:///D:/임소현/portfolio2/works.html';
+const MINE = 'file:///D:/이젠아카데미/portfolio2/works.html';
 
 const probe = () => {
   const px = v => Math.round(v * 10) / 10;

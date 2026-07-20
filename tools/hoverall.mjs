@@ -4,7 +4,7 @@ console.log("=== 폴더 호버 효과: 폭별 (디밍 / 상승 / 썸네일) ==="
 for (const [W,H] of [[1920,1080],[1440,900],[1280,900],[1279,900],[1024,768],[820,1180],[809,900],[768,1024],[430,932],[375,812]]) {
   const ctx = await b.newContext({ viewport:{width:W,height:H} });
   const p = await ctx.newPage();
-  await p.goto("file:///D:/임소현/portfolio2/works.html",{waitUntil:"networkidle"});
+  await p.goto("file:///D:/이젠아카데미/portfolio2/works.html",{waitUntil:"networkidle"});
   await p.waitForTimeout(1200);
   const base = await p.evaluate(()=>{
     const f=document.querySelector(".wf-branding");
