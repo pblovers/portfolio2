@@ -1,0 +1,18 @@
+{
+  "name": "wildyriftian-clone-tools",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "원본 사이트와 구현본을 대조하는 검증 스크립트",
+  "scripts": {
+    "shot": "node shoot.mjs",
+    "cmp": "node cmp.mjs",
+    "pixdiff": "node pixdiff.mjs",
+    "qa": "node mobqa.mjs",
+    "hover": "node hoverall.mjs"
+  },
+  "dependencies": {
+    "playwright": "^1.49.0",
+    "pngjs": "^7.0.0"
+  }
+}

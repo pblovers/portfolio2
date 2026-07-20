@@ -13,3 +13,10 @@ desktop.ini
 # --- Logs / temp ---
 *.log
 *.tmp
+
+# --- 검증 스크립트 (tools/) ---
+node_modules/
+tools/diff/
+tools/shots*/
+tools/out-*/
+tools/final/
