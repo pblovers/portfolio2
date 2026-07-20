@@ -1,0 +1,217 @@
+/* ============================================================
+   Wildy Riftian — clone
+   works-motion.css — /works-motion 카테고리 상세 페이지
+   Requires common.css.
+
+   원본 실측 (1440, 콘텐츠 폭 1424.67, 문서 1658):
+     섹션        0 ~ 757.55 (흰 배경), 푸터 100vh 가 이어진다
+     패널 left   (콘텐츠폭 - 64)/4 = 340.17  → 헤더 4열 그리드의 1칸
+     탭 스트립   340.17,80  324.17x40  #f5f5f5  radius 6px 0 0 0
+     번호 01     372.17,96  14px/24px   (탭 하단 정렬, +16)
+     제목        372.17,136  72px/80px
+     본문 패널   340.17,120 ~ 549.55  #f5f5f5  radius 0 0 0 6px
+     카드        372.17 / 723 / 1073.83,  318.83x179.33 (16:9), 간격 32
+     카드 번호   이미지 x-6, y-8, 10px/16px
+     카드 제목   이미지 x, y=469.55, 14px/24px
+     태그 영상   -31.18,88  385.21x385.21  autoplay loop muted
+   ============================================================ */
+
+body.motion-page { background: #fff; }
+
+/* 흰 배경 위 헤더이므로 글자색과 roll 하이라이트를 반전 */
+.motion-page .header-nav .nav-link,
+.motion-page .header-logo,
+.motion-page .menu-btn { color: var(--ink); }
+.motion-page .site-header .roll .roll-box::before { background: var(--ink); }
+.motion-page .site-header .roll:hover .roll-box span { color: var(--light); }
+.motion-page .menu-overlay .header-logo,
+.motion-page .menu-close { color: var(--ink2); }
+
+/* ============================================================
+   섹션
+   ============================================================ */
+.msec {
+  position: relative;
+  height: 757.55px;
+  background: #fff;
+  overflow: hidden;
+}
+
+/* ---------- 좌측: 돌아가기 링크 ---------- */
+.m-back {
+  position: absolute;
+  top: 80px;
+  left: var(--margin);
+  display: inline-flex;
+  align-items: center;
+  font-size: 14px;
+  line-height: 24px;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+/* 화살표가 글자 앞에 온다 (works 의 .arr 은 뒤) */
+.arr-back {
+  margin-left: 0;
+  margin-right: 6px;
+}
+.m-back:hover .arr-back { transform: translateX(-5px); }
+
+/* ---------- 좌측: 태그 영상 ---------- */
+.m-tag {
+  position: absolute;
+  top: 88px;
+  left: -31.18px;
+  width: 385.21px;
+  height: 385.21px;
+  pointer-events: none;
+}
+.m-tag video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ============================================================
+   우측 폴더 패널
+   ============================================================ */
+.m-panel {
+  position: absolute;
+  top: 80px;
+  left: calc((100% - 64px) / 4);
+  right: 0;
+  bottom: 208px;
+}
+
+/* 탭 스트립 */
+.m-tab {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: calc((100% + 64px) / 4 * 0 + 324.17px);
+  height: 40px;
+  background: var(--light);
+  border-radius: 6px 0 0 0;
+  display: flex;
+  align-items: flex-end;
+  padding-left: var(--margin);
+}
+.m-tab::after {
+  content: "";
+  position: absolute;
+  left: 100%;
+  top: 0;
+  width: 40px;
+  height: 40px;
+  background: var(--light);
+  clip-path: polygon(0 0, 2px 0, 100% 100%, 0 100%);
+}
+.m-num {
+  font-family: var(--mono);
+  font-size: 14px;
+  line-height: 24px;
+  color: var(--ink);
+}
+
+/* 본문 */
+.m-body {
+  position: absolute;
+  top: 40px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--light);
+  border-radius: 0 0 0 6px;
+  padding: 0 var(--margin);
+}
+.m-title {
+  margin-top: 16px;
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 72px;
+  line-height: 80px;
+  color: var(--ink);
+}
+.m-divider {
+  margin-top: 32px;
+  border-top: 1px dotted rgba(33, 33, 33, 0.45);
+}
+
+/* ============================================================
+   카드 그리드
+   ============================================================ */
+.m-grid {
+  margin-top: 32px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: 32px;
+  align-items: start;
+}
+.m-card {
+  position: relative;
+  display: block;
+  color: var(--ink);
+}
+.m-card-num {
+  position: absolute;
+  top: -8px;
+  left: -6px;
+  font-family: var(--mono);
+  font-size: 10px;
+  line-height: 16px;
+  color: var(--ink);
+}
+.m-card img {
+  width: 100%;
+  aspect-ratio: 318.83 / 179.33;   /* 원본 실측 = 16:9 */
+  object-fit: cover;
+  display: block;
+}
+.m-card-title {
+  display: block;
+  margin-top: 10.22px;             /* 469.55 - 459.43 */
+  font-family: var(--mono);
+  font-size: 14px;
+  line-height: 24px;
+  text-transform: uppercase;
+  color: var(--ink);
+  transition: opacity 0.25s ease;
+}
+.m-card:hover .m-card-title { opacity: 0.55; }
+.m-card img { transition: opacity 0.3s ease; }
+.m-card:hover img { opacity: 0.85; }
+
+/* ============================================================
+   Tablet (810 ~ 1279px)
+   ============================================================ */
+@media (min-width: 810px) and (max-width: 1279.98px) {
+  .msec { height: auto; padding-bottom: 160px; }
+  .m-panel { position: relative; top: auto; left: auto; right: auto; bottom: auto; margin: 80px 0 0 calc((100% - 64px) / 4); }
+  .m-body { position: relative; top: auto; bottom: auto; padding-bottom: 40px; }
+  .m-tag { top: 96px; left: -40px; width: 320px; height: 320px; }
+}
+
+/* ============================================================
+   Phone (≤ 809px) — 한 열로 적층
+   ============================================================ */
+@media (max-width: 809.98px) {
+  .msec { height: auto; padding-bottom: 80px; }
+  .m-back { position: static; display: inline-flex; margin: 80px 0 0 var(--margin); }
+  .m-tag {
+    position: relative;
+    top: auto; left: 50%;
+    width: 260px; height: 260px;
+    margin: 8px 0 0;
+    transform: translateX(-50%);
+  }
+  .m-panel {
+    position: relative;
+    top: auto; left: auto; right: auto; bottom: auto;
+    margin-top: 24px;
+  }
+  .m-tab { width: calc(66.686vw - 21.45px); align-items: center; padding-left: var(--margin); }
+  .m-body { position: relative; top: auto; bottom: auto; padding-bottom: 32px; }
+  .m-title { font-size: 48px; line-height: 56px; margin-top: 8px; }
+  .m-divider { margin-top: 24px; }
+  .m-grid { grid-template-columns: 1fr; row-gap: 32px; margin-top: 24px; }
+}
