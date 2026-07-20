@@ -307,6 +307,10 @@ body.works-page { background: #fff; }
   .wf-editorial  .wf-tab { width: calc(21.43vw - 11.4px); }
   .wf-photoworks .wf-tab { width: calc(28.57vw - 20.6px); }
 
+  /* editorial 은 태블릿에서도 고유색이 #f5f5f5 다 (원본 실측: 1024 에서 rgb(245,245,245)).
+     데스크톱만 #d9d9d9 이다. */
+  .wf-editorial { --own: var(--light); }
+
   /* ---- 호버 효과 없음 (원본 태블릿과 동일) ---- */
   .wf:hover { transform: none; }
   .wf:hover .wf-th { opacity: 0; transform: none; width: 200px; height: 200px; }
@@ -384,8 +388,10 @@ body.works-page { background: #fff; }
   .wfolders:hover .wf { --wf-bg: var(--own); }
   .wfolders:hover .wf .wf-title,
   .wfolders:hover .wf .wf-num { color: var(--ink); }
-  /* editorial 은 모바일에서 고유색이 #f5f5f5 이므로 --own 을 덮어쓴다 */
-  .wf-editorial, .wfolders:hover .wf-editorial { --wf-bg: var(--light); }
+  /* editorial 은 모바일에서 고유색이 #f5f5f5 다.
+     --wf-bg 를 덮으면 데스크톱의 .wfolders:hover .wf:hover 규칙(0,4,0)에
+     밀려 호버 때 #d9d9d9 로 바뀐다. 고유색인 --own 자체를 바꾼다. */
+  .wf-editorial { --own: var(--light); }
 
   /* ---- 썸네일 ----
      원본도 마지막 폴더에만 3장이 opacity 1 로 존재하지만,
