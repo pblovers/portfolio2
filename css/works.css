@@ -409,3 +409,33 @@ body.works-page { background: #fff; }
 
 /* 375px 에서도 원본은 썸네일 x 를 그대로 두고 폴더 overflow 로 잘라낸다.
    (341.3 + 47.4 = 388.7 > 375 이지만 가로 스크롤은 생기지 않음) */
+
+/* ============================================================
+   폴더 그림자 — 원본 실측
+   원본은 색 박스가 아니라 그 위의 투명 래퍼에 그림자를 건다.
+   위쪽으로만 퍼지므로(0 -Npx) 우리는 .wf-body / .wf-tab 에 직접 준다.
+
+   데스크톱(≥1280)  스트립 전부 없음
+                    1행(motion·branding) 본문 없음
+                    2·3행 본문  0 -4px 20px rgba(38,34,21,.1)
+   태블릿·모바일     1번(motion)   스트립·본문 모두 없음
+                    2~5번         스트립·본문  0 -1px 2px rgba(0,0,0,.1)
+                    6번(3D tech)  스트립 없음, 본문 큰 그림자
+
+   두 구간을 각각 min/max 로 감싸 명시도 충돌을 피한다.
+   ============================================================ */
+@media (min-width: 1280px) {
+  .wf-body { box-shadow: 0 -4px 20px rgba(38, 34, 21, 0.1); }
+  .wf-r1 .wf-body { box-shadow: none; }
+}
+
+@media (max-width: 1279.98px) {
+  .wf-tab,
+  .wf-body { box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.1); }
+
+  .wfolders > .wf:nth-child(1) .wf-tab,
+  .wfolders > .wf:nth-child(1) .wf-body { box-shadow: none; }
+
+  .wfolders > .wf:nth-child(6) .wf-tab { box-shadow: none; }
+  .wfolders > .wf:nth-child(6) .wf-body { box-shadow: 0 -4px 20px rgba(38, 34, 21, 0.1); }
+}
