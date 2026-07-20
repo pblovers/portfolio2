@@ -176,13 +176,17 @@ body.works-page { background: #fff; }
 }
 
 /* ---------- 썸네일 ---------- */
+/* 썸네일은 폴더(.wf) 직속이며 탭·본문보다 먼저 칠해진다.
+   원본처럼 폴더 뒤로 들어가 아래쪽이 가려진다.
+   기준이 .wf-body(top 39) 에서 .wf 로 바뀌었으므로 top 값에 39 를 더한다. */
 .wf-thumbs {
   position: absolute;
   inset: 0;
   display: block;
   pointer-events: none;
-  z-index: 1;
+  z-index: 0;
 }
+.wf-tab, .wf-body { z-index: 1; }
 /* 원본은 기본 상태에서 썸네일이 보이지 않는다 (좌표만 잡혀 있고 opacity 0).
    호버한 폴더에서만 나타난다. */
 .wf-th {
@@ -220,10 +224,10 @@ body.works-page { background: #fff; }
   .wf-th { animation: none; }
 }
 
-/* 기본 소형 배치 — 원본 실측값 */
-.wf-th1 { width: 49.48px; height: 49.48px; top: 0.26px; }
-.wf-th2 { width: 43.96px; height: 43.96px; top: 0.02px; }
-.wf-th3 { width: 47.44px; height: 47.44px; top: 20.28px; }
+/* 기본 소형 배치 — 원본 실측값 (+39 는 본문 오프셋) */
+.wf-th1 { width: 49.48px; height: 49.48px; top: 39.26px; }
+.wf-th2 { width: 43.96px; height: 43.96px; top: 39.02px; }
+.wf-th3 { width: 47.44px; height: 47.44px; top: 59.28px; }
 
 /* 폴더별 x 위치 (본문 기준) — 1280/1440/1920 에서 검증한 값.
    1·3행은 폭이 변해도 고정 px, 2행(editorial·photoworks)의 일부는 폭에 연동된다. */
@@ -250,7 +254,7 @@ body.works-page { background: #fff; }
 .wf:hover .wf-th {
   width: 200px;
   height: 200px;
-  top: 5px;
+  top: 44px;            /* 5 + 39(본문 오프셋) */
 }
 .wf:hover .wf-th { opacity: 1; }   /* 보이는 건 호버한 폴더뿐 */
 .wf-open .wf-th1, .wf:hover .wf-th1 { left: calc(27% - 100px); right: auto; }
@@ -336,9 +340,9 @@ body.works-page { background: #fff; }
   /* 썸네일은 마지막 폴더에만 (원본과 동일) */
   .wf .wf-thumbs { display: none; }
   .wfolders > .wf:nth-child(6) .wf-thumbs { display: block; }
-  .wfolders > .wf:nth-child(6) .wf-th1 { left: 175.27px; right: auto; width: 49.48px; height: 49.48px; top: 0.26px; }
-  .wfolders > .wf:nth-child(6) .wf-th2 { left: 282.02px; right: auto; width: 43.96px; height: 43.96px; top: 0.02px; }
-  .wfolders > .wf:nth-child(6) .wf-th3 { left: 341.28px; right: auto; width: 47.44px; height: 47.44px; top: 20.28px; }
+  .wfolders > .wf:nth-child(6) .wf-th1 { left: 175.27px; right: auto; width: 49.48px; height: 49.48px; top: 39.26px; }
+  .wfolders > .wf:nth-child(6) .wf-th2 { left: 282.02px; right: auto; width: 43.96px; height: 43.96px; top: 39.02px; }
+  .wfolders > .wf:nth-child(6) .wf-th3 { left: 341.28px; right: auto; width: 47.44px; height: 47.44px; top: 59.28px; }
 
   /* 열림/호버 확대는 데스크톱 전용 */
   .wf-open .wf-th, .wf:hover .wf-th { width: auto; height: auto; }
