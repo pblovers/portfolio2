@@ -89,6 +89,12 @@ p { margin: 0; }
   line-height: 24px;
   transition: transform 0.4s cubic-bezier(0.6, 0, 0.2, 1);
 }
+/* 원본은 두 번째 복사본에만 배경을 깔아둔다.
+   롤이 올라가면 반전된 하이라이트 블록이 드러난다. */
+.roll .roll-box span:last-child {
+  background: var(--light);
+  color: var(--ink);
+}
 .roll:hover .roll-box span { transform: translateY(-24px); }
 
 /* Arrow links */
@@ -255,7 +261,8 @@ a:hover .arr { transform: translateX(5px); }
   color: var(--light);
   transition: opacity 0.25s ease;
 }
-.services a:hover { opacity: 0.55; font-style: italic; }
+/* 원본은 기울이지 않는다 — 밝기만 낮춘다 */
+.services a:hover { opacity: 0.55; }
 .services sup {
   font-family: var(--mono);
   font-size: 10px;

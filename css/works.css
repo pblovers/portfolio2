@@ -17,6 +17,11 @@ body.works-page { background: #fff; }
 .works-page .header-nav .nav-link,
 .works-page .header-logo,
 .works-page .menu-btn { color: var(--ink); }
+/* 흰 배경 위 헤더이므로 roll 하이라이트도 반전 (원본 측정: bg #212121) */
+.works-page .site-header .roll .roll-box span:last-child {
+  background: var(--ink);
+  color: var(--light);
+}
 /* 메뉴 오버레이는 노란 배경이므로 원래 색(#2b2b2b)을 유지 */
 .works-page .menu-overlay .header-logo,
 .works-page .menu-close { color: var(--ink2); }
@@ -240,12 +245,31 @@ body.works-page { background: #fff; }
 .wf-open .wf-th1, .wf:hover .wf-th1 { left: calc(27% - 100px); right: auto; }
 .wf-open .wf-th2, .wf:hover .wf-th2 { left: calc(50% - 100px); right: auto; }
 .wf-open .wf-th3, .wf:hover .wf-th3 { left: calc(73% - 100px); right: auto; }
-.wf:hover .wf-th1 { transform: translate(calc(var(--mx, 0px) * 0.10), calc(var(--my, 0px) * 0.10 - 26px)); }
-.wf:hover .wf-th2 { transform: translate(calc(var(--mx, 0px) * 0.06), calc(var(--my, 0px) * 0.06 - 18px)); }
-.wf:hover .wf-th3 { transform: translate(calc(var(--mx, 0px) * 0.13), calc(var(--my, 0px) * 0.13 - 32px)); }
+/* 호버 시 썸네일은 폴더 위쪽 빈 공간으로 떠오른다.
+   원본 실측 (motion, 본문 top=512 기준):
+     244.9px @ y=317.5   216.7px @ y=371.7   219.8px @ y=340.1
+   폴더 자체도 12px 들리므로(512→500) 그만큼 뺀 값을 쓴다. */
+.wf:hover .wf-th1 {
+  width: 245px; height: 245px;
+  transform: translate(calc(var(--mx, 0px) * 0.10 - 20px), calc(var(--my, 0px) * 0.10 - 182px));
+}
+.wf:hover .wf-th2 {
+  width: 217px; height: 217px;
+  transform: translate(calc(var(--mx, 0px) * 0.06 - 5px), calc(var(--my, 0px) * 0.06 - 128px));
+}
+.wf:hover .wf-th3 {
+  width: 220px; height: 220px;
+  transform: translate(calc(var(--mx, 0px) * 0.13 - 4px), calc(var(--my, 0px) * 0.13 - 165px));
+}
 
-/* 호버 폴더를 최상단으로 */
-.wf:hover { z-index: 9; }
+/* 호버한 폴더는 12px 들린다 (원본 측정: rect y 512 → 500).
+   z-index 는 건드리지 않는다 — 썸네일은 항상 위쪽으로 뜨고 뒷 행일수록
+   z-index 가 높으므로 자연 순서만으로 이미 위에 그려진다.
+   올리면 오히려 아래 행의 번호 스트립을 덮어버린다. */
+.wf {
+  transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.wf:hover { transform: translateY(-12px); }
 
 /* ============================================================
    Tablet & Phone (≤ 1279px) — 폴더 1열 적층
