@@ -314,9 +314,12 @@ body.works-page { background: #fff; }
   .wfolders:hover .wf .wf-title,
   .wfolders:hover .wf .wf-num { color: var(--ink); }
 
-  /* ---- 썸네일은 마지막 폴더에만 (모바일과 동일) ---- */
+  /* ---- 썸네일 ----
+     원본도 마지막 폴더에만 3장이 opacity 1 로 존재하지만,
+     폴더 배경(z1) 뒤(z0)에 있어 화면에는 보이지 않는다.
+     z-index 를 올리면 안 된다. */
   .wf .wf-thumbs { display: none; }
-  .wfolders > .wf:nth-child(6) .wf-thumbs { display: block; z-index: 2; }
+  .wfolders > .wf:nth-child(6) .wf-thumbs { display: block; }
   .wfolders > .wf:nth-child(6) .wf-th { opacity: 1; }
 }
 
@@ -384,12 +387,13 @@ body.works-page { background: #fff; }
   /* editorial 은 모바일에서 고유색이 #f5f5f5 이므로 --own 을 덮어쓴다 */
   .wf-editorial, .wfolders:hover .wf-editorial { --wf-bg: var(--light); }
 
-  /* ---- 썸네일은 마지막 폴더에만 (원본과 동일) ----
-     데스크톱은 호버 시 폴더 위로 떠오르므로 뒤 레이어(z0)에 두지만,
-     모바일은 폴더 안에 그대로 있으므로 앞으로 올려야 보인다.
-     위의 호버 무력화 규칙보다 뒤에 와야 이긴다. */
+  /* ---- 썸네일 ----
+     원본도 마지막 폴더에만 3장이 opacity 1 로 존재하지만,
+     폴더 배경(z1) 뒤(z0)에 있어 화면에는 보이지 않는다.
+     z-index 를 올리면 안 된다.
+     opacity 규칙은 위의 호버 무력화보다 뒤에 와야 이긴다. */
   .wf .wf-thumbs { display: none; }
-  .wfolders > .wf:nth-child(6) .wf-thumbs { display: block; z-index: 2; }
+  .wfolders > .wf:nth-child(6) .wf-thumbs { display: block; }
   .wfolders > .wf:nth-child(6) .wf-th,
   .wfolders > .wf:nth-child(6):hover .wf-th { opacity: 1; }
   .wfolders > .wf:nth-child(6) .wf-th1 { left: 175.27px; right: auto; width: 49.48px; height: 49.48px; top: 39.26px; }
