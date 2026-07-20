@@ -294,7 +294,7 @@
   text-transform: uppercase;
   color: var(--light);
 }
-.work-seeall .arr { margin-left: 8px; }
+/* .arr 의 기본 6px 간격을 그대로 쓴다 (원본 실측) */
 
 /* background sheet */
 .work-bg {
@@ -443,7 +443,13 @@
   .work-1 .work-tab { left: 0; width: calc(25vw - 16px); border-radius: 0; }
   .work-2 .work-tab { left: calc(25vw - 16px); width: calc(25vw - 16px); border-radius: 0; }
   .work-3 .work-tab { left: calc(50vw - 32px); width: calc(25vw - 16px); border-radius: 0; }
-  .work-seeall { width: calc(25vw - 16px); }
+  /* SEE ALL WORKS 글자는 메타 칼럼(75vw-16)에 맞춘다.
+     바는 padding-left 32 이므로 바 왼쪽은 75vw-48. */
+  .work-seeall {
+    left: calc(75vw - 48px);
+    right: 0;
+    width: auto;
+  }
 
   .work-bg { top: 96px; }
   .work-content {

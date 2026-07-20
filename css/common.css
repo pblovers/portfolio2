@@ -110,8 +110,13 @@ p { margin: 0; }
 .roll:hover .roll-box::before { transform: translateY(0); }
 .roll:hover .roll-box span { color: var(--ink); }
 
-/* Arrow links */
-.arr { display: inline-block; transition: transform 0.3s ease; }
+/* Arrow links — 원본은 글자와 화살표 사이가 6px 이다.
+   (VIEW PROJECT 100.8 + 6 + 16.8 = 123.6, SEE ALL WORKS 109.2 + 6 + 16.8 = 132) */
+.arr {
+  display: inline-block;
+  margin-left: 6px;
+  transition: transform 0.3s ease;
+}
 a:hover .arr { transform: translateX(5px); }
 
 /* ---------- Page shell ---------- */
