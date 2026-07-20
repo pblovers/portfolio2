@@ -370,24 +370,31 @@ body.works-page { background: #fff; }
   .wf-body { top: 39px; height: 112px; }
   .wf-title { top: 0; font-size: 48px; line-height: 56px; }
 
-  /* 모바일에서는 3번째 폴더(editorial) 배경이 #f5f5f5 로 바뀐다 */
-  .wf-editorial { --wf-bg: var(--light); }
+  /* 모바일에서는 3번째 폴더(editorial) 배경이 #f5f5f5 로 바뀐다 (아래 호버 블록에서 함께 지정) */
 
-  /* 썸네일은 마지막 폴더에만 (원본과 동일).
+  /* ---- 호버 효과 전부 없음 (태블릿과 동일) ----
+     디밍과 12px 상승까지 끈다. 터치 기기에서는 탭 뒤 :hover 가 남아
+     켜져 있으면 폴더가 흐려진 채 고착된다. */
+  .wf:hover { transform: none; z-index: auto; }
+  .wf-open .wf-th,
+  .wf:hover .wf-th { opacity: 0; transform: none; width: auto; height: auto; }
+  .wfolders:hover .wf { --wf-bg: var(--own); }
+  .wfolders:hover .wf .wf-title,
+  .wfolders:hover .wf .wf-num { color: var(--ink); }
+  /* editorial 은 모바일에서 고유색이 #f5f5f5 이므로 --own 을 덮어쓴다 */
+  .wf-editorial, .wfolders:hover .wf-editorial { --wf-bg: var(--light); }
+
+  /* ---- 썸네일은 마지막 폴더에만 (원본과 동일) ----
      데스크톱은 호버 시 폴더 위로 떠오르므로 뒤 레이어(z0)에 두지만,
-     모바일은 폴더 안에 그대로 있으므로 앞으로 올려야 보인다. */
+     모바일은 폴더 안에 그대로 있으므로 앞으로 올려야 보인다.
+     위의 호버 무력화 규칙보다 뒤에 와야 이긴다. */
   .wf .wf-thumbs { display: none; }
   .wfolders > .wf:nth-child(6) .wf-thumbs { display: block; z-index: 2; }
-  /* 기본값이 opacity:0 이고 호버에서만 1 이 되는데 모바일엔 호버가 없다 */
-  .wfolders > .wf:nth-child(6) .wf-th { opacity: 1; }
+  .wfolders > .wf:nth-child(6) .wf-th,
+  .wfolders > .wf:nth-child(6):hover .wf-th { opacity: 1; }
   .wfolders > .wf:nth-child(6) .wf-th1 { left: 175.27px; right: auto; width: 49.48px; height: 49.48px; top: 39.26px; }
   .wfolders > .wf:nth-child(6) .wf-th2 { left: 282.02px; right: auto; width: 43.96px; height: 43.96px; top: 39.02px; }
   .wfolders > .wf:nth-child(6) .wf-th3 { left: 341.28px; right: auto; width: 47.44px; height: 47.44px; top: 59.28px; }
-
-  /* 열림/호버 확대는 데스크톱 전용 */
-  .wf-open .wf-th, .wf:hover .wf-th { width: auto; height: auto; }
-  .wf:hover .wf-th { transform: none; }
-  .wf:hover { z-index: 6; }
 }
 
 /* 375px 에서도 원본은 썸네일 x 를 그대로 두고 폴더 overflow 로 잘라낸다.
