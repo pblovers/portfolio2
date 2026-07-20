@@ -1,0 +1,317 @@
+/* ============================================================
+   Wildy Riftian — clone
+   works.css — /works page only (tabs + category folders)
+   Requires common.css to be loaded first.
+
+   원본 실측 (1440px, 콘텐츠 폭 1425, 여백 32):
+     탭      Works x=32 / Archive x=712.33, y=80, 72px/80px
+     폴더행  본문 top = 512 / 642 / 772 (피치 130, 높이 148)
+             번호 스트립 top = 489 (본문보다 23px 위)
+     열      1·3행 50% / 50%,  2행 38% / 62%
+   ============================================================ */
+
+/* works 페이지는 상단 섹션이 화이트.
+   common.css 의 헤더는 어두운 index 기준(#f5f5f5)이라 흰 배경에서 안 보인다.
+   원본 works 의 헤더 글자색은 #212121 이다. */
+body.works-page { background: #fff; }
+.works-page .header-nav .nav-link,
+.works-page .header-logo,
+.works-page .menu-btn { color: var(--ink); }
+/* 메뉴 오버레이는 노란 배경이므로 원래 색(#2b2b2b)을 유지 */
+.works-page .menu-overlay .header-logo,
+.works-page .menu-close { color: var(--ink2); }
+
+/* 원본은 정확히 100vh. 3행 폴더(772+148=920)가 20px 넘치지만
+   원본도 동일하게 넘쳐 푸터 뒤로 가려진다 → overflow: hidden 유지 */
+.wsec {
+  position: relative;
+  height: 100vh;
+  background: #fff;
+  overflow: hidden;
+}
+
+/* ---------- Works / Archive 탭 ---------- */
+.wtabs {
+  position: absolute;
+  top: 80px;
+  left: var(--margin);
+  right: var(--margin);
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+.wtab {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 72px;
+  line-height: 80px;
+  letter-spacing: normal;
+  color: var(--ink);
+}
+/* 원본에서 Works 는 h1 직접 텍스트, Archive 만 안쪽 앵커에 색이 실린다.
+   앵커는 inline 이라 rect 가 폰트 메트릭(72px→90px) 기준으로 잡혀
+   h1(80) 보다 위로 5px 넓다. display 를 바꾸지 않아야 원본과 같아진다. */
+.wtab-link { display: inline; }
+.wtab-active { color: var(--ink); }
+.wtab-muted {
+  color: var(--w3-bg);          /* #d9d9d9 */
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+.wtab-muted:hover { color: var(--muted); }
+
+/* ---------- 폴더 묶음 ---------- */
+/* 폴더 묶음은 뷰포트 하단 기준으로 붙는다.
+   실측: 1행 본문 top = 100vh - 388  (1920→692, 1440→512, 1280→412)
+   번호 스트립은 그보다 23px 위 → 100vh - 411 */
+/* 스트립 top = 박스 top - 39, 박스 top = 100% - 388  →  100% - 427 */
+.wfolders {
+  position: absolute;
+  top: calc(100% - 427px);   /* 100% = .wsec 높이. min-height 가 걸려도 따라간다 */
+  left: 0;
+  right: 0;
+  height: 469px;
+}
+
+/* ---------- 폴더 한 장 ---------- */
+/* 자식이 전부 absolute 라 높이를 주지 않으면 앵커 박스가 0 이 된다.
+   스트립 40 + 본문 148 - 겹침 1 = 187 */
+.wf {
+  position: absolute;
+  display: block;
+  height: 187px;
+  color: var(--ink);
+  --wf-bg: var(--w3-bg);
+}
+.wf-r1 { top: 0; z-index: 1; }
+.wf-r2 { top: 130px; z-index: 2; }
+.wf-r3 { top: 260px; z-index: 3; }
+
+/* 열 분할 — 1·3행은 반반, 2행은 38 / 62 */
+.wf-r1.wf-left,  .wf-r3.wf-left  { left: 0;      width: 50%; }
+.wf-r1.wf-right, .wf-r3.wf-right { left: 50%;    width: 50%; }
+.wf-r2.wf-left  { left: 0;      width: 38%; }
+.wf-r2.wf-right { left: 38%;    width: 62%; }
+
+/* 색 */
+.wf-motion       { --wf-bg: var(--w2-bg); }   /* #ffe430 */
+.wf-branding     { --wf-bg: var(--w3-bg); }   /* #d9d9d9 */
+.wf-editorial    { --wf-bg: var(--w3-bg); }
+.wf-photoworks   { --wf-bg: var(--muted); }   /* #ababab */
+.wf-illustration { --wf-bg: var(--w2-bg); }
+.wf-3dtech       { --wf-bg: var(--w3-bg); }
+
+/* 상단 번호 스트립 — 실측: 높이 40, 좌상단만 radius 6px,
+   폭은 뷰포트 선형 (1920:448 / 1440:328 / 1280:288 = 25vw - 32) */
+.wf-tab {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: calc(25vw - 32px);
+  height: 40px;
+  background: var(--wf-bg);
+  border-radius: 6px 0 0 0;
+  display: flex;
+  align-items: flex-end;      /* 번호가 하단 정렬 (오프셋 16) */
+  padding-left: var(--margin);
+}
+.wf-editorial  .wf-tab { width: calc(25.33vw - 42.6px); }
+.wf-photoworks .wf-tab { width: calc(24.8125vw - 25.8px); }
+.wf-tab::after {
+  content: "";
+  position: absolute;
+  left: 100%;
+  top: 0;
+  width: 0;
+  height: 0;
+  border-bottom: 40px solid var(--wf-bg);
+  border-right: 40px solid transparent;
+}
+.wf-num {
+  font-family: var(--mono);
+  font-size: 14px;
+  line-height: 24px;
+  color: var(--ink);
+}
+
+/* 본문 — 스트립과 1px 겹친다 (스트립 40, 본문 top 39)
+   overflow 는 두지 않는다: 호버 시 썸네일이 폴더 밖(위쪽)으로 날아가야 한다.
+   화면 밖으로 새는 건 .wsec 의 overflow:hidden 이 막는다. */
+.wf-body {
+  position: absolute;
+  top: 39px;
+  left: 0;
+  right: 0;
+  height: 148px;
+  background: var(--wf-bg);
+  border-top-right-radius: 6px;
+  display: block;
+}
+.wf-title {
+  position: absolute;
+  top: 8px;
+  left: var(--margin);
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 72px;
+  line-height: 80px;
+  color: var(--ink);
+  white-space: nowrap;
+  z-index: 2;
+}
+
+/* ---------- 썸네일 ---------- */
+.wf-thumbs {
+  position: absolute;
+  inset: 0;
+  display: block;
+  pointer-events: none;
+  z-index: 1;
+}
+/* 원본은 기본 상태에서 썸네일이 보이지 않는다 (좌표만 잡혀 있고 opacity 0).
+   호버한 폴더에서만 나타난다. */
+.wf-th {
+  position: absolute;
+  opacity: 0;
+  object-fit: cover;
+  border-radius: 2px;
+  transition:
+    opacity 0.35s ease,
+    width 0.45s cubic-bezier(0.2, 0.8, 0.2, 1),
+    height 0.45s cubic-bezier(0.2, 0.8, 0.2, 1),
+    transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+  will-change: transform, translate, width, height;
+}
+
+/* 유휴 부유 — 원본을 두 번 측정했을 때 좌표가 2~6px 흔들리는 움직임.
+   hover 드리프트는 transform 을 쓰므로 여기서는 translate 를 써서 충돌을 피한다. */
+@keyframes wfFloatA {
+  0%, 100% { translate: 0 0; }
+  50%      { translate: 5px -3px; }
+}
+@keyframes wfFloatB {
+  0%, 100% { translate: 0 0; }
+  50%      { translate: -4px 3px; }
+}
+@keyframes wfFloatC {
+  0%, 100% { translate: 0 0; }
+  50%      { translate: 6px 2px; }
+}
+.wf-th1 { animation: wfFloatA 7.2s ease-in-out infinite; }
+.wf-th2 { animation: wfFloatB 8.4s ease-in-out -1.6s infinite; }
+.wf-th3 { animation: wfFloatC 6.6s ease-in-out -3.1s infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .wf-th { animation: none; }
+}
+
+/* 기본 소형 배치 — 원본 실측값 */
+.wf-th1 { width: 49.48px; height: 49.48px; top: 0.26px; }
+.wf-th2 { width: 43.96px; height: 43.96px; top: 0.02px; }
+.wf-th3 { width: 47.44px; height: 47.44px; top: 20.28px; }
+
+/* 폴더별 x 위치 (본문 기준) — 1280/1440/1920 에서 검증한 값.
+   1·3행은 폭이 변해도 고정 px, 2행(editorial·photoworks)의 일부는 폭에 연동된다. */
+.wf-branding     .wf-th1 { left: 175.27px; }
+.wf-branding     .wf-th2 { left: 282.02px; }
+.wf-branding     .wf-th3 { left: 341.28px; }
+.wf-editorial    .wf-th1 { left: 175.26px; }
+.wf-editorial    .wf-th2 { left: calc(50% - 22px); }      /* 폭 연동 */
+.wf-editorial    .wf-th3 { left: auto; right: 158.28px; } /* 우측 기준 */
+.wf-photoworks   .wf-th1 { left: 294.26px; }
+.wf-photoworks   .wf-th2 { left: calc(50% - 22px); }      /* 폭 연동 */
+.wf-photoworks   .wf-th3 { left: 442.27px; }
+.wf-illustration .wf-th1 { left: 193.26px; }
+.wf-illustration .wf-th2 { left: 311.02px; }
+.wf-illustration .wf-th3 { left: 425.28px; }
+.wf-3dtech       .wf-th1 { left: 175.27px; }
+.wf-3dtech       .wf-th2 { left: 282.02px; }
+.wf-3dtech       .wf-th3 { left: 341.28px; }
+
+/* ---- 열린 상태(기본은 motion, 호버 시 해당 폴더) ----
+   큰 썸네일 3장은 폴더 폭의 27% / 50% / 73% 에 중앙 정렬된다.
+   각 장이 200px 이므로 -100px 로 중심을 맞춘다. */
+.wf-open .wf-th,
+.wf:hover .wf-th {
+  width: 200px;
+  height: 200px;
+  top: 5px;
+}
+.wf:hover .wf-th { opacity: 1; }   /* 보이는 건 호버한 폴더뿐 */
+.wf-open .wf-th1, .wf:hover .wf-th1 { left: calc(27% - 100px); right: auto; }
+.wf-open .wf-th2, .wf:hover .wf-th2 { left: calc(50% - 100px); right: auto; }
+.wf-open .wf-th3, .wf:hover .wf-th3 { left: calc(73% - 100px); right: auto; }
+.wf:hover .wf-th1 { transform: translate(calc(var(--mx, 0px) * 0.10), calc(var(--my, 0px) * 0.10 - 26px)); }
+.wf:hover .wf-th2 { transform: translate(calc(var(--mx, 0px) * 0.06), calc(var(--my, 0px) * 0.06 - 18px)); }
+.wf:hover .wf-th3 { transform: translate(calc(var(--mx, 0px) * 0.13), calc(var(--my, 0px) * 0.13 - 32px)); }
+
+/* 호버 폴더를 최상단으로 */
+.wf:hover { z-index: 9; }
+
+/* ============================================================
+   Tablet & Phone (≤ 1279px) — 폴더 1열 적층
+   원본 실측 (768x1024 / 430x932):
+     제목      h2 48px/56px, x=16, 박스 top 과 같은 y
+     박스      전체폭, 높이 112, 간격 104
+     첫 박스   top = 100vh - 624   (1024→400, 932→308)
+     번호      박스보다 31px 위, 14px
+     썸네일    마지막 폴더에만 3장
+     Archive   미표시
+   ============================================================ */
+@media (max-width: 1279.98px) {
+  .wtabs { top: 80px; grid-template-columns: 1fr; }
+  .wtab { font-size: 48px; line-height: 56px; }
+  .wtab-muted { display: none; }          /* 원본 모바일에는 Archive 없음 */
+
+  /* 375px 에서 원본 문서 높이가 1668 (=856+812) 이므로 섹션에 최소 높이가 있다 */
+  .wsec { min-height: 856px; }
+  .wfolders {
+    top: calc(100% - 663px);              /* 624 + 39(스트립) */
+    height: 663px;
+  }
+
+  /* 1열 전체폭 적층 — 열/행 규칙 무력화 */
+  .wf,
+  .wf-r1.wf-left, .wf-r1.wf-right,
+  .wf-r2.wf-left, .wf-r2.wf-right,
+  .wf-r3.wf-left, .wf-r3.wf-right {
+    left: 0;
+    width: 100%;
+  }
+  .wfolders > .wf:nth-child(1) { top: 0;      z-index: 1; }
+  .wfolders > .wf:nth-child(2) { top: 104px;  z-index: 2; }
+  .wfolders > .wf:nth-child(3) { top: 208px;  z-index: 3; }
+  .wfolders > .wf:nth-child(4) { top: 312px;  z-index: 4; }
+  .wfolders > .wf:nth-child(5) { top: 416px;  z-index: 5; }
+  .wfolders > .wf:nth-child(6) { top: 520px;  z-index: 6; }
+
+  /* 모바일 스트립 폭: 768→490.7 / 430→265.3 / 375→228.7 = 66.686vw - 21.45 */
+  .wf-tab,
+  .wf-editorial .wf-tab,
+  .wf-photoworks .wf-tab {
+    width: calc(66.686vw - 21.45px);
+    height: 40px;
+    align-items: center;        /* 모바일은 번호가 중앙 정렬 (오프셋 8) */
+  }
+  .wf-tab::after { border-bottom-width: 40px; border-right-width: 40px; }
+  .wf { height: 151px; }        /* 40 + 112 - 1 */
+  .wf-body { top: 39px; height: 112px; }
+  .wf-title { top: 0; font-size: 48px; line-height: 56px; }
+
+  /* 모바일에서는 3번째 폴더(editorial) 배경이 #f5f5f5 로 바뀐다 */
+  .wf-editorial { --wf-bg: var(--light); }
+
+  /* 썸네일은 마지막 폴더에만 (원본과 동일) */
+  .wf .wf-thumbs { display: none; }
+  .wfolders > .wf:nth-child(6) .wf-thumbs { display: block; }
+  .wfolders > .wf:nth-child(6) .wf-th1 { left: 175.27px; right: auto; width: 49.48px; height: 49.48px; top: 0.26px; }
+  .wfolders > .wf:nth-child(6) .wf-th2 { left: 282.02px; right: auto; width: 43.96px; height: 43.96px; top: 0.02px; }
+  .wfolders > .wf:nth-child(6) .wf-th3 { left: 341.28px; right: auto; width: 47.44px; height: 47.44px; top: 20.28px; }
+
+  /* 열림/호버 확대는 데스크톱 전용 */
+  .wf-open .wf-th, .wf:hover .wf-th { width: auto; height: auto; }
+  .wf:hover .wf-th { transform: none; }
+  .wf:hover { z-index: 6; }
+}
+
+/* 375px 에서도 원본은 썸네일 x 를 그대로 두고 폴더 overflow 로 잘라낸다.
+   (341.3 + 47.4 = 388.7 > 375 이지만 가로 스크롤은 생기지 않음) */
