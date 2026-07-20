@@ -359,9 +359,11 @@ a:hover .arr { transform: translateX(5px); }
 .appear.in { opacity: 1; transform: translateY(0); }
 
 /* ============================================================
-   Tablet & Phone  (≤ 1279px)
+   Phone  (≤ 809px)
+   원본 실측: 810px 에서 전환한다. 810 이상은 index·works 모두
+   데스크톱 헤더(4열 nav)와 여백 32px 를 그대로 쓴다.
    ============================================================ */
-@media (max-width: 1279.98px) {
+@media (max-width: 809.98px) {
   :root { --margin: 16px; }
 
   /* ---- header ---- */

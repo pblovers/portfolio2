@@ -285,7 +285,43 @@ body.works-page { background: #fff; }
 .wf:hover { transform: translateY(-12px); }
 
 /* ============================================================
-   Tablet & Phone (≤ 1279px) — 폴더 1열 적층
+   Tablet (810 ~ 1279px) — 데스크톱과 같은 2열 배치, 호버 효과 없음
+   원본 실측 (1024x768 / 900x1200 / 820x1180):
+     폴더 박스   높이 156, 행 간격 148, 첫 박스 top = 100vh - 444
+     스트립      높이 40, 박스보다 39px 위
+                 폭 25vw-16 / editorial 21.43vw-11.4 / photoworks 28.57vw-20.6
+     2행 분할    editorial 42.857vw+9.15, photoworks 나머지 (3:4)
+     썸네일      마지막 폴더에만 3장, 호버로 뜨지 않음
+   ============================================================ */
+@media (min-width: 810px) and (max-width: 1279.98px) {
+  .wfolders { top: calc(100% - 483px); height: 483px; }   /* 444 + 39 */
+  .wf { height: 195px; }                                   /* 39 + 156 */
+  .wf-body { height: 156px; }
+  .wf-r2 { top: 148px; }
+  .wf-r3 { top: 296px; }
+
+  .wf-r2.wf-left  { width: calc(42.857vw + 9.15px); }
+  .wf-r2.wf-right { left: calc(42.857vw + 9.15px); width: calc(57.143vw - 9.15px); }
+
+  .wf-tab { width: calc(25vw - 16px); }
+  .wf-editorial  .wf-tab { width: calc(21.43vw - 11.4px); }
+  .wf-photoworks .wf-tab { width: calc(28.57vw - 20.6px); }
+
+  /* ---- 호버 효과 없음 (원본 태블릿과 동일) ---- */
+  .wf:hover { transform: none; }
+  .wf:hover .wf-th { opacity: 0; transform: none; width: 200px; height: 200px; }
+  .wfolders:hover .wf { --wf-bg: var(--own); }
+  .wfolders:hover .wf .wf-title,
+  .wfolders:hover .wf .wf-num { color: var(--ink); }
+
+  /* ---- 썸네일은 마지막 폴더에만 (모바일과 동일) ---- */
+  .wf .wf-thumbs { display: none; }
+  .wfolders > .wf:nth-child(6) .wf-thumbs { display: block; z-index: 2; }
+  .wfolders > .wf:nth-child(6) .wf-th { opacity: 1; }
+}
+
+/* ============================================================
+   Phone (≤ 809px) — 폴더 1열 적층
    원본 실측 (768x1024 / 430x932):
      제목      h2 48px/56px, x=16, 박스 top 과 같은 y
      박스      전체폭, 높이 112, 간격 104
@@ -294,7 +330,7 @@ body.works-page { background: #fff; }
      썸네일    마지막 폴더에만 3장
      Archive   미표시
    ============================================================ */
-@media (max-width: 1279.98px) {
+@media (max-width: 809.98px) {
   .wtabs { top: 80px; grid-template-columns: 1fr; }
   .wtab { font-size: 48px; line-height: 56px; }
   .wtab-muted { display: none; }          /* 원본 모바일에는 Archive 없음 */
