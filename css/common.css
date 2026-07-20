@@ -345,6 +345,8 @@ a:hover .arr { transform: translateX(5px); }
   right: 0;
   transform: translateY(-50%);
 }
+/* 앵커가 inline 이면 줄상자 높이(18px)만 클릭돼 배지 대부분이 눌리지 않는다 */
+#awwwards a { display: block; }
 
 /* ============================================================
    Appear animations

@@ -337,9 +337,13 @@ body.works-page { background: #fff; }
   /* 모바일에서는 3번째 폴더(editorial) 배경이 #f5f5f5 로 바뀐다 */
   .wf-editorial { --wf-bg: var(--light); }
 
-  /* 썸네일은 마지막 폴더에만 (원본과 동일) */
+  /* 썸네일은 마지막 폴더에만 (원본과 동일).
+     데스크톱은 호버 시 폴더 위로 떠오르므로 뒤 레이어(z0)에 두지만,
+     모바일은 폴더 안에 그대로 있으므로 앞으로 올려야 보인다. */
   .wf .wf-thumbs { display: none; }
-  .wfolders > .wf:nth-child(6) .wf-thumbs { display: block; }
+  .wfolders > .wf:nth-child(6) .wf-thumbs { display: block; z-index: 2; }
+  /* 기본값이 opacity:0 이고 호버에서만 1 이 되는데 모바일엔 호버가 없다 */
+  .wfolders > .wf:nth-child(6) .wf-th { opacity: 1; }
   .wfolders > .wf:nth-child(6) .wf-th1 { left: 175.27px; right: auto; width: 49.48px; height: 49.48px; top: 39.26px; }
   .wfolders > .wf:nth-child(6) .wf-th2 { left: 282.02px; right: auto; width: 43.96px; height: 43.96px; top: 39.02px; }
   .wfolders > .wf:nth-child(6) .wf-th3 { left: 341.28px; right: auto; width: 47.44px; height: 47.44px; top: 59.28px; }

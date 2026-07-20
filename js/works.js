@@ -41,18 +41,10 @@
     });
   }
 
-  /* 터치 기기: 탭하면 해당 폴더가 열린 상태로 전환 */
-  if (!fine) {
-    folders.forEach(function (f) {
-      f.addEventListener('click', function (e) {
-        if (!f.classList.contains('wf-open')) {
-          e.preventDefault();
-          folders.forEach(function (o) { o.classList.remove('wf-open'); });
-          f.classList.add('wf-open');
-        }
-      });
-    });
-  }
+  /* 터치 기기에는 확장 동작을 두지 않는다 — 원본도 모바일에서는
+     폴더를 눌러 펼치지 않고 바로 이동한다.
+     (이전 구현은 .wf-open 만 옮기고 썸네일은 display:none 이라
+      화면상 아무 변화 없이 preventDefault 로 링크만 막고 있었다) */
 
   /* Archive 탭 — 원본에서도 아직 비어 있는 자리 표시자 */
   var archive = document.getElementById('archive');
