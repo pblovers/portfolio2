@@ -95,13 +95,26 @@ body.works-page { background: #fff; }
 .wf-r2.wf-left  { left: 0;      width: 38%; }
 .wf-r2.wf-right { left: 38%;    width: 62%; }
 
-/* 색 */
-.wf-motion       { --wf-bg: var(--w2-bg); }   /* #ffe430 */
-.wf-branding     { --wf-bg: var(--w3-bg); }   /* #d9d9d9 */
-.wf-editorial    { --wf-bg: var(--w3-bg); }
-.wf-photoworks   { --wf-bg: var(--muted); }   /* #ababab */
-.wf-illustration { --wf-bg: var(--w2-bg); }
-.wf-3dtech       { --wf-bg: var(--w3-bg); }
+/* 색 — --own 이 폴더 고유색, --wf-bg 가 실제로 칠해지는 색 */
+.wf-motion       { --own: var(--w2-bg); }   /* #ffe430 */
+.wf-branding     { --own: var(--w3-bg); }   /* #d9d9d9 */
+.wf-editorial    { --own: var(--w3-bg); }
+.wf-photoworks   { --own: var(--muted); }   /* #ababab */
+.wf-illustration { --own: var(--w2-bg); }
+.wf-3dtech       { --own: var(--w3-bg); }
+.wf { --wf-bg: var(--own); }
+
+/* 하나에 호버하면 나머지는 전부 흐려진다 (원본 실측:
+   배경 #f5f5f5, 제목·번호 #d9d9d9). 호버한 것만 고유색을 유지한다. */
+.wfolders:hover .wf { --wf-bg: var(--light); }
+.wfolders:hover .wf:hover { --wf-bg: var(--own); }
+.wfolders:hover .wf .wf-title,
+.wfolders:hover .wf .wf-num { color: var(--w3-bg); }
+.wfolders:hover .wf:hover .wf-title,
+.wfolders:hover .wf:hover .wf-num { color: var(--ink); }
+
+.wf-tab, .wf-body { transition: background-color 0.35s ease; }
+.wf-title, .wf-num { transition: color 0.35s ease; }
 
 /* 상단 번호 스트립 — 실측: 높이 40, 좌상단만 radius 6px,
    폭은 뷰포트 선형 (1920:448 / 1440:328 / 1280:288 = 25vw - 32) */
@@ -243,21 +256,19 @@ body.works-page { background: #fff; }
 .wf-open .wf-th1, .wf:hover .wf-th1 { left: calc(27% - 100px); right: auto; }
 .wf-open .wf-th2, .wf:hover .wf-th2 { left: calc(50% - 100px); right: auto; }
 .wf-open .wf-th3, .wf:hover .wf-th3 { left: calc(73% - 100px); right: auto; }
-/* 호버 시 썸네일은 폴더 위쪽 빈 공간으로 떠오른다.
-   원본 실측 (motion, 본문 top=512 기준):
-     244.9px @ y=317.5   216.7px @ y=371.7   219.8px @ y=340.1
-   폴더 자체도 12px 들리므로(512→500) 그만큼 뺀 값을 쓴다. */
+/* 호버 시 썸네일은 폴더 위쪽 빈 공간으로 떠오르며 기울어진다.
+   크기는 200x200 그대로다 — 앞서 재본 244.9/216.7/219.8 은
+   회전된 정사각형의 바운딩 박스였다 (244.9 / (cos15°+sin15°) = 200.0).
+   중심 x 는 움직이지 않고, y 만 -177 / -137 / -167 이동한다.
+   폴더 자체가 12px 들리므로 그만큼 뺀 값을 쓴다. */
 .wf:hover .wf-th1 {
-  width: 245px; height: 245px;
-  transform: translate(calc(var(--mx, 0px) * 0.10 - 20px), calc(var(--my, 0px) * 0.10 - 182px));
+  transform: translate(calc(var(--mx, 0px) * 0.10), calc(var(--my, 0px) * 0.10 - 165px)) rotate(-15deg);
 }
 .wf:hover .wf-th2 {
-  width: 217px; height: 217px;
-  transform: translate(calc(var(--mx, 0px) * 0.06 - 5px), calc(var(--my, 0px) * 0.06 - 128px));
+  transform: translate(calc(var(--mx, 0px) * 0.06), calc(var(--my, 0px) * 0.06 - 125px)) rotate(-5deg);
 }
 .wf:hover .wf-th3 {
-  width: 220px; height: 220px;
-  transform: translate(calc(var(--mx, 0px) * 0.13 - 4px), calc(var(--my, 0px) * 0.13 - 165px));
+  transform: translate(calc(var(--mx, 0px) * 0.13), calc(var(--my, 0px) * 0.13 - 155px)) rotate(6deg);
 }
 
 /* 호버한 폴더는 12px 들린다 (원본 측정: rect y 512 → 500).
