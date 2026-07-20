@@ -132,15 +132,17 @@ body.works-page { background: #fff; }
 }
 .wf-editorial  .wf-tab { width: calc(25.33vw - 42.6px); }
 .wf-photoworks .wf-tab { width: calc(24.8125vw - 25.8px); }
+/* 계단(대각선) — 원본은 직각삼각형이 아니라 상단이 2px 인 사다리꼴이다.
+   1440 실측: 스트립 끝 328 기준 오프셋이 행0=2, 행20=21, 행38=38 */
 .wf-tab::after {
   content: "";
   position: absolute;
   left: 100%;
   top: 0;
-  width: 0;
-  height: 0;
-  border-bottom: 40px solid var(--wf-bg);
-  border-right: 40px solid transparent;
+  width: 40px;
+  height: 40px;
+  background: var(--wf-bg);
+  clip-path: polygon(0 0, 2px 0, 100% 100%, 0 100%);
 }
 .wf-num {
   font-family: var(--mono);
@@ -382,7 +384,7 @@ body.works-page { background: #fff; }
     height: 40px;
     align-items: center;        /* 모바일은 번호가 중앙 정렬 (오프셋 8) */
   }
-  .wf-tab::after { border-bottom-width: 40px; border-right-width: 40px; }
+  /* 계단은 기본 규칙(40x40 사다리꼴)을 그대로 쓴다 */
   .wf { height: 151px; }        /* 40 + 112 - 1 */
   .wf-body { top: 39px; height: 112px; }
   .wf-title { top: 0; font-size: 48px; line-height: 56px; }
