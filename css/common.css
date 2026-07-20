@@ -1,0 +1,376 @@
+/* ============================================================
+   Wildy Riftian — clone
+   common.css — shared by every page
+   (fonts, tokens, reset, header, menu, keychain, footer, utils)
+   ============================================================ */
+
+/* ---------- Fonts ---------- */
+@font-face {
+  font-family: "Lock Serif Light";
+  src: url("../fonts/LockSerif-Light.woff2") format("woff2");
+  font-weight: 300 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Lock Serif TRIAL Light";
+  src: url("../fonts/LockSerifTRIAL-Light.woff2") format("woff2");
+  font-weight: 300 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Biro Script reduced Regular";
+  src: url("../fonts/BiroScript-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("../fonts/JetBrainsMono-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("../fonts/JetBrainsMono-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-display: swap;
+}
+
+/* ---------- Tokens ---------- */
+:root {
+  --yellow: #ffe430;
+  --ink: #212121;
+  --ink2: #2b2b2b;
+  --light: #f5f5f5;
+  --muted: #ababab;
+  --body-bg: #212121;
+  --about-bg: #171717;
+  --footer-bg: #202020;
+  --w1-bg: #f5f5f5;
+  --w2-bg: #ffe430;
+  --w3-bg: #d9d9d9;
+  --chip-bg: #ededed;
+  --mono: "JetBrains Mono", "Courier New", monospace;
+  --serif: "Lock Serif Light", "Times New Roman", serif;
+  --serif-trial: "Lock Serif TRIAL Light", "Times New Roman", serif;
+  --script: "Biro Script reduced Regular", cursive;
+  --margin: 32px;
+  --col: 344px;
+}
+
+/* ---------- Reset ---------- */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--body-bg);
+  color: var(--light);
+  font-family: var(--mono);
+  font-size: 14px;
+  line-height: 24px;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+img { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+button { background: none; border: 0; color: inherit; font: inherit; cursor: pointer; }
+p { margin: 0; }
+
+/* ---------- Rolling link hover ---------- */
+.roll .roll-box {
+  display: inline-flex;
+  flex-direction: column;
+  height: 24px;
+  overflow: hidden;
+  vertical-align: top;
+}
+.roll .roll-box span {
+  display: block;
+  height: 24px;
+  line-height: 24px;
+  transition: transform 0.4s cubic-bezier(0.6, 0, 0.2, 1);
+}
+.roll:hover .roll-box span { transform: translateY(-24px); }
+
+/* Arrow links */
+.arr { display: inline-block; transition: transform 0.3s ease; }
+a:hover .arr { transform: translateX(5px); }
+
+/* ---------- Page shell ---------- */
+.page { position: relative; }
+/* content wrapper that scrolls over a sticky hero */
+.page-content { position: relative; z-index: 2; }
+
+/* ============================================================
+   Header
+   ============================================================ */
+.site-header {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  z-index: 10;
+  padding: 16px var(--margin) 0;
+}
+.header-nav {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+.header-nav .nav-link {
+  font-size: 14px;
+  line-height: 24px;
+  text-transform: uppercase;
+  color: var(--light);
+  justify-self: start;
+}
+.header-nav .nav-right { justify-self: start; }
+.header-mobile { display: none; }
+.header-logo {
+  font-size: 14px;
+  line-height: 24px;
+  text-transform: uppercase;
+  color: var(--light);
+}
+.menu-btn { font-size: 14px; line-height: 24px; text-transform: uppercase; color: var(--light); }
+
+/* ============================================================
+   Menu overlay
+   ============================================================ */
+.menu-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: var(--yellow);
+  color: var(--ink2);
+  transform: translateY(-100%);
+  transition: transform 0.55s cubic-bezier(0.7, 0, 0.25, 1);
+  display: flex;
+  flex-direction: column;
+}
+.menu-overlay.open { transform: translateY(0); }
+.menu-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 16px 12px;
+  border-bottom: 1px dotted rgba(43, 43, 43, 0.6);
+}
+.menu-head .header-logo, .menu-close {
+  color: var(--ink2);
+  font-size: 14px;
+  text-transform: uppercase;
+}
+.menu-nav {
+  margin-top: 22vh;
+  display: flex;
+  flex-direction: column;
+}
+.menu-nav a {
+  font-family: var(--serif);
+  font-size: 48px;
+  line-height: 56px;
+  color: var(--ink2);
+  padding: 12px 16px;
+  border-top: 1px dotted rgba(43, 43, 43, 0.6);
+}
+.menu-nav a:last-child { border-bottom: 1px dotted rgba(43, 43, 43, 0.6); }
+.menu-nav a:hover { font-style: italic; }
+.menu-foot {
+  margin-top: auto;
+  text-align: center;
+  font-size: 10px;
+  line-height: 16px;
+  padding-bottom: 8px;
+  text-transform: uppercase;
+}
+
+/* ============================================================
+   Keychain  (hero + footer share this)
+   ============================================================ */
+.keychain {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 80vh;
+  height: 80vh;
+  transform: translate(-50%, -50%);
+}
+.kc-layer {
+  position: absolute;
+  inset: 0;
+  will-change: transform;
+}
+.kc-layer img {
+  width: 100%;
+  height: 100%;
+  transform-origin: 50% 10%;
+}
+/* gentle pendulum sway — each tag has its own phase/speed */
+@keyframes swayA {
+  0%, 100% { transform: rotate(-2.4deg) translateY(0); }
+  50% { transform: rotate(2.4deg) translateY(4px); }
+}
+@keyframes swayB {
+  0%, 100% { transform: rotate(2.2deg) translateY(2px); }
+  50% { transform: rotate(-2.2deg) translateY(-2px); }
+}
+@keyframes swayC {
+  0%, 100% { transform: rotate(-1.6deg) translateY(-2px); }
+  50% { transform: rotate(1.6deg) translateY(3px); }
+}
+@keyframes bob {
+  0%, 100% { transform: translateY(-2px); }
+  50% { transform: translateY(3px); }
+}
+.kc-padlock img { animation: bob 5.2s ease-in-out infinite; }
+.kc-illustration img { animation: swayB 6.4s ease-in-out infinite; }
+.kc-photoworks img { animation: swayB 6.4s ease-in-out -1.2s infinite; }
+.kc-editorial img { animation: swayC 5.6s ease-in-out -0.6s infinite; }
+.kc-branding img { animation: swayA 6s ease-in-out infinite; }
+.kc-motion img { animation: swayA 6s ease-in-out -0.9s infinite; }
+
+/* ============================================================
+   Footer
+   ============================================================ */
+.footer {
+  position: relative;
+  height: 100vh;
+  background: var(--footer-bg);
+  overflow: hidden;
+}
+.services {
+  position: absolute;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 700px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  column-gap: 40px;
+  row-gap: 4px;
+}
+.services a {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: 28px;
+  line-height: 36px;
+  color: var(--light);
+  transition: opacity 0.25s ease;
+}
+.services a:hover { opacity: 0.55; font-style: italic; }
+.services sup {
+  font-family: var(--mono);
+  font-size: 10px;
+  line-height: 16px;
+  vertical-align: super;
+  margin-right: 6px;
+  color: var(--light);
+}
+.footer-keychain {
+  top: 120px;
+  transform: translateX(-50%);
+  width: 60vh;
+  height: 60vh;
+  filter: grayscale(1);
+}
+.footer-links {
+  position: absolute;
+  left: var(--margin);
+  right: var(--margin);
+  bottom: 165px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  font-size: 14px;
+  line-height: 24px;
+  text-transform: uppercase;
+}
+.wordmark {
+  position: absolute;
+  left: var(--margin);
+  right: var(--margin);
+  bottom: 52px;
+  font-family: var(--serif-trial);
+  font-weight: 300;
+  font-size: calc((100vw - 64px) / 10.17);
+  line-height: 0.8;
+  color: var(--muted);
+  white-space: nowrap;
+}
+.footer-bottom {
+  position: absolute;
+  left: var(--margin);
+  right: var(--margin);
+  bottom: 16px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  line-height: 24px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.credit a { color: var(--light); }
+.credit a:hover { text-decoration: underline; }
+
+/* ============================================================
+   Awwwards badge
+   ============================================================ */
+#awwwards {
+  position: fixed;
+  z-index: 999;
+  top: 80%;
+  right: 0;
+  transform: translateY(-50%);
+}
+
+/* ============================================================
+   Appear animations
+   ============================================================ */
+.appear {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.appear.in { opacity: 1; transform: translateY(0); }
+
+/* ============================================================
+   Tablet & Phone  (≤ 1279px)
+   ============================================================ */
+@media (max-width: 1279.98px) {
+  :root { --margin: 16px; }
+
+  /* ---- header ---- */
+  .header-nav { display: none; }
+  .header-mobile {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  /* ---- footer ---- */
+  .services {
+    top: 8px;
+    left: var(--margin);
+    right: var(--margin);
+    transform: none;
+    width: auto;
+    flex-direction: column;
+    align-items: flex-start;
+    row-gap: 4px;
+  }
+  .services a { font-size: 32px; line-height: 40px; }
+  .footer-keychain {
+    top: 32vh;
+    width: 40vh;
+    height: 40vh;
+  }
+  .footer-links {
+    left: var(--margin);
+    right: auto;
+    bottom: calc(96px + (100vw - 32px) * 0.0787);
+    display: flex;
+    flex-direction: column;
+  }
+  .wordmark { bottom: 80px; }
+  .footer-bottom {
+    flex-direction: column;
+    gap: 0;
+  }
+}

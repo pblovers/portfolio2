@@ -1,0 +1,522 @@
+/* ============================================================
+   Wildy Riftian — clone
+   index.css — home page only (hero, about ticket, featured works)
+   Requires common.css to be loaded first.
+   ============================================================ */
+
+/* ============================================================
+   Hero
+   ============================================================ */
+.hero {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  background: #000;
+  overflow: hidden;
+  z-index: 1;
+}
+.hero-left, .hero-right {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 14px;
+  line-height: 24px;
+  text-transform: uppercase;
+  color: var(--light);
+}
+.hero-left { left: var(--margin); }
+.hero-right { right: var(--margin); }
+
+.scroll-down {
+  position: absolute;
+  left: 50%;
+  bottom: 20px;
+  transform: translateX(-50%);
+  text-align: center;
+  font-size: 14px;
+  line-height: 24px;
+  text-transform: uppercase;
+  color: var(--light);
+}
+.scroll-arrow {
+  display: inline-block;
+  animation: arrowBounce 1.8s ease-in-out infinite;
+}
+@keyframes arrowBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(6px); }
+}
+
+/* ============================================================
+   About — ticket
+   ============================================================ */
+.about {
+  height: 100vh;
+  background: var(--about-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ticket {
+  width: 920px;
+  height: 480px;
+  perspective: 1600px;
+  outline: none;
+}
+.ticket-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.8s cubic-bezier(0.5, 0, 0.2, 1);
+}
+.ticket:hover .ticket-inner, .ticket.flipped .ticket-inner { transform: rotateY(180deg); }
+.ticket-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  background: var(--yellow);
+  border-radius: 6px;
+  color: var(--ink2);
+  overflow: hidden;
+}
+.ticket-front {
+  display: grid;
+  grid-template-columns: 36px 284px 1fr;
+}
+.ticket-back {
+  transform: rotateY(180deg);
+  display: flex;
+  flex-direction: column;
+  padding: 0 12px;
+}
+
+/* perforation holes */
+.ticket-holes {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 0;
+  border-right: 1px dotted rgba(43, 43, 43, 0.55);
+}
+.ticket-holes i {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--about-bg);
+}
+
+/* left photo column */
+.ticket-photo {
+  display: flex;
+  flex-direction: column;
+  border-right: 1px dotted rgba(43, 43, 43, 0.55);
+}
+.tp-head, .tp-foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 40px;
+  padding: 0 12px;
+  font-size: 10px;
+  line-height: 16px;
+  text-transform: uppercase;
+}
+.tp-head { border-bottom: 1px dotted rgba(43, 43, 43, 0.55); }
+.tp-foot { border-top: 1px dotted rgba(43, 43, 43, 0.55); margin-top: auto; }
+.tp-stage {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.tp-img {
+  width: 260px;
+  max-width: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+.tp-img.switching { opacity: 0; transform: scale(0.92); }
+.sq { width: 6px; height: 6px; background: var(--ink2); display: inline-block; }
+
+/* right body column */
+.ticket-body {
+  display: flex;
+  flex-direction: column;
+  padding: 0 12px;
+  position: relative;
+}
+.tb-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 40px;
+  font-size: 10px;
+  line-height: 16px;
+  text-transform: uppercase;
+  border-bottom: 1px dotted rgba(43, 43, 43, 0.55);
+}
+.tb-title {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: 80px;
+  line-height: 80px;
+  color: var(--ink);
+  padding: 4px 0 12px;
+}
+.tb-word {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 90px;
+  border-top: 1px dotted rgba(43, 43, 43, 0.55);
+  border-bottom: 1px dotted rgba(43, 43, 43, 0.55);
+}
+.word-arrow {
+  font-size: 12px;
+  color: var(--ink2);
+  padding: 4px;
+}
+.word-script {
+  font-family: var(--script);
+  font-size: 45px;
+  line-height: 40px;
+  letter-spacing: -0.01em;
+  color: var(--ink2);
+  text-align: center;
+}
+.word-script .ltr {
+  display: inline-block;
+  opacity: 0;
+  animation: ltrIn 0.18s ease forwards;
+}
+@keyframes ltrIn { to { opacity: 1; } }
+.tb-desc {
+  padding-top: 14px;
+  font-size: 12px;
+  line-height: 24px;
+  text-transform: uppercase;
+  color: var(--ink);
+  max-width: 544px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.tb-readmore { display: none; }
+.tb-foot {
+  margin-top: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 40px;
+  font-size: 10px;
+  line-height: 16px;
+  text-transform: uppercase;
+  border-top: 1px dotted rgba(43, 43, 43, 0.55);
+}
+
+/* back face */
+.ticket-back .tb-head { border-bottom: 1px dotted rgba(43, 43, 43, 0.55); }
+.back-script {
+  margin: auto;
+  font-family: var(--script);
+  font-size: 72px;
+  color: var(--ink2);
+}
+.back-foot { justify-content: center; }
+
+/* ============================================================
+   Featured works — stacked sticky cards
+   ============================================================ */
+.works { position: relative; background: var(--about-bg); }
+.work {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+}
+.work + .work { margin-top: 40px; }
+.work-1 { --wbg: var(--w1-bg); }
+.work-2 { --wbg: var(--w2-bg); }
+.work-3 { --wbg: var(--w3-bg); }
+
+/* top strip: tab + see-all */
+.work-strip {
+  position: absolute;
+  top: 56px;
+  left: 0;
+  right: 0;
+  height: 40px;
+  z-index: 2;
+}
+.work-tab {
+  position: absolute;
+  top: 0;
+  height: 40px;
+  background: var(--wbg);
+  display: flex;
+  align-items: center;
+  padding-left: var(--margin);
+}
+.work-tab::after {
+  content: "";
+  position: absolute;
+  left: 100%;
+  top: 0;
+  width: 0;
+  height: 0;
+  border-bottom: 40px solid var(--wbg);
+  border-right: 40px solid transparent;
+}
+.work-tab p {
+  font-size: 14px;
+  line-height: 24px;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+.work-1 .work-tab { left: 0; width: 332px; }
+.work-2 .work-tab { left: 344px; width: 330px; border-top-left-radius: 8px; }
+.work-3 .work-tab { left: 688px; width: 330px; border-top-left-radius: 8px; }
+.work-seeall {
+  position: absolute;
+  right: 0;
+  top: -3px;
+  height: 40px;
+  width: 407px;
+  background: var(--ink);
+  clip-path: polygon(8px 0, 100% 0, 100% 100%, 0 100%);
+  display: flex;
+  align-items: center;
+  padding-left: var(--margin);
+  font-size: 14px;
+  line-height: 24px;
+  text-transform: uppercase;
+  color: var(--light);
+}
+.work-seeall .arr { margin-left: 8px; }
+
+/* background sheet */
+.work-bg {
+  position: absolute;
+  top: 96px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--wbg);
+}
+
+/* content */
+.work-content {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  color: var(--ink);
+}
+.work-title {
+  position: absolute;
+  top: 120px;
+  left: var(--margin);
+  width: 720px;
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 48px;
+  line-height: 56px;
+  color: var(--ink);
+}
+.work-meta {
+  position: absolute;
+  top: 120px;
+  right: var(--margin);
+  width: var(--col);
+  font-size: 14px;
+  line-height: 24px;
+  text-transform: uppercase;
+}
+.work-chips {
+  position: absolute;
+  top: 220px;
+  right: var(--margin);
+  width: var(--col);
+  height: 24px;
+  background: var(--chip-bg);
+  overflow: hidden;
+  white-space: nowrap;
+}
+.chips-track {
+  display: inline-flex;
+  font-size: 14px;
+  line-height: 24px;
+  animation: chips 28s linear infinite;
+}
+@keyframes chips {
+  from { transform: translateX(0); }
+  to { transform: translateX(-33.3333%); }
+}
+.work-divider {
+  position: absolute;
+  top: 266px;
+  left: 0;
+  right: 0;
+  border-top: 1px solid rgba(33, 33, 33, 0.25);
+}
+.work-desc {
+  position: absolute;
+  top: 288px;
+  left: var(--margin);
+  width: 320px;
+  font-size: 12px;
+  line-height: 24px;
+  text-transform: uppercase;
+}
+.work-view {
+  position: absolute;
+  top: 480px;
+  left: var(--margin);
+  font-size: 14px;
+  line-height: 24px;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+.work-2 .work-view { top: 432px; }
+.work-3 .work-view { top: 408px; }
+.work-media img { object-fit: cover; }
+.wm-main {
+  position: absolute;
+  top: 288px;
+  left: 376px;
+  width: 656px;
+  height: calc(100vh - 288px - 32px);
+}
+.wm-side {
+  position: absolute;
+  right: var(--margin);
+  width: var(--col);
+  height: calc((100vh - 288px - 32px - 32px) / 2);
+}
+.wm-side1 { top: 288px; }
+.wm-side2 { bottom: 32px; }
+
+/* ============================================================
+   Tablet & Phone  (≤ 1279px)
+   ============================================================ */
+@media (max-width: 1279.98px) {
+  /* ---- hero ---- */
+  .hero-left, .hero-right {
+    top: auto;
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+    white-space: nowrap;
+  }
+  .hero-left { top: 80px; }
+  .hero-right { top: 120px; }
+  /* scoped to .hero so the footer keychain keeps its own size */
+  .hero .keychain { width: 60vh; height: 60vh; }
+  .scroll-down { bottom: 60px; }
+
+  /* ---- ticket: single column ---- */
+  .about { padding: 0 16px; }
+  .ticket {
+    width: min(920px, calc(100vw - 160px));
+    height: auto;
+    perspective: none;
+  }
+  .ticket-inner { transform: none !important; transition: none; }
+  .ticket-face { position: relative; inset: auto; }
+  .ticket-back { display: none; }
+  .ticket-front {
+    grid-template-columns: 36px 1fr;
+  }
+  .ticket-front::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 13px;
+    border-left: 1px dotted rgba(43, 43, 43, 0.55);
+  }
+  .ticket-photo { display: none; }
+  .ticket-body { padding: 0 26px 0 12px; }
+  .tb-title { padding: 8px 0 11px; }
+  .tb-word { height: 73px; }
+  .tb-desc { padding-top: 15px; max-width: none; }
+  .tb-readmore {
+    display: block;
+    margin: 48px auto 12px;
+    font-size: 14px;
+    line-height: 24px;
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+  .tb-foot { margin-top: 0; }
+  .tb-foot .tb-currently { display: none; }
+
+  /* ---- works: single column flow ---- */
+  .work-strip { top: 136px; }
+  .work-1 .work-tab, .work-2 .work-tab, .work-3 .work-tab {
+    left: 0;
+    width: 190px;
+    border-radius: 0;
+  }
+  .work-seeall {
+    top: 0;
+    width: 49.4vw;
+    clip-path: polygon(20px 0, 100% 0, 100% 100%, 0 100%);
+    padding-left: 20px;
+  }
+  .work-bg { top: 176px; }
+  .work-content {
+    position: absolute;
+    inset: 0;
+    padding: 192px var(--margin) 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .work-title, .work-meta, .work-chips, .work-divider,
+  .work-desc, .work-view, .wm-main, .wm-side {
+    position: static;
+    width: auto;
+  }
+  .work-title {
+    font-size: 28px;
+    line-height: 36px;
+  }
+  .work-chips { display: none; }
+  .work-meta-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-top: 16px;
+  }
+  .work-divider {
+    margin-top: 16px;
+    border-top: 1px dotted rgba(33, 33, 33, 0.45);
+  }
+  .wm-main {
+    margin-top: 16px;
+    width: 100%;
+    height: auto;
+  }
+  .work-1 .wm-main { aspect-ratio: 736 / 556; }
+  .work-2 .wm-main, .work-3 .wm-main { aspect-ratio: 736 / 580; }
+  .wm-side { display: none; }
+  .work-desc { margin-top: 16px; }
+  .work-view { font-size: 14px; }
+}
+
+/* ============================================================
+   Phone (≤ 809px)
+   ============================================================ */
+@media (max-width: 809.98px) {
+  .ticket { width: calc(100vw - 32px); }
+  .tb-title { font-size: 48px; line-height: 56px; }
+  .word-script { font-size: 32px; line-height: 40px; }
+}
+
+/* main image ratios at narrow phones */
+@media (max-width: 600px) {
+  .work-1 .wm-main { aspect-ratio: 398 / 380; }
+  .work-2 .wm-main { aspect-ratio: 398 / 440; }
+  .work-3 .wm-main { aspect-ratio: 398 / 428; }
+}
