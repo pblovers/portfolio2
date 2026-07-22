@@ -3,11 +3,17 @@
  *   node mobqa.mjs
  */
 import { chromium } from 'playwright';
+import { mine } from './root.mjs';
 
 const PAGES = [
-  ['index', 'file:///D:/이젠아카데미/portfolio2/index.html'],
-  ['works', 'file:///D:/이젠아카데미/portfolio2/works.html'],
-  ['motion', 'file:///D:/이젠아카데미/portfolio2/works-motion.html']
+  ['index', mine('index.html')],
+  ['works', mine('works.html')],
+  ['motion', mine('works-motion.html')],
+  ['branding', mine('works-branding.html')],
+  ['editorial', mine('works-editorial.html')],
+  ['illustration', mine('works-illustration.html')],
+  ['3dtech', mine('works-3d-tech.html')],
+  ['photoworks', mine('works-photoworks.html')]
 ];
 // 경계값 포함 (1280 은 데스크톱, 1279 부터 적층 레이아웃)
 const SIZES = [

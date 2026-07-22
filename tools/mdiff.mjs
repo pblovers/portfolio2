@@ -5,6 +5,7 @@
 import { chromium } from 'playwright';
 import { PNG } from 'pngjs';
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
+import { mine } from './root.mjs';
 
 const W = Number(process.argv[2] || 1440);
 const H = Number(process.argv[3] || 900);
@@ -14,7 +15,7 @@ const browser = await chromium.launch();
 const shots = {};
 for (const [tag, url] of [
   ['orig', 'https://www.wildyriftian.com/works-motion'],
-  ['mine', 'file:///D:/이젠아카데미/portfolio2/works-motion.html'],
+  ['mine', mine('works-motion.html')],
 ]) {
   const ctx = await browser.newContext({ viewport: { width: W, height: H }, deviceScaleFactor: 1 });
   const p = await ctx.newPage();

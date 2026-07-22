@@ -1,45 +1,17 @@
 /* ============================================================
    Wildy Riftian — clone
    works.js — /works page only
-   커서를 따라 썸네일이 드리프트하는 폴더 호버 인터랙션.
    Requires common.js.
+
+   커서 드리프트는 없다. 원본을 커서 x=120 / x=300 에서 각각 재봤는데
+   호버한 폴더의 썸네일 좌표가 완전히 동일했다 (works.css 참고).
+   드리프트를 주면 커서 위치에 따라 최대 25px 어긋난다.
    ============================================================ */
 (function () {
   'use strict';
 
   var folders = document.querySelectorAll('.wf');
   if (!folders.length) return;
-
-  var fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-
-  if (fine) {
-    folders.forEach(function (f) {
-      var raf = null;
-      var body = f.querySelector('.wf-body');
-
-      function onMove(e) {
-        if (raf) return;
-        raf = requestAnimationFrame(function () {
-          raf = null;
-          var r = body.getBoundingClientRect();
-          // 폴더 중심 기준 커서 오프셋
-          var dx = e.clientX - (r.left + r.width / 2);
-          var dy = e.clientY - (r.top + r.height / 2);
-          f.style.setProperty('--mx', dx.toFixed(1) + 'px');
-          f.style.setProperty('--my', dy.toFixed(1) + 'px');
-        });
-      }
-
-      function onLeave() {
-        if (raf) { cancelAnimationFrame(raf); raf = null; }
-        f.style.setProperty('--mx', '0px');
-        f.style.setProperty('--my', '0px');
-      }
-
-      f.addEventListener('pointermove', onMove, { passive: true });
-      f.addEventListener('pointerleave', onLeave, { passive: true });
-    });
-  }
 
   /* 터치 기기에는 확장 동작을 두지 않는다 — 원본도 모바일에서는
      폴더를 눌러 펼치지 않고 바로 이동한다.
@@ -57,6 +29,8 @@
     });
   }
 
-  /* 진입 애니메이션 */
-  WR.appear('.wtab, .wf');
+  /* 진입 애니메이션은 CSS(@keyframes wfRise)가 담당한다.
+     원본은 폴더가 **페이드 없이** 아래에서 올라오고, 상단 Works·Archive
+     제목은 아예 움직이지 않는다. WR.appear 는 opacity 0 → 1 이라
+     둘 다 원본과 다르다. */
 })();

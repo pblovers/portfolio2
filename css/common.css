@@ -75,10 +75,23 @@ a { color: inherit; text-decoration: none; }
 button { background: none; border: 0; color: inherit; font: inherit; cursor: pointer; }
 p { margin: 0; }
 
-/* ---------- Link hover: 배경이 아래에서 위로 차오른다 ----------
-   글자는 제자리에 있고 배경 블록만 올라오며 글자색이 반전된다.
-   (원본은 같은 글자 복사본 2개를 굴려 이 효과를 냈지만,
-    전환 중간에 글자가 잘려 보이므로 배경만 독립적으로 움직이게 한다) */
+/* ---------- Link hover: 아래에서 위로 와이프된다 ----------
+   원본 구조를 그대로 뜬 결과(실측):
+
+     <a overflow:hidden>
+       <p>HOME</p>                       기본 글자
+       <div top:24px→0  bg #212121  overflow:hidden>     ← 상자가 올라오고
+         <div top:-24px→0><p>HOME</p></div>              ← 안쪽은 반대로 내려와
+       </div>                                              글자는 y 고정
+     </a>
+
+   두 top 이 같이 움직여 **반전 글자는 화면상 제자리에 있고**, 어두운 상자만
+   위로 차오르며 글자를 아래에서부터 드러낸다 — 페이드가 아니라 **와이프**다.
+   글자색을 통째로 전환시키면 전환 중간이 회색으로 섞여 전혀 다르게 보인다.
+   같은 결과를 요소 추가 없이 내려면 복사본에 clip-path 를 쓰면 된다.
+
+   곡선: 원본 진행률을 프레임 단위로 재서(33ms 0.117 / 100ms 0.519 /
+   200ms 0.822 / 300ms 0.934 / 500ms 0.991) 수치 피팅한 값이다. */
 .roll .roll-box {
   position: relative;
   display: inline-block;
@@ -87,37 +100,49 @@ p { margin: 0; }
   vertical-align: top;
   isolation: isolate;
 }
+.roll .roll-box span {
+  /* 원본 roll 글자는 배경이 차오른 뒤에도 그레이스케일 AA 다.
+     레이어를 주지 않으면 배경이 불투명해진 순간 서브픽셀 AA 로 바뀌어
+     같은 행에서도 링크마다 렌더가 달라진다 (EMAIL 만 프린지 164개였다). */
+  transform: translateZ(0);
+  display: block;
+  height: 24px;
+  line-height: 24px;
+}
+/* 배경과 반전 글자를 **같은 곡선으로 같이** 걷어낸다.
+   배경을 글자 요소에 직접 칠하면 Chromium 이 LCD 서브픽셀 AA 로 바꿔버려
+   원본(그레이스케일)과 어긋난다 — 배경은 반드시 부모의 ::before 로 둘 것. */
 .roll .roll-box::before {
   content: "";
   position: absolute;
   inset: 0;
   z-index: 0;
   background: var(--light);
-  transform: translateY(100%);
-  transition: transform 0.4s cubic-bezier(0.6, 0, 0.2, 1);
+  clip-path: inset(100% 0 0 0);
+  transition: clip-path 0.475s cubic-bezier(0.2, 0.2, 0.1, 1);
 }
-.roll .roll-box span {
-  position: relative;
+.roll .roll-box span:nth-child(2) {
+  position: absolute;
+  inset: 0;
   z-index: 1;
-  display: block;
-  height: 24px;
-  line-height: 24px;
-  transition: color 0.4s cubic-bezier(0.6, 0, 0.2, 1);
+  color: var(--ink);
+  clip-path: inset(100% 0 0 0);
+  transition: clip-path 0.475s cubic-bezier(0.2, 0.2, 0.1, 1);
 }
-/* 마크업상 글자 복사본이 하나 더 있다 — 이 방식에서는 쓰지 않는다 */
-.roll .roll-box span:nth-child(2) { display: none; }
-
-.roll:hover .roll-box::before { transform: translateY(0); }
-.roll:hover .roll-box span { color: var(--ink); }
+.roll:hover .roll-box::before,
+.roll:hover .roll-box span:nth-child(2) { clip-path: inset(0 0 0 0); }
 
 /* Arrow links — 원본은 글자와 화살표 사이가 6px 이다.
    (VIEW PROJECT 100.8 + 6 + 16.8 = 123.6, SEE ALL WORKS 109.2 + 6 + 16.8 = 132) */
 .arr {
   display: inline-block;
   margin-left: 6px;
-  transition: transform 0.3s ease;
+  transition: margin-left 0.3s ease;
 }
-a:hover .arr { transform: translateX(5px); }
+/* 원본 호버: 글자와 화살표 사이가 6 → 12 로 벌어진다.
+   실측(VIEW PROJECT) 앵커 폭 123.6 → 129.6, 화살표 x 138.8 → 144.8.
+   transform: translateX 로 옮기면 화살표만 움직이고 앵커 폭이 안 변한다. */
+a:hover .arr { margin-left: 12px; }
 
 /* ---------- Page shell ---------- */
 .page { position: relative; }
@@ -132,6 +157,10 @@ a:hover .arr { transform: translateX(5px); }
   top: 0; left: 0; right: 0;
   z-index: 10;
   padding: 16px var(--margin) 0;
+  /* 원본 헤더 글자는 그레이스케일 AA 다 (프린지 0). 헤더가 합성 레이어에
+     올라가 있기 때문이다. 다른 글자(SEE ALL·카드 제목)는 원본도 서브픽셀이라
+     이미 프린지 수까지 일치하므로 헤더에만 레이어를 준다. */
+  transform: translateZ(0);
 }
 .header-nav {
   display: grid;
@@ -157,7 +186,12 @@ a:hover .arr { transform: translateX(5px); }
 /* ============================================================
    Menu overlay
    ============================================================ */
+/* 메뉴 점선은 border-style:dotted 가 아니다.
+   원본 실측 패턴 `##..##..` = 2px 점 + 2px 간격 (4px 주기),
+   노란 배경 위 렌더값 rgb(144,130,40) = rgba(43,43,43,.52).
+   1px dotted 는 1px+1px 주기라 훨씬 촘촘해 보인다. */
 .menu-overlay {
+  --menu-dot: linear-gradient(to right, rgba(43, 43, 43, 0.52) 0 50%, transparent 50%);
   position: fixed;
   inset: 0;
   z-index: 200;
@@ -173,35 +207,78 @@ a:hover .arr { transform: translateX(5px); }
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 16px 16px 12px;
-  border-bottom: 1px dotted rgba(43, 43, 43, 0.6);
+  /* 원본 실측: CLOSE 가 y16~40, 구분선이 y56 → 아래 여백도 16 이다 */
+  padding: 16px 16px 16px;
+  border-bottom: 1px solid transparent;
+  background-image: var(--menu-dot);
+  background-repeat: repeat-x;
+  background-origin: border-box;
+  background-size: 4px 1px;
+  background-position: bottom left;
 }
 .menu-head .header-logo, .menu-close {
+  will-change: opacity;
   color: var(--ink2);
   font-size: 14px;
   text-transform: uppercase;
 }
+/* 메뉴 항목 묶음은 **뷰포트 세로 중앙**에 놓인다.
+   원본 실측 첫 항목 글자 y = 0.5 x vh - 188 (812→218 / 932→278 / 667→145.5).
+   5항목 x 80 = 400 을 중앙에 두면 그대로 나온다.
+   margin-top: 22vh 는 어느 높이에서도 맞지 않는다. */
 .menu-nav {
-  margin-top: 22vh;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  /* -1px: 원본 묶음 상단이 205 다 (구분선 285/365/445/525 로 역산).
+     정확히 가운데면 206 이라 전부 1px 씩 내려간다. */
+  transform: translateY(calc(-50% - 1px));
   display: flex;
   flex-direction: column;
 }
+/* 항목 피치는 80 이다 (81 이 아니다): 선 1 + 위 12 + 글자 56 + 아래 11.
+   원본 구분선 y = 285 / 365 / 445 / 525, 글자 y = 218 / 298 / 378 / 458 / 538 */
 .menu-nav a {
+  /* 원본 메뉴 글자는 그레이스케일 AA 다. 노란 배경이 불투명해서
+     그냥 두면 LCD 서브픽셀 AA 가 켜진다 — 글자 요소를 배경 없는 레이어로 만든다. */
+  position: relative;
+  transform: translateZ(0);
   font-family: var(--serif);
   font-size: 48px;
   line-height: 56px;
   color: var(--ink2);
-  padding: 12px 16px;
-  border-top: 1px dotted rgba(43, 43, 43, 0.6);
+  padding: 12px 16px 11px;
+  border-top: 1px solid transparent;
 }
-.menu-nav a:last-child { border-bottom: 1px dotted rgba(43, 43, 43, 0.6); }
+.menu-nav a::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -1px;
+  height: 1px;
+  background-image: var(--menu-dot);
+  background-repeat: repeat-x;
+  background-size: 4px 1px;
+}
+/* 첫 항목 위와 마지막 항목 아래에는 선이 없다 — 높이(1px)는 유지해야 피치가 안 깨진다 */
+.menu-nav a:first-child::before { display: none; }
 .menu-nav a:hover { font-style: italic; }
+/* 원본은 하단 MENU 위에도 점선이 있다 (y780, 글자 788, 뷰포트 812) */
 .menu-foot {
+  will-change: opacity;
   margin-top: auto;
   text-align: center;
   font-size: 10px;
   line-height: 16px;
-  padding-bottom: 8px;
+  padding: 7px 0 8px;
+  border-top: 1px solid transparent;
+  background-image: var(--menu-dot);
+  background-repeat: repeat-x;
+  background-origin: border-box;
+  background-size: 4px 1px;
+  background-position: top left;
   text-transform: uppercase;
 }
 
@@ -268,8 +345,10 @@ a:hover .arr { transform: translateX(5px); }
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  column-gap: 40px;
-  row-gap: 4px;
+  /* 원본 실측: 열 간격 30 (40 이면 3항목 행이 20px 넓어져 행 전체가 밀린다),
+     행 간격 5 (1행 하단 60 → 2행 상단 65) */
+  column-gap: 30px;
+  row-gap: 5px;
 }
 .services a {
   font-family: var(--serif);
@@ -279,28 +358,43 @@ a:hover .arr { transform: translateX(5px); }
   color: var(--light);
   transition: opacity 0.25s ease;
 }
-/* 원본은 기울이지 않는다 — 밝기만 낮춘다 */
-.services a:hover { opacity: 0.55; }
+/* 원본은 기울이지 않는다 — 밝기만 낮춘다 (실측 opacity 0.5) */
+.services a:hover { opacity: 0.5; }
 .services sup {
   font-family: var(--mono);
   font-size: 10px;
   line-height: 16px;
   vertical-align: super;
-  margin-right: 6px;
+  /* 원본 실측: 번호 397.6~409.6, 글자 시작 417.6 → 간격 8 (6 이면 항목마다 2px 좁다) */
+  margin-right: 8px;
   color: var(--light);
 }
 .footer-keychain {
-  top: 120px;
+  /* 원본 실측 4점이 정확히 맞는다: vh700→95 / 800→108 / 900→121 / 1200→160.
+     120px 고정은 900 에서만 얼추 맞고 그 밖에선 어긋난다. */
+  top: calc(13vh + 4px);
   transform: translateX(-50%);
   width: 60vh;
   height: 60vh;
   filter: grayscale(1);
 }
+/* 원본 푸터 글자는 그레이스케일 안티에일리어싱이다 (컬러 프린지 0).
+   Framer 가 푸터를 합성 레이어에 올려서 LCD 서브픽셀 AA 가 꺼진 것이다.
+   -webkit-font-smoothing 은 macOS 전용이라 Windows/Linux 에선 무시된다.
+   → 같은 결과를 내려면 레이어를 만들어야 한다 (translateZ(0)). */
+.footer-links,
+.footer-bottom {
+  transform: translateZ(0);
+}
+/* 원본 하단 밴드는 아래에서부터 padding16 + copyright24 + 간격8 +
+   워드마크 + 간격8 로 쌓인다 → 링크 행 bottom = 56 + 워드마크 높이.
+   워드마크는 폭에 비례해 커지므로(1440:108.6 / 1920:146.5) 165px 고정은
+   1440 에서만 맞다. 높이는 common.js 가 --wm-h 로 넘겨준다. */
 .footer-links {
   position: absolute;
   left: var(--margin);
   right: var(--margin);
-  bottom: 165px;
+  bottom: calc(56px + var(--wm-h, 108.63px));
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   font-size: 14px;
@@ -316,13 +410,20 @@ a:hover .arr { transform: translateX(5px); }
 .wordmark {
   position: absolute;
   left: var(--margin);
-  bottom: 52px;
+  /* 원본 하단 밴드: padding 16 + copyright 24 + 간격 8 = 48 (1440 실측
+     워드마크 하단 852). transform-origin 이 left bottom 이라 균일 스케일을
+     줘도 하단은 이 자리에 고정된다. */
+  bottom: calc(48px + var(--wm-slack, 0.42px));
   width: max-content;
   font-family: var(--serif-trial);
   font-weight: 300;
   font-size: 119.539px;
   line-height: 95.6315px;
   color: var(--muted);
+  /* 원본은 워드마크 <svg> 에 opacity .5 를 건다.
+     #ababab(171) 를 푸터 #202020(32) 위에 반투명으로 얹어 102 로 보인다.
+     opacity 없이 171 로 두면 눈에 띄게 밝다. */
+  opacity: 0.5;
   white-space: nowrap;
   transform-origin: left bottom;
   /* scaleX 는 common.js 의 fitWordmark() 가 자연폭을 재서 직접 준다
@@ -331,20 +432,24 @@ a:hover .arr { transform: translateX(5px); }
      위로 넘치는데, 그대로 두면 위의 푸터 링크 호버·클릭을 가로챈다. */
   pointer-events: none;
 }
+/* 원본은 .footer-links 와 같은 4열 그리드다. copyright 가 1열,
+   credit 이 4열에 들어간다 (1440: 셀폭 344, credit x1064 / 1024: 셀폭 240).
+   space-between 으로 두면 credit 이 오른쪽 끝(1408)까지 밀려 152px 어긋난다. */
 .footer-bottom {
   position: absolute;
   left: var(--margin);
   right: var(--margin);
   bottom: 16px;
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   font-size: 14px;
   line-height: 24px;
   text-transform: uppercase;
   color: var(--muted);
 }
+.credit { grid-column: 4; }
+/* 원본 SURD.STUDIO 는 호버해도 아무 변화가 없다 (색·투명도·밑줄 전부 그대로) */
 .credit a { color: var(--light); }
-.credit a:hover { text-decoration: underline; }
 
 /* ============================================================
    Awwwards badge
@@ -405,13 +510,14 @@ a:hover .arr { transform: translateX(5px); }
   .footer-links {
     left: var(--margin);
     right: auto;
-    bottom: calc(96px + (100vw - 32px) * 0.0787);
+    bottom: calc(96px + var(--wm-h, 58.09px));
     display: flex;
     flex-direction: column;
   }
   .wordmark { bottom: 80px; }
   .footer-bottom {
-    flex-direction: column;
+    grid-template-columns: 1fr;
     gap: 0;
   }
+  .credit { grid-column: 1; }
 }

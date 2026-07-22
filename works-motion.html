@@ -48,34 +48,43 @@
 
     <!-- ===== Category section (sticky 흰 커버 — 스크롤되며 걷히면 아래 푸터가 드러난다) ===== -->
     <section class="msec">
-      <div class="msec-sticky">
-        <!-- 좌측: 돌아가기 링크 + 태그 영상 -->
-        <a class="m-back" href="works.html"><span class="arr arr-back">&larr;</span>SEE ALL WORKS</a>
+      <!-- 좌측 1/4 열 — 원본은 이 열만 sticky(60vh) 다. 우측 열이 섹션 높이를 정한다. -->
+      <div class="msec-left">
+        <!-- 원본 화살표는 유니코드 ← 가 아니라 ASCII 두 글자 "<-" 다 (mono 16.81px) -->
+        <a class="m-back" href="works.html"><span class="arr arr-back">&lt;-</span>SEE ALL WORKS</a>
         <div class="m-tag" aria-hidden="true">
           <video src="videos/motion-tag.mp4" autoplay loop muted playsinline></video>
         </div>
+      </div>
 
-        <!-- 우측: 폴더 패널 -->
+      <!-- 우측 3/4 열 -->
+      <div class="msec-right">
         <div class="m-panel">
-          <span class="m-tab"><span class="m-num">01</span></span>
-          <div class="m-body">
-            <h1 class="m-title">motion</h1>
-            <div class="m-divider" aria-hidden="true"></div>
+          <!-- 탭 + 제목 블록은 데스크톱에서 sticky 다 (원본: 248px 높이,
+               271.7px 동안 상단에 붙어 있다가 카드와 함께 밀린다) -->
+          <div class="m-head">
+            <span class="m-tab"><span class="m-num">01</span></span>
+            <div class="m-body m-body-head">
+              <h1 class="m-title">motion</h1>
+              <div class="m-divider" aria-hidden="true"></div>
+            </div>
+          </div>
 
+          <div class="m-body m-body-cards">
             <div class="m-grid">
               <a class="m-card" href="#works-motion">
                 <span class="m-card-num">01</span>
-                <img src="images/motion-01-overbloom.webp" alt="Overbloom">
+                <span class="m-card-frame"><img src="images/motion-01-overbloom.webp" alt="Overbloom"></span>
                 <span class="m-card-title">Overbloom</span>
               </a>
               <a class="m-card" href="#works-motion">
                 <span class="m-card-num">02</span>
-                <img src="images/motion-02-in-between-ending-credits.webp" alt="In Between Ending Credits">
+                <span class="m-card-frame"><img src="images/motion-02-in-between-ending-credits.webp" alt="In Between Ending Credits"></span>
                 <span class="m-card-title">In Between Ending Credits</span>
               </a>
               <a class="m-card" href="#works-motion">
                 <span class="m-card-num">03</span>
-                <img src="images/motion-03-scad-startup-2026.png" alt="SCAD StartUp 2026 - Design for Human Connection">
+                <span class="m-card-frame"><img src="images/motion-03-scad-startup-2026.png" alt="SCAD StartUp 2026 - Design for Human Connection"></span>
                 <span class="m-card-title">SCAD StartUp 2026 - Design for Human Connection</span>
               </a>
             </div>
@@ -91,11 +100,11 @@
     <footer class="footer" id="footer">
       <nav class="services" aria-label="Disciplines">
         <a href="works-motion.html"><sup>01</sup>Motion Design</a>
-        <a href="works.html"><sup>02</sup>Brand Design</a>
-        <a href="works.html"><sup>03</sup>Editorial Design</a>
-        <a href="works.html"><sup>04</sup>Photography</a>
-        <a href="works.html"><sup>05</sup>Illustration</a>
-        <a href="works.html"><sup>06</sup>3D Tech</a>
+        <a href="works-branding.html"><sup>02</sup>Brand Design</a>
+        <a href="works-editorial.html"><sup>03</sup>Editorial Design</a>
+        <a href="works-photoworks.html"><sup>04</sup>Photography</a>
+        <a href="works-illustration.html"><sup>05</sup>Illustration</a>
+        <a href="works-3d-tech.html"><sup>06</sup>3D Tech</a>
       </nav>
 
       <div class="keychain footer-keychain" aria-hidden="true">

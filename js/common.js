@@ -70,8 +70,23 @@
       // 좌우 여백(--margin)만 뺀 가용폭
       var margin = parseFloat(cs.left) || 0;
       avail = wordmark.parentElement.clientWidth - margin * 2;
+      // 원본은 <svg viewBox> + <foreignObject> 로 워드마크를 감싸 폭에 맞춰
+      // 뷰박스를 늘린다 → 가로만이 아니라 세로도 같은 비율로 커진다.
+      // 실측: 높이 = 96 x (가용폭 / 자연폭 1216.11)
+      //   1440 → 1376/1216.11 = 1.1314, 높이 108.63
+      //   1024 →  960/1216.11 = 0.7894, 높이  75.78
+      //    768 →  736/1216.11 = 0.6052, 높이  58.09
+      // scaleX 만 주면 높이가 95.63 에 고정돼 폭마다 자모 비율이 틀어진다.
+      var s = avail / natural;
       wordmark.style.transformOrigin = 'left bottom';
-      wordmark.style.transform = 'scaleX(' + (avail / natural) + ')';
+      wordmark.style.transform = 'scale(' + s + ')';
+      // 워드마크 위에 놓이는 링크 행이 이 높이만큼 밀린다.
+      // transform 은 레이아웃에 영향이 없으므로 CSS 가 알 방법이 없다.
+      document.documentElement.style.setProperty('--wm-h', (96 * s) + 'px');
+      // 원본은 <p>(line-height 95.6315) 가 96 짜리 foreignObject 안에 위쪽
+      // 정렬로 들어간다 → 글자 상자 하단이 svg 하단보다 (96-95.6315)*s 만큼 위다.
+      // 1440 에서 0.42, 1920 에서 0.56. 이걸 빼야 원본과 y 가 맞는다.
+      document.documentElement.style.setProperty('--wm-slack', (0.3685 * s) + 'px');
     };
     fitWordmark();
     window.addEventListener('resize', fitWordmark);

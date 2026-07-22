@@ -5,6 +5,7 @@
 import { chromium } from 'playwright';
 import { PNG } from 'pngjs';
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
+import { mine } from './root.mjs';
 
 const W = Number(process.argv[2] || 1440);
 const H = Number(process.argv[3] || 900);
@@ -12,7 +13,7 @@ mkdirSync('./diff', { recursive: true });
 
 const browser = await chromium.launch();
 const files = {};
-for (const [tag, url] of [['orig', 'https://www.wildyriftian.com/'], ['mine', 'file:///D:/이젠아카데미/portfolio2/index.html']]) {
+for (const [tag, url] of [['orig', 'https://www.wildyriftian.com/'], ['mine', mine('index.html')]]) {
   const ctx = await browser.newContext({ viewport: { width: W, height: H }, deviceScaleFactor: 1 });
   const p = await ctx.newPage();
   await p.goto(url, { waitUntil: 'networkidle', timeout: 60000 });

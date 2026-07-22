@@ -59,7 +59,11 @@
       <div class="wfolders">
 
         <!-- 01 motion -->
-        <a class="wf wf-r1 wf-left wf-motion wf-open" href="#works" aria-label="Motion works">
+        <!-- 원본은 motion 폴더만 링크가 걸려 있고 나머지는 앵커가 아니다.
+             (원본에도 /works-branding 등 5개 페이지는 전부 존재한다 — 링크만 없다.)
+             여기서는 요청에 따라 만들어 둔 5개를 실제로 연결했다.
+             photoworks 만 아직 페이지가 없어 자리표시자로 남겨둔다. -->
+        <a class="wf wf-r1 wf-left wf-motion wf-open" href="works-motion.html" aria-label="Motion works">
           <span class="wf-thumbs">
             <img class="wf-th wf-th1" src="images/works-motion-1.webp" alt="" decoding="async">
             <img class="wf-th wf-th2" src="images/works-motion-2.webp" alt="" decoding="async">
@@ -72,7 +76,7 @@
         </a>
 
         <!-- 02 branding -->
-        <a class="wf wf-r1 wf-right wf-branding" href="#works" aria-label="Branding works">
+        <a class="wf wf-r1 wf-right wf-branding" href="works-branding.html" aria-label="Branding works">
           <span class="wf-thumbs">
             <img class="wf-th wf-th1" src="images/works-branding-1.webp" alt="" decoding="async">
             <img class="wf-th wf-th2" src="images/works-branding-2.webp" alt="" decoding="async">
@@ -85,7 +89,7 @@
         </a>
 
         <!-- 03 editorial -->
-        <a class="wf wf-r2 wf-left wf-editorial" href="#works" aria-label="Editorial works">
+        <a class="wf wf-r2 wf-left wf-editorial" href="works-editorial.html" aria-label="Editorial works">
           <span class="wf-thumbs">
             <img class="wf-th wf-th1" src="images/works-editorial-1.webp" alt="" decoding="async">
             <img class="wf-th wf-th2" src="images/works-editorial-2.webp" alt="" decoding="async">
@@ -98,7 +102,7 @@
         </a>
 
         <!-- 04 photoworks -->
-        <a class="wf wf-r2 wf-right wf-photoworks" href="#works" aria-label="Photography works">
+        <a class="wf wf-r2 wf-right wf-photoworks" href="works-photoworks.html" aria-label="Photography works">
           <span class="wf-thumbs">
             <img class="wf-th wf-th1" src="images/works-photoworks-1.webp" alt="" decoding="async">
             <img class="wf-th wf-th2" src="images/works-photoworks-2.webp" alt="" decoding="async">
@@ -111,7 +115,7 @@
         </a>
 
         <!-- 05 illustration -->
-        <a class="wf wf-r3 wf-left wf-illustration" href="#works" aria-label="Illustration works">
+        <a class="wf wf-r3 wf-left wf-illustration" href="works-illustration.html" aria-label="Illustration works">
           <span class="wf-thumbs">
             <img class="wf-th wf-th1" src="images/works-illustration-1.webp" alt="" decoding="async">
             <img class="wf-th wf-th2" src="images/works-illustration-2.webp" alt="" decoding="async">
@@ -124,7 +128,7 @@
         </a>
 
         <!-- 06 3D tech -->
-        <a class="wf wf-r3 wf-right wf-3dtech" href="#works" aria-label="3D tech works">
+        <a class="wf wf-r3 wf-right wf-3dtech" href="works-3d-tech.html" aria-label="3D tech works">
           <span class="wf-thumbs">
             <img class="wf-th wf-th1" src="images/works-3dtech-1.webp" alt="" decoding="async">
             <img class="wf-th wf-th2" src="images/works-3dtech-2.webp" alt="" decoding="async">
@@ -139,15 +143,19 @@
       </div>
     </section>
 
+    <!-- 스크롤 거리 확보용 투명 구간. 흰 폴더 섹션이 걷히면
+         이 자리에서 고정 푸터가 드러난다 (원본과 동일한 구조). -->
+    <div class="wsec-spacer" aria-hidden="true"></div>
+
     <!-- ===== Footer ===== -->
     <footer class="footer" id="footer">
       <nav class="services" aria-label="Disciplines">
-        <a href="works.html"><sup>01</sup>Motion Design</a>
-        <a href="works.html"><sup>02</sup>Brand Design</a>
-        <a href="works.html"><sup>03</sup>Editorial Design</a>
-        <a href="works.html"><sup>04</sup>Photography</a>
-        <a href="works.html"><sup>05</sup>Illustration</a>
-        <a href="works.html"><sup>06</sup>3D Tech</a>
+        <a href="works-motion.html"><sup>01</sup>Motion Design</a>
+        <a href="works-branding.html"><sup>02</sup>Brand Design</a>
+        <a href="works-editorial.html"><sup>03</sup>Editorial Design</a>
+        <a href="works-photoworks.html"><sup>04</sup>Photography</a>
+        <a href="works-illustration.html"><sup>05</sup>Illustration</a>
+        <a href="works-3d-tech.html"><sup>06</sup>3D Tech</a>
       </nav>
 
       <div class="keychain footer-keychain" aria-hidden="true">
