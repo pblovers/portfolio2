@@ -72,7 +72,7 @@ console.log('접속 OK', await p.title()); await b.close();})"
 | `works-editorial.html` | 0.93% | 완료 |
 | `works-illustration.html` | 2.30% | 완료 |
 | `works-3d-tech.html` | 1.05% | 완료 |
-| `works-photoworks.html` | 7.00% | **미완 — 아래 3번** |
+| `works-photoworks.html` | 7.00% | 완료 (호버·스크롤 대조 끝, 잔차=리샘플링). 1024 푸터 워드마크만 별건 |
 
 `mobqa.mjs` 8페이지 × 13뷰포트 = **104조합 문제 0개**
 (가로스크롤·넘침·깨진이미지·콘솔오류·메뉴동작 전부 정상)
@@ -81,55 +81,82 @@ works 페이지에서 **6개 카테고리 전부 링크 연결됨.** 푸터 serv
 
 ---
 
-## 3. 바로 이어서 할 일 — photoworks 2건
+## 3. photoworks — 2026-07-23 조사·수정 결과
 
-### 3-1. 모바일에서 카드가 16px 위에 있다 (30.89%)
+### 3-1. 모바일 카드 8px 위 — **수정 완료** (30.89% → 9.61%)
+
+원본 375 divider y279 / 첫 카드 y304, 우리 divider y271 / 카드 y296 로
+**둘 다 정확히 8px 위**였다 (제목판은 y200/h56 로 원본과 이미 일치).
+원인: photoworks 모바일 divider 여백이 motion(15)과 다르다.
 
 ```
-원본 375   이미지창 y = 304
-구현 375   이미지창 y = 288
+원본 375 실측:  제목 하단 256 → 구분선 279 → 첫 카드 304   (divider mt 23)
+motion  375:    제목 하단 256 → 구분선 271 → 첫 카드 296   (divider mt 15)
 ```
 
-`works-motion.css` 의 모바일 `.m-body-cards`(겹침 -8 / padding-top 32)를
-photoworks 가 그대로 물려받는데 맞지 않는다.
-`css/works-photoworks.css` 에 모바일 오버라이드를 넣어야 한다.
+`.m-body-head` 는 auto 높이라 divider 를 8px 내리면 제목판이 88→96 이 되고,
+카드판(`.m-body-cards` 겹침 -8 / pt 32)이 물려 296→304 로 함께 내려온다.
+`css/works-photoworks.css` 모바일 블록에 한 줄:
 
-```bash
-cd tools
-node catprobe.mjs works-photoworks 375 812     # 원본 제목판·카드판 겹침/패딩 실측
-node catdiff.mjs works-photoworks 375 812      # 고친 뒤 재대조
+```css
+.pw-page .m-divider { margin-top: 23px; }   /* motion 은 15 */
 ```
 
-### 3-2. 사진 크롭이 원본과 다르다 (1440 7.00% / 1024 7.82%)
+375·430·768 전부 divider 279 / 카드 304 로 원본 일치. 흰 띠 seam 없음(다크 테마).
 
-소스가 **세로 2:3**(2000×3000)인데 창은 **4:3**(380×285)다.
-같은 `object-fit: cover` 인데 크롭 위치가 다르다 —
-원본 CDN 이 표시 비율에 맞춰 **미리 잘라낸 변형**을 주는 것으로 보인다.
+### 3-2. 사진 크롭 — **크롭 버그가 아니다** (원래 문서의 가설이 틀렸다)
 
-확인 방법:
+원본 CDN 카드의 natural 비율은 소스와 **같다** (실측: card1 380×570 = 0.667,
+소스 2000×3000 = 0.667). fit·object-position(50% 50%)·창(380×285)도 우리와 동일.
+카드1 크롭을 세로로 밀어 정렬 오차를 재보면 **최적이 dy 0~1px** = 크롭이 이미 일치.
+→ 4:3 재크롭 같은 건 필요 없다. (branding 표 프리뷰의 4:3 재크롭과는 다른 문제다.)
 
-```bash
-# 원본 카드 이미지의 naturalWidth/Height 를 재서 우리 것(2000x3000)과 비교
-node -e "import('playwright').then(async({chromium})=>{const b=await chromium.launch();
-const p=await(await b.newContext({viewport:{width:1440,height:900}})).newPage();
-await p.goto('https://www.wildyriftian.com/works-photoworks',{waitUntil:'networkidle',timeout:90000});
-await p.waitForTimeout(2400);
-console.log(await p.evaluate(()=>[...document.querySelectorAll('img')]
- .filter(i=>i.getBoundingClientRect().width>300&&i.getBoundingClientRect().y>200)
- .slice(0,3).map(i=>[i.naturalWidth,i.naturalHeight,i.currentSrc.slice(-70)])));
-await b.close();})"
+남은 7.00%(1440)/9.61%(375) 는 **리샘플링 잔차**다. 원본은 CDN 이 380px 급으로
+줄인 변형을 받고 우리는 2000px 원본을 브라우저가 줄인다.
+
+> **srcset 축소본을 만들어도 안 줄어든다 (실측).** card1 을 canvas 로 380·760px 로
+> 미리 줄여 렌더해도 원본 대비 meanAbsDiff 가 full 35.89 / w760 35.75 / w380 36.91 —
+> 사실상 개선 없음. 원본도 결국 브라우저가 570→285 로 한 번 더 줄이므로 3000 에서
+> 줄이나 760 에서 줄이나 최종 285px 결과가 거의 같다. HANDOFF 9절이 "srcset 으로
+> 맞춘다"고 한 것도 이 실측으로 반증됐다. **구조는 맞고 잔차는 못 줄인다 — 두면 된다.**
+
+### 3-3. 호버 인터랙션 — **구현 완료**
+
+원본 실측(1440): 호버 시 이미지가 **1.15배**로 커진다 (380×285 → 437×327.9).
+motion 카드와 마찬가지로 **고정 창(380×285, overflow:hidden) 안에서 중심 기준 확대**다
+(내가 처음에 "셀 밖으로 넘친다"고 본 건 잘못된 부모를 본 것 — 실제 클립 창은
+`framer-s4kytg` 로 창은 그대로다). 곡선은 Framer Motion(JS) tween 이라 CSS 에 안 잡히지만
+rAF 로 재보니 **약 400ms ease-in-out** (25% 0.106 / 50% 0.473 / 75% 0.858).
+
+```css
+.pw-shot img { transition: transform 0.4s ease-in-out; }
+.pw-card:hover .pw-shot img { transform: scale(1.15); }
 ```
 
-같은 함정을 카테고리 4페이지에서 이미 한 번 겪었다 —
-**원본은 소스를 먼저 4:3 으로 자른 뒤 창에 맞춰 덮는다.**
-`min-width/min-height:100% + aspect-ratio:4/3 + object-fit:cover` 로 해결했다
-(`css/works-category.css` 의 `.cat-row-preview img` 참고).
-photoworks 는 창이 이미 4:3 이라 이 방법이 안 통했으니 다른 단계가 있을 것이다.
+호버 스크린샷 대조(카드1): scale·중심·클립 일치. 남은 잔차는 유휴 리샘플링과 같은 수준
+(정렬 후 meanAbsDiff 23, 유휴 19.5). 원본이 창 중심에서 ~4px 좌·3px 상을 기준으로
+확대하는 미세 오프셋이 있으나 뷰포트/카드마다 흔들리는 Framer 노이즈라 origin 은
+center 유지. `제목·번호·이웃 카드는 안 변한다.
 
-### 3-3. 아직 안 잰 것
+### 3-4. 스크롤 거동 — **확인·수정 완료** (스크린샷 대조)
 
-- photoworks **호버 인터랙션** — `.pw-shot img` 에 transform 전환만 넣어뒀고
-  원본 호버는 측정하지 않았다. `hovfull.mjs` 로 재면 된다.
+works-motion.css 구조를 물려받아 대부분 이미 맞았다. 실측/대조 결과:
+
+```
+제목 sticky   데스크톱(≥1280): titleY 136 유지 scrollY~2000 → 이후 해제. 원본 일치.
+              태블릿·모바일: sticky 아님, 1:1 (sy0 t200 / sy300 t-100 / sy900 t-700). 일치.
+고정 푸터     워드마크 스크롤 무관하게 고정 (1440 y743). 리빌 정상. docH 3674 일치.
+```
+
+**수정한 것 — 데스크톱 sticky 제목판 흰 배경.** photoworks 는 카드 18장이라 제목이
+오래 붙어 있는데, `.m-head` 상단 80px(padding) 이 투명이라 뒤로 지나가는 카드가
+비쳐 올라왔다. 원본은 제목판 bg 가 #fff (섹션색). `@media (min-width:1280px)` 로
+`.pw-page .m-head { background:#fff }` 추가 (모바일은 섹션이 다크라 주면 안 됨).
+scroll 900 스크린샷: 탭 위 흰색·카드 비침 제거로 원본과 일치.
+
+> **미해결(범위 밖) — 태블릿 1024 푸터 워드마크 y**: orig 810 / mine 776 (34px).
+> 호버·스크롤과 무관한 기존 `fitWordmark()`(HANDOFF 5절) 문제. 리빌 자체는 정상.
+> `footdiff.mjs works-photoworks 1024 900` 로 따로 볼 것.
 
 ---
 
@@ -185,8 +212,16 @@ node introcurve.mjs orig 1440 900           # works 폴더 진입 곡선
 
 ## 6. 남은 큰 작업
 
+- 🔨 **작업물 상세 페이지 (진행 중, 2026-07-23~)** — 카테고리 카드 → 상세 페이지.
+  37개, 템플릿 2종. photoworks 1호(work-flat-earther.html) 거의 완성.
+  **이어서 하려면 → [DETAIL-PAGES.md](DETAIL-PAGES.md) 를 먼저 읽을 것.**
+- ✅ **스크롤·호버 인터랙션 (2026-07-23 완료)** — Lenis 스무스 스크롤, 헤더
+  hide-on-scroll, 카테고리 좌측 열 sticky 65vh, cat-row 호버 프리뷰 4:3.
+  전역(common) 을 건드렸으니 회귀는 `mobqa.mjs`. 상세는 HANDOFF 13절.
 - photoworks 마무리 (3번)
 - 카드 링크가 `#works-motion` / `#branding` 등 자리표시자다.
   원본은 `./works/overbloom` 처럼 개별 상세로 간다 — 상세 페이지는 아직 없다.
 - 카드 사진 리샘플링: 원본은 CDN 축소본을 쓰고 우리는 원본 크기를 브라우저가 줄인다.
-  맞추려면 폭별 축소본을 만들어 `srcset` 을 붙여야 한다 (HANDOFF 9절).
+  ~~맞추려면 폭별 축소본을 만들어 `srcset` 을 붙여야 한다~~ →
+  **photoworks 로 실측해보니 srcset 축소본으로도 안 줄어든다** (3-2 참고).
+  원본도 브라우저가 다시 줄이므로 최종 결과가 거의 같다. motion 카드도 같을 가능성이 높다.

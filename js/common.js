@@ -8,6 +8,18 @@
 
   window.WR = window.WR || {};
 
+  /* ---------- Smooth scroll (Lenis) ----------
+     원본은 Lenis(lenis lenis-smooth)로 스크롤을 부드럽게 감속시킨다.
+     네이티브 스크롤은 딱딱하고 느리게 느껴진다. 라이브러리는 js/lenis.min.js
+     로 로컬 벤더링했다 (globalThis.Lenis). reduced-motion 이면 켜지 않는다. */
+  var lenis = null;
+  if (window.Lenis && !(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)) {
+    lenis = new window.Lenis({ lerp: 0.1, smoothWheel: true });
+    var rafLoop = function (time) { lenis.raf(time); requestAnimationFrame(rafLoop); };
+    requestAnimationFrame(rafLoop);
+    WR.lenis = lenis;
+  }
+
   /* ---------- Menu overlay ---------- */
   var overlay = document.getElementById('menuOverlay');
   var menuBtn = document.querySelector('.menu-btn');
@@ -19,6 +31,8 @@
       overlay.setAttribute('aria-hidden', String(!open));
       menuBtn.setAttribute('aria-expanded', String(open));
       document.body.style.overflow = open ? 'hidden' : '';
+      /* 메뉴가 열려 있는 동안은 Lenis 를 멈춰 뒤 페이지가 스크롤되지 않게 한다. */
+      if (lenis) { open ? lenis.stop() : lenis.start(); }
     };
     menuBtn.addEventListener('click', function () { setMenu(true); });
     menuClose.addEventListener('click', function () { setMenu(false); });
@@ -28,6 +42,23 @@
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape' && overlay.classList.contains('open')) setMenu(false);
     });
+  }
+
+  /* ---------- Header hide-on-scroll ----------
+     원본 헤더는 fixed 로, 스크롤을 내리면 위로 사라지고(translateY -100%)
+     올리면 다시 내려온다. 맨 위(≤56px)에서는 항상 보인다. ±2 데드존으로
+     떨림을 막는다. Lenis 가 있으면 그 scroll 이벤트를, 없으면 네이티브를 쓴다. */
+  var header = document.querySelector('.site-header');
+  if (header) {
+    var lastY = (lenis ? lenis.scroll : window.scrollY) || 0;
+    var updateHeader = function (y) {
+      if (y <= 56) header.classList.remove('is-hidden');
+      else if (y > lastY + 2) header.classList.add('is-hidden');
+      else if (y < lastY - 2) header.classList.remove('is-hidden');
+      lastY = y;
+    };
+    if (lenis) lenis.on('scroll', function (e) { updateHeader(e.scroll); });
+    else window.addEventListener('scroll', function () { updateHeader(window.scrollY); }, { passive: true });
   }
 
   /* ---------- Appear-on-scroll ----------

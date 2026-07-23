@@ -153,15 +153,22 @@ a:hover .arr { margin-left: 12px; }
    Header
    ============================================================ */
 .site-header {
-  position: absolute;
+  /* 원본은 fixed 라 스크롤해도 뷰포트에 남는다. 내리면 위로 숨고 올리면
+     다시 내려온다 (아래 .is-hidden + common.js). absolute/fixed 둘 다 흐름
+     밖이라 이 변경으로 레이아웃이 밀리지는 않는다. */
+  position: fixed;
   top: 0; left: 0; right: 0;
   z-index: 10;
   padding: 16px var(--margin) 0;
   /* 원본 헤더 글자는 그레이스케일 AA 다 (프린지 0). 헤더가 합성 레이어에
      올라가 있기 때문이다. 다른 글자(SEE ALL·카드 제목)는 원본도 서브픽셀이라
      이미 프린지 수까지 일치하므로 헤더에만 레이어를 준다. */
-  transform: translateZ(0);
+  transform: translateY(0) translateZ(0);
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
 }
+/* 스크롤 내릴 때 숨김 (헤더 높이만큼 위로). 올릴 때 이 클래스를 뗀다. */
+.site-header.is-hidden { transform: translateY(-100%) translateZ(0); }
 .header-nav {
   display: grid;
   grid-template-columns: repeat(4, 1fr);

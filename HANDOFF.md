@@ -20,7 +20,7 @@
 | `works-editorial.html` | 완료 | **0.93%** | 표 레이아웃 |
 | `works-illustration.html` | 완료 | **2.30%** | 표 레이아웃 |
 | `works-3d-tech.html` | 완료 | **1.05%** | 표 레이아웃 |
-| `works-photoworks.html` | **미완** | **7.00%** | 다크 테마 카드 18장. 남은 일 참고 |
+| `works-photoworks.html` | 완료 | **7.00%** | 다크 테마 카드 18장. 잔차=리샘플링. 호버·스크롤 대조 끝 |
 
 `mobqa.mjs` 104개 조합(8페이지 × 13뷰포트) **문제 0개**
 — 가로스크롤·넘침·깨진이미지·콘솔오류·메뉴동작 전부 정상.
@@ -48,10 +48,13 @@ works 페이지에서 **6개 카테고리 전부 링크 연결됨** (푸터 serv
 
 ### 남은 일
 
-1. **photoworks 마무리 (1순위)** — 구체적 절차는 [NEXT.md](NEXT.md) 3절.
-   - 모바일에서 카드가 16px 위에 있다 (원본 이미지창 y304 / 구현 288) → 30.89%
-   - 사진 크롭이 다르다. 소스가 세로 2:3 인데 창은 4:3 이다 → 1440 7.00%
-   - 호버 인터랙션 미측정
+1. **photoworks** — [NEXT.md](NEXT.md) 3절에 조사·수정 결과 기록 (2026-07-23).
+   - ✅ 모바일 카드 8px 위 → `.pw-page .m-divider{margin-top:23px}` 로 수정 (30.89%→9.61%)
+   - ✅ 사진 크롭: **크롭 버그 아님** (크롭 이미 일치). 7.00% 는 리샘플링 잔차이고
+     srcset 으로도 안 줄어든다 (실측). 두면 된다.
+   - ✅ 호버 구현 — 고정 창 안에서 이미지 scale(1.15), 400ms ease-in-out (NEXT 3-3)
+   - ✅ 스크롤 대조 — 데스크톱 sticky 제목판 흰 배경 추가로 카드 비침 제거 (NEXT 3-4)
+   - ⬜ (별건) 태블릿 1024 푸터 워드마크 y 34px 차 — fitWordmark 문제, 호버·스크롤 무관
 2. 카드 링크가 `#works-motion` 자리표시자다. 원본은 `./works/overbloom` 등
    개별 상세로 간다 — 상세 페이지는 아직 없다.
 3. 카드 사진은 원본이 CDN 축소본(데스크톱 322x242)을 쓰고 우리는 2000px
@@ -621,7 +624,12 @@ Framer 는 색·그림자·transform 을 **형제 요소나 투명 래퍼**에 �
 원본 파일(2000x1504 / 1870x1120 — CDN URL 의 크기와 동일)을 브라우저가
 줄인다. 그래서 가장자리 선명도가 다르다. **구조·크기·비율·크롭은 일치**하고,
 375 에서 사진 밖 차이는 753px = 화면의 0.25% 뿐이다.
-맞추려면 폭별 축소본을 만들어 `srcset` 을 붙여야 한다.
+~~맞추려면 폭별 축소본을 만들어 `srcset` 을 붙여야 한다.~~
+→ **2026-07-23 실측 정정: srcset 축소본으로도 안 줄어든다.** photoworks card1 을
+canvas 로 380·760px 로 미리 줄여 렌더해도 원본 대비 오차가 full 35.89 / w760 35.75 /
+w380 36.91 로 사실상 그대로다. 원본도 CDN 변형(예: 380×570)을 브라우저가 다시
+285 로 줄이므로, 3000 에서 줄이든 760 에서 줄이든 최종 285px 결과가 거의 같다.
+이 잔차는 못 줄인다 — 두면 된다.
 
 **키체인.** 원본은 Framer Motion(JS)으로 태그를 흔든다. `footdiff` 가
 Web Animations API 를 0초에 고정해도 원본의 0% 키프레임에는 각 태그마다
@@ -735,3 +743,77 @@ node catassets.mjs                          영상 4 + 이미지 16 내려받기
 node catdiff.mjs works-branding 1440 900    페이지별 픽셀 대조
 node scaffold-categories.mjs                works-motion 껍데기로 4페이지 재생성
 ```
+
+---
+
+## 13. 스크롤·호버 인터랙션 (2026-07-23 원본 대조)
+
+정지 픽셀차만 보던 것에서 빠졌던 **동적 거동** 4가지를 원본 실측·스크린샷으로 맞췄다.
+
+### 13-1. 전역 — Lenis 스무스 스크롤
+
+원본은 `lenis lenis-smooth` (Framer 기본). 네이티브 스크롤은 딱딱·느리게 느껴진다.
+`js/lenis.min.js` (globalThis.Lenis, v1.1.18) 를 **로컬 벤더링**하고 `common.js` 에서
+`new Lenis({lerp:0.1, smoothWheel:true})` + raf 루프로 초기화. 8개 HTML 전부 common.js
+앞에서 로드한다. `WR.lenis` 로 노출. 메뉴 열릴 때 `lenis.stop()`, 닫힐 때 `start()`.
+reduced-motion 이면 켜지 않는다. 고정 푸터 리빌·해시 앵커·sticky 전부 정상(실제
+scrollTop 을 쓰는 v1 이라 fixed/sticky 안 깨진다).
+
+### 13-2. 전역 — 헤더 hide-on-scroll
+
+원본 헤더는 `position:fixed` 로, 내리면 위로 숨고(translateY -100%) 올리면 내려온다
+(맨 위 ≤56px 는 항상 보임). 우리는 `absolute` 라 한 번 사라지면 안 돌아왔다.
+`common.css .site-header` 를 fixed + `transition:transform .4s` + `.is-hidden`,
+`common.js` 에 방향 감지(±2 데드존, Lenis scroll 이벤트). absolute→fixed 는 둘 다
+흐름 밖이라 레이아웃 안 밀린다.
+
+### 13-3. 카테고리 — 좌측 열(msec-left) sticky 65vh
+
+원본 카테고리 좌측 열 sticky 높이는 **65vh** (motion 은 60vh). 실측 vh900→585,
+vh800→520. 공유 CSS(60vh=540)를 그대로 물려받아 45px 더 오래 붙어 스크롤 시
+좌측 열만 아래로 튀어나왔다. `works-category.css` `.cat-page .msec-left{height:65vh}`.
+결과 back 위치 원본과 1px 이내(sy1000 -179 vs -180).
+
+### 13-4. 카테고리 — cat-row 호버 프리뷰 4:3
+
+호버로 행이 129→320.3 으로 열릴 때, 원본 프리뷰 img 는 **427×320.3(4:3 유지)**
+인데 우리는 폭 33.333%(344) 고정 + `min-width/min-height:100%+aspect-ratio` 조합이
+Chrome 에서 두 min 충돌 시 aspect 를 버려 **344×320 으로 찌그러졌다**. 창을
+쿼리 컨테이너로 삼아 `container-type:size` + img `height:max(100cqh,75cqw)` 로
+바꿔 평상(폭-기준 344×258)↔호버(높이-기준 427×320.3)를 매끄럽게 전환. 모바일은
+프리뷰가 흐름 배치라 `container-type:normal` 로 되돌린다(size 컨테인이 높이 0 유발).
+호버 스크린샷 원본과 크롭까지 일치.
+
+### 13-5. 공용 — sticky 제목판 스크롤 비침 (motion·category·photoworks 공통)
+
+`.m-head`(탭+제목, sticky, padding-top 80)의 **상단 80px 가 투명**이라, 스크롤하면
+뒤로 지나가는 카드/행(제목·프리뷰)이 그 틈으로 **위로 비쳐 올라온다**. 원본 sticky
+컨테이너 bg 는 #fff(섹션 .msec 색). 세 페이지 모두 데스크톱 섹션이 흰색이므로
+`works-motion.css` 의 공용 규칙으로 한 번에 덮는다:
+
+```css
+@media (min-width: 1280px) { .m-head { background: #fff; } }
+```
+
+- sticky 는 데스크톱(≥1280) 전용이라 그 폭으로 스코프한다. 태블릿·모바일은 .m-head 가
+  relative 라 비침이 없고, **photoworks 모바일 섹션은 다크(#1d1d1d)** 라 흰 배경을
+  주면 흰 띠가 생긴다 — 반드시 데스크톱으로 스코프할 것.
+- 처음엔 photoworks·category 에 각각 넣었다가, 근본 원인이 공용 `.m-head` 라
+  works-motion.css 로 통합했다(motion 페이지도 같은 버그였다).
+
+### 13-6. 카테고리 — 행 태그 대문자
+
+원본 태그는 대문자(`BRAND IDENTITY DESIGN`), 데이터는 title-case 라 CSS 로 올린다:
+`.cat-row-tags { text-transform: uppercase }`. 연도·행 제목은 그대로.
+
+검증: `mobqa.mjs` 104조합 문제 0개. motion·photoworks·branding scroll-0 무회귀
+(1.36 / 7.00 / 0.65%). 스크롤 비침·태그 스크린샷 원본 일치.
+
+> **works 폴더 "틈"**: DPR 1.0/1.25/1.5, 줌 0.9/1.1/1.25 **모든 조건에서 photoworks
+> 폴더가 원본과 픽셀 일치** — 차이를 재현하지 못했다(원본도 탭 40/본문 top 39 로 1px
+> 겹침, 겹침량 동일). 사용자가 계속 틈을 본다고 해서, 분수 배율에서 탭-본문 가장자리가
+> 반올림되며 배경(#fff)이 1px 비칠 가능성에 대비해 **방어적으로 봉합**했다:
+> `.wf-tab { box-shadow: 0 1px 0 0 var(--wf-bg) }` — 스트립 색과 같은 1px 을 아래로 깔아
+> 틈을 폴더색으로 메운다. 레이아웃·번호·계단 위치 불변, 100%/정수 DPR 에선 본문과
+> 같은 색이라 안 보인다(DPR1 원본 일치 유지 확인). 계단(::after)은 clip-path 가
+> box-shadow 를 잘라 못 메우지만, 주 가로 이음새(스트립 아래)는 이걸로 사라진다.
