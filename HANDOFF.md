@@ -48,6 +48,11 @@ works 페이지에서 **6개 카테고리 전부 링크 연결됨** (푸터 serv
 
 ### 남은 일
 
+0. 🔨 **작업물 상세 페이지 (2026-07-23~24, 진행 중)** — 카테고리 카드 → 개별 상세.
+   템플릿 2종의 대표 1개씩 완성: `work-flat-earther.html`(A=photoworks masonry),
+   `work-overbloom.html`(B=표준 그룹, motion 등 5개 카테고리 공유).
+   **이어서 하려면 반드시 → [DETAIL-PAGES.md](DETAIL-PAGES.md) 를 먼저 읽을 것.**
+   (표준 그룹 나머지 4개, photoworks 17개 재생성, 미완 see-more 링크 2개 등이 남음.)
 1. **photoworks** — [NEXT.md](NEXT.md) 3절에 조사·수정 결과 기록 (2026-07-23).
    - ✅ 모바일 카드 8px 위 → `.pw-page .m-divider{margin-top:23px}` 로 수정 (30.89%→9.61%)
    - ✅ 사진 크롭: **크롭 버그 아님** (크롭 이미 일치). 7.00% 는 리샘플링 잔차이고
@@ -55,8 +60,8 @@ works 페이지에서 **6개 카테고리 전부 링크 연결됨** (푸터 serv
    - ✅ 호버 구현 — 고정 창 안에서 이미지 scale(1.15), 400ms ease-in-out (NEXT 3-3)
    - ✅ 스크롤 대조 — 데스크톱 sticky 제목판 흰 배경 추가로 카드 비침 제거 (NEXT 3-4)
    - ⬜ (별건) 태블릿 1024 푸터 워드마크 y 34px 차 — fitWordmark 문제, 호버·스크롤 무관
-2. 카드 링크가 `#works-motion` 자리표시자다. 원본은 `./works/overbloom` 등
-   개별 상세로 간다 — 상세 페이지는 아직 없다.
+2. 카드 링크가 대부분 `#works-motion` 자리표시자다. 원본은 `./works/overbloom` 등
+   개별 상세로 간다. **motion 카드1·photoworks 카드1 은 상세로 연결됨**(위 0번), 나머지는 미제작.
 3. 카드 사진은 원본이 CDN 축소본(데스크톱 322x242)을 쓰고 우리는 2000px
    원본을 브라우저가 줄인다. 소스 파일 자체는 원본과 동일한 크기다
    (2000x1504 / 1870x1120). 맞추려면 srcset 용 축소본을 만들어야 한다.
@@ -75,20 +80,27 @@ works 페이지에서 **6개 카테고리 전부 링크 연결됨** (푸터 serv
 portfolio2/
 ├── index.html            메인
 ├── works.html            카테고리 목록 (폴더 탭 6개)
-├── works-motion.html     카테고리 상세
+├── works-motion.html     카테고리 상세 (외 works-branding/editorial/photoworks/illustration/3d-tech)
+├── work-flat-earther.html  작업물 상세 — 템플릿 A(photoworks)  ← DETAIL-PAGES.md
+├── work-overbloom.html     작업물 상세 — 템플릿 B(표준 그룹)   ← DETAIL-PAGES.md
 ├── css/
 │   ├── common.css        폰트·토큰·리셋·헤더·메뉴·키체인·푸터·awwwards·appear
 │   ├── index.css         히어로·about 티켓·featured works
 │   ├── works.css         Works/Archive 탭·폴더 6개
-│   └── works-motion.css  카테고리 상세
+│   ├── works-motion.css  카테고리 상세 (works-category.css·works-photoworks.css 도 있음)
+│   ├── work-detail.css      상세 A 셸 + photoworks 갤러리
+│   └── work-detail-std.css  상세 B 레이아웃 (A 셸 재사용)
 ├── js/
-│   ├── common.js         메뉴 오버레이, WR.appear(), 워드마크 fit
+│   ├── common.js         메뉴 오버레이, WR.appear(), 워드마크 fit, Lenis, 헤더 hide
 │   ├── index.js          히어로 패럴랙스, 티켓 사이클
-│   └── works.js          폴더 호버 커서 드리프트
+│   ├── works.js          폴더 호버 커서 드리프트
+│   └── work-detail.js    photoworks masonry 분배 (round-robin + data-col)
 ├── images/               원본에서 받은 이미지 전부
-├── videos/motion-tag.mp4 works-motion 좌측 태그
+│   └── works/            상세 갤러리 이미지 (flat-earther-*, overbloom-*)
+├── videos/motion-tag.mp4 works-motion 좌측 태그 (외 category-tag 들)
+│   └── works/            상세 영상 (overbloom-* = Dropbox mp4)
 ├── fonts/                Lock Serif, Biro Script, JetBrains Mono
-└── tools/                검증 스크립트 (README.md 참고)
+└── tools/                검증·조사·생성 스크립트 (README.md, DETAIL-PAGES.md 7절)
 ```
 
 CSS 로드 순서는 항상 `common.css` → 페이지별 CSS.

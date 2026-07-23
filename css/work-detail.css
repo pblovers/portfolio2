@@ -109,8 +109,8 @@
 
 /* ---------- see more ---------- */
 .wd-seemore {
-  margin-top: 96px;
-  padding-bottom: 96px;
+  margin-top: 120px;      /* 갤러리 끝(3016) → 제목 y3136 */
+  padding-bottom: 80px;   /* 항목제목 하단(3528) → 콘텐츠 끝 3608 → docH 4508 */
 }
 .wd-seemore-title {
   font-family: var(--serif);
@@ -118,7 +118,7 @@
   font-size: 48px;
   line-height: 56px;
   color: var(--ink);
-  margin-bottom: 24px;
+  margin-bottom: 32px;    /* 제목 하단(3192) → 카드 top 3224 */
 }
 .wd-seemore-list {
   display: flex;
@@ -130,16 +130,18 @@
   color: var(--ink);
   width: calc(50% - 16px);
 }
+/* 프리뷰 창은 폭×0.375 (원본: 672x252=8:3). 원본은 4:3 이미지가 창 안에서
+   parallax 로 스크롤하지만, 정지 상태 기준 8:3 크롭 창으로 맞춘다. */
 .wd-seemore-item img {
   display: block;
   width: 100%;
   height: auto;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 8 / 3;
   object-fit: cover;
 }
 .wd-seemore-item span {
   display: block;
-  margin-top: 12px;
+  margin-top: 16px;       /* 프리뷰 창 하단 → 항목제목 y3492 */
   font-family: var(--serif);
   font-weight: 300;
   font-size: 28px;

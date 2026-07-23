@@ -6,12 +6,18 @@
 
 ---
 
-## 0. 먼저 — 지금 작업이 커밋되지 않았다
+## 0. 먼저 — 지금 작업이 커밋되지 않았다 (2026-07-24)
 
 ```
-수정 16개 + 새 파일 72개 = 88개가 미커밋 상태다
+마지막 커밋: 656a17e "20260723수정본"
+그 이후 미커밋: 수정 15개 + 새 파일 21개
 원격: https://github.com/pblovers/portfolio2.git
 ```
+
+이번 세션(07-24)에서 새로 한 것:
+- **상세 페이지 템플릿 2종 대표 완성** — work-flat-earther.html(A), work-overbloom.html(B).
+  자세한 건 [DETAIL-PAGES.md](DETAIL-PAGES.md) (반드시 이걸 읽고 이어갈 것).
+- overbloom 미디어(이미지 5 + Dropbox 영상 5), 파이프라인 스크립트(tools/), 카드 링크 2개.
 
 새 PC 로 넘기려면 둘 중 하나를 해야 한다.
 
@@ -19,7 +25,7 @@
 
 ```bash
 git add -A
-git commit -m "카테고리 5페이지 추가 + 인터랙션 원본 대조"
+git commit -m "상세 페이지 템플릿 2종 대표(flat-earther, overbloom) 완성"
 git push
 ```
 
@@ -212,15 +218,16 @@ node introcurve.mjs orig 1440 900           # works 폴더 진입 곡선
 
 ## 6. 남은 큰 작업
 
-- 🔨 **작업물 상세 페이지 (진행 중, 2026-07-23~)** — 카테고리 카드 → 상세 페이지.
-  37개, 템플릿 2종. photoworks 1호(work-flat-earther.html) 거의 완성.
+- 🔨 **작업물 상세 페이지 (진행 중, 2026-07-23~24)** — 카테고리 카드 → 상세 페이지.
+  37개, 템플릿 2종. **템플릿 2종 대표 완성**(work-flat-earther.html=A, work-overbloom.html=B).
   **이어서 하려면 → [DETAIL-PAGES.md](DETAIL-PAGES.md) 를 먼저 읽을 것.**
+  - 다음 할 일 후보: 표준 그룹 나머지 4개(branding/editorial/illustration/3d-tech 대표),
+    또는 photoworks 17개 재생성(`node tools/pwgen.mjs`), 또는 미완 see-more 링크 2개 처리.
 - ✅ **스크롤·호버 인터랙션 (2026-07-23 완료)** — Lenis 스무스 스크롤, 헤더
   hide-on-scroll, 카테고리 좌측 열 sticky 65vh, cat-row 호버 프리뷰 4:3.
   전역(common) 을 건드렸으니 회귀는 `mobqa.mjs`. 상세는 HANDOFF 13절.
-- photoworks 마무리 (3번)
-- 카드 링크가 `#works-motion` / `#branding` 등 자리표시자다.
-  원본은 `./works/overbloom` 처럼 개별 상세로 간다 — 상세 페이지는 아직 없다.
+- 카드 링크: motion 카드1·photoworks 카드1 은 상세로 연결됨. 나머지 카드는 아직
+  `#works-motion` / `#photoworks` 자리표시자(해당 상세 미제작). 상세를 만들면 그 카드도 연결.
 - 카드 사진 리샘플링: 원본은 CDN 축소본을 쓰고 우리는 원본 크기를 브라우저가 줄인다.
   ~~맞추려면 폭별 축소본을 만들어 `srcset` 을 붙여야 한다~~ →
   **photoworks 로 실측해보니 srcset 축소본으로도 안 줄어든다** (3-2 참고).

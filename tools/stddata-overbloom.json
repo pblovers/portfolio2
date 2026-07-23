@@ -1,0 +1,264 @@
+{
+  "docH": 7369,
+  "meta": {
+    "title": null,
+    "lines": [
+      {
+        "y": 128,
+        "x": 32,
+        "txt": "Overbloom",
+        "fs": "48px"
+      },
+      {
+        "y": 208,
+        "x": 32,
+        "txt": "Motion Works",
+        "fs": "14px"
+      },
+      {
+        "y": 232,
+        "x": 32,
+        "txt": "2026",
+        "fs": "14px"
+      },
+      {
+        "y": 280,
+        "x": 32,
+        "txt": "A short animated piece about spring allergies, turning pollen season into a playful visual journey through handmade textures, soft colors, and blooming transitions.",
+        "fs": "12px"
+      }
+    ]
+  },
+  "blocks": [
+    {
+      "t": "img",
+      "x": 449,
+      "y": 116,
+      "w": 543,
+      "h": 543,
+      "src": "https://framerusercontent.com/images/kdtaSoSqsA8c0LoPR41LBZhANd0.png?width=1200&height=1200"
+    },
+    {
+      "t": "img",
+      "x": 449,
+      "y": 116,
+      "w": 543,
+      "h": 543,
+      "src": "https://framerusercontent.com/images/GBw25Y7waKtBpPp2XCduaT1w.png?width=1200&height=1200"
+    },
+    {
+      "t": "img",
+      "x": 449,
+      "y": 116,
+      "w": 542,
+      "h": 542,
+      "src": "https://framerusercontent.com/images/fsrZLkxLD4fRbDoXCcY0l7KeyCY.png?width=1200&height=1200"
+    },
+    {
+      "t": "img",
+      "x": 448,
+      "y": 116,
+      "w": 543,
+      "h": 543,
+      "src": "https://framerusercontent.com/images/KyoqSAiCkNLT4HUotbCnZyTLgro.png?width=1200&height=1200"
+    },
+    {
+      "t": "img",
+      "x": 448,
+      "y": 116,
+      "w": 543,
+      "h": 543,
+      "src": "https://framerusercontent.com/images/4cJcdjNdNSgkSBge2lq4THrz4.png?width=1200&height=1200"
+    },
+    {
+      "t": "img",
+      "x": 450,
+      "y": 117,
+      "w": 540,
+      "h": 540,
+      "src": "https://framerusercontent.com/images/dwm3ehifOvGqOxQmDOF3Al7PuI.png?width=1200&height=1200"
+    },
+    {
+      "t": "img",
+      "x": 376,
+      "y": 740,
+      "w": 1032,
+      "h": 581,
+      "src": "https://framerusercontent.com/images/37zV4BfG1EntuF5xwSwkM3drTFY.webp?width=1920&height=1080"
+    },
+    {
+      "t": "img",
+      "x": 376,
+      "y": 1353,
+      "w": 1032,
+      "h": 581,
+      "src": "https://framerusercontent.com/images/tixApSeZG2jOMnAbpeAlf7UGos.webp?width=1920&height=1080"
+    },
+    {
+      "t": "img",
+      "x": 376,
+      "y": 2417,
+      "w": 1032,
+      "h": 445,
+      "src": "https://framerusercontent.com/images/14B3aTmanjLjUORlcmnSH5q0EE.webp?width=1920&height=828"
+    },
+    {
+      "t": "video",
+      "x": 376,
+      "y": 2895,
+      "w": 1032,
+      "h": 581,
+      "src": "https://dl.dropboxusercontent.com/scl/fi/feoscqoq2lel6gx1b1lu8/04_Moodboards.mp4?rlkey=i9lsixjhemjxyox99k2zbsxis&st=lrjnoqhv&dl=0"
+    },
+    {
+      "t": "img",
+      "x": 376,
+      "y": 3507,
+      "w": 1032,
+      "h": 604,
+      "src": "https://framerusercontent.com/images/gLhJ82lzRV9o9RHkewONJ78SY.png?width=1920&height=1123"
+    },
+    {
+      "t": "video",
+      "x": 376,
+      "y": 4143,
+      "w": 1032,
+      "h": 445,
+      "src": "https://dl.dropboxusercontent.com/scl/fi/de1lf7x29lk767ehoqeen/05_StyleframesGrid_Animated.mp4?rlkey=77igxan8bnl4euhpgzs7d0rqq&st=5f2fy02j&dl=0"
+    },
+    {
+      "t": "img",
+      "x": 376,
+      "y": 4620,
+      "w": 1032,
+      "h": 712,
+      "src": "https://framerusercontent.com/images/TVFGocsjVwRINezpNwsQDqdKo.webp?width=1920&height=1324"
+    },
+    {
+      "t": "video",
+      "x": 376,
+      "y": 5363,
+      "w": 1032,
+      "h": 150,
+      "src": "https://dl.dropboxusercontent.com/scl/fi/fzhf2ymeng7jo81d0z1t2/OB_SH09.mp4?rlkey=qky17js0ordym5hjizvzq3d4m&st=lycrp5ym&dl=0"
+    },
+    {
+      "t": "video",
+      "x": 376,
+      "y": 5545,
+      "w": 1032,
+      "h": 150,
+      "src": "https://dl.dropboxusercontent.com/scl/fi/6tg6esjtwj07pt9snaze0/OB_SH03.mp4?rlkey=t29cu6fir8ycvscipn4bf14yx&st=zuwwdhdw&dl=0"
+    },
+    {
+      "t": "video",
+      "x": 376,
+      "y": 5727,
+      "w": 1032,
+      "h": 150,
+      "src": "https://dl.dropboxusercontent.com/scl/fi/ukgclxz4ltznurtflx6t2/OB_SH12.mp4?rlkey=tc9lmfoueg2wbfjyl5jp6z8vo&st=5wefcpc3&dl=0"
+    }
+  ],
+  "seemore": [
+    {
+      "slug": "in-between-ending-credits",
+      "y": 5959,
+      "x": 32,
+      "w": 672,
+      "h": 504
+    }
+  ],
+  "rtext": [
+    {
+      "y": 711,
+      "x": 376,
+      "w": 76,
+      "txt": "INSTAGRAM",
+      "fs": "14px"
+    },
+    {
+      "y": 711,
+      "x": 376,
+      "w": 76,
+      "txt": "INSTAGRAM",
+      "fs": "14px"
+    },
+    {
+      "y": 711,
+      "x": 720,
+      "w": 67,
+      "txt": "LINKEDIN",
+      "fs": "14px"
+    },
+    {
+      "y": 711,
+      "x": 720,
+      "w": 67,
+      "txt": "LINKEDIN",
+      "fs": "14px"
+    },
+    {
+      "y": 711,
+      "x": 1064,
+      "w": 50,
+      "txt": "RESUME",
+      "fs": "14px"
+    },
+    {
+      "y": 711,
+      "x": 1064,
+      "w": 50,
+      "txt": "RESUME",
+      "fs": "14px"
+    },
+    {
+      "y": 860,
+      "x": 1064,
+      "w": 84,
+      "txt": "WEBSITE BY",
+      "fs": "14px"
+    },
+    {
+      "y": 860,
+      "x": 1156,
+      "w": 92,
+      "txt": "SURD.STUDIO",
+      "fs": "14px"
+    },
+    {
+      "y": 860,
+      "x": 1156,
+      "w": 92,
+      "txt": "SURD.STUDIO",
+      "fs": "14px"
+    },
+    {
+      "y": 2221,
+      "x": 720,
+      "w": 688,
+      "txt": "The piece combines hand-drawn frames, paper-like textures, and seamless transitions to capture the strange beauty of spring, when everything feels colorful, charming, and a little too much.",
+      "fs": "24px"
+    },
+    {
+      "y": 2337,
+      "x": 720,
+      "w": 688,
+      "txt": "Tools: Procreate, adobe photoshop, adobe after effectsGuidance: Professor minho shin",
+      "fs": "12px"
+    }
+  ],
+  "smText": [
+    {
+      "y": 5997,
+      "x": 32,
+      "txt": "see more.",
+      "fs": "48px"
+    },
+    {
+      "y": 6353,
+      "x": 32,
+      "txt": "In Between Ending Credits",
+      "fs": "28px"
+    }
+  ]
+}

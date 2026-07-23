@@ -1,0 +1,125 @@
+/* ============================================================
+   Wildy Riftian — clone
+   work-detail-std.css — 표준 그룹 상세 (motion·branding·editorial·
+   illustration·3d-tech 공유). work-detail.css 의 wd-page 셸을 재사용한다
+   (배경·헤더 반전·흰 커버 리빌·고정 푸터·wd-back·wd-seemore·wd-spacer).
+
+   원본 실측 (works/overbloom, 1440x900):
+     좌측 메타  x32 폭312 (=25%(100vw-64)-32), sticky — 제목이 viewport y128 고정
+     우측 콘텐츠 x376 폭1032 (=75%(100vw-64)), 블록 세로 스택 gap 32
+     제목 48/56 Lock Serif Light y128 / 카테고리 14/24 mono y208(mt24) /
+       연도 14/24 mono y232 / 설명 12/24 mono y280(mt24)
+     레이아웃 grid: calc(25% - 32px) / 1fr, column-gap 32
+     텍스트 섹션 우측 2/3 (x720 w688): 문단 24/32 Lock Serif Light + 크레딧 12/24 mono
+     see-more 창 672x252 (photoworks 와 동일)
+   ============================================================ */
+
+/* ---------- 2단 레이아웃 ---------- */
+.std-layout {
+  display: grid;
+  grid-template-columns: calc(25% - 32px) 1fr;
+  column-gap: 32px;
+  align-items: start;
+  margin-top: 24px;            /* 뒤로가기(0~104) 아래 24 → 제목 y128 */
+}
+
+/* ---------- 좌측 메타 (sticky) ---------- */
+.std-meta {
+  position: sticky;
+  top: 128px;                  /* 원본: 제목이 viewport y128 에 고정 */
+  align-self: start;
+}
+.std-title {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: 48px;
+  line-height: 56px;
+  color: var(--ink);
+}
+.std-cat {
+  margin-top: 24px;            /* 제목 하단(184) → 카테고리 y208 */
+  font-family: var(--mono);
+  font-size: 14px;
+  line-height: 24px;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+.std-year {
+  font-family: var(--mono);
+  font-size: 14px;
+  line-height: 24px;
+  color: var(--ink);
+}
+.std-desc {
+  margin-top: 24px;            /* 연도 하단(256) → 설명 y280 */
+  font-family: var(--mono);
+  font-size: 12px;
+  line-height: 24px;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+/* ---------- 우측 콘텐츠 블록 ---------- */
+.std-content {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  min-width: 0;
+}
+.std-block { position: relative; }
+.std-block img,
+.std-block video {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.std-hero {
+  aspect-ratio: 16 / 9;        /* Vimeo 임베드 */
+  width: 100%;
+}
+.std-hero iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* ---------- 텍스트 섹션 (우측 2/3) ---------- */
+.std-text {
+  margin-left: 33.333%;        /* 좌 1/3 비움 → 문단 x720(=376+344) */
+}
+.std-para {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: 24px;
+  line-height: 32px;
+  color: var(--ink);
+}
+.std-para + .std-para { margin-top: 32px; }   /* 문단 사이 한 줄(32) */
+.std-credit {
+  margin-top: 20px;            /* 둘째 문단 하단(2317) → 크레딧 y2337 */
+  font-family: var(--mono);
+  font-size: 12px;
+  line-height: 24px;
+  color: var(--ink);
+}
+.std-credit span { display: block; }
+
+/* ============================================================
+   Tablet (≤ 1279px) — 좌측 메타가 위로, 콘텐츠 아래로 (1단)
+   ============================================================ */
+@media (max-width: 1279.98px) {
+  .std-layout { grid-template-columns: 1fr; }
+  .std-meta { position: static; top: auto; margin-bottom: 32px; }
+  .std-text { margin-left: 33.333%; }
+}
+
+/* ============================================================
+   Mobile (≤ 809px)
+   ============================================================ */
+@media (max-width: 809.98px) {
+  .std-title { font-size: 40px; line-height: 48px; }
+  .std-content { gap: 16px; }
+  .std-text { margin-left: 0; }
+  .std-para { font-size: 20px; line-height: 28px; }
+}

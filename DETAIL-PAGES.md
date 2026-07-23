@@ -10,19 +10,36 @@
 
 ---
 
-## 0. 지금 상태 (미커밋)
+## 0. 지금 상태 (미커밋, 2026-07-24 갱신)
 
-새로 만든 것:
-```
-work-flat-earther.html      photoworks 상세 1호 (거의 완성, 아래 3번 잔여 수정만 남음)
-css/work-detail.css         상세 페이지 CSS (photoworks 그룹)
-js/work-detail.js           masonry 분배 (짧은 열 우선)
-images/works/               flat-earther-01~12.jpg (12장 다운로드 완료)
-```
-그 외 미커밋 변경(이번 세션 다른 작업들)은 HANDOFF 13절 참고 (Lenis·헤더 hide/show·
-카테고리 비침 수정·폴더 box-shadow 등).
+**두 템플릿의 대표 1개씩 완성.** 원본과 픽셀 대조 완료.
 
-**주의 — 올리기 전 저장소가 Private 인지 확인.** 원작자 이미지가 계속 늘어난다.
+```
+work-flat-earther.html       템플릿 A(photoworks) 대표 — 완성 (docH 4508 원본 일치)
+work-overbloom.html          템플릿 B(표준=motion 등) 대표 — 완성 (docH 8661 원본 일치)
+css/work-detail.css          A 셸 + photoworks 갤러리 CSS
+css/work-detail-std.css      B 레이아웃 CSS (A 셸 재사용)
+js/work-detail.js            masonry 분배 (round-robin + data-col, 3절·4절)
+images/works/flat-earther-*  12장
+images/works/overbloom-*     이미지 5장 (webp/png)
+videos/works/overbloom-*     Dropbox 영상 5개 (mp4)
+tools/pw*.mjs, std*.mjs, ob*.mjs, wdqa.mjs   조사·생성·대조 파이프라인
+tools/pwdata.json            photoworks 18개 원본 데이터(대표만 남겼어도 재생성용으로 보존)
+```
+
+카드 링크: `works-photoworks.html` 카드1 → work-flat-earther.html (나머지 17개 #photoworks),
+`works-motion.html` 카드1 → work-overbloom.html (나머지 2개 #works-motion).
+
+> **한 번 만들었다가 대표만 남긴 이유**: photoworks 18개를 전부 만들었으나, 사용자가
+> "카테고리마다 틀 하나씩"을 원해서 대표 1개(flat-earther)만 남기고 정리했다.
+> 나머지 17개는 `node tools/pwgen.mjs` 로 즉시 재생성된다(데이터·이미지 URL 이 pwdata.json 에 있음).
+
+**⚠️ 미완 링크 2개** (원본에 충실한 타깃이나 형제 상세가 아직 없음 → 404):
+- work-flat-earther.html see-more → `work-a-deeper-dreamscape.html` (미제작)
+- work-overbloom.html see-more → `work-in-between-ending-credits.html` (미제작)
+데모용으로 카테고리 페이지로 돌리거나, 형제 상세를 만들면 해소된다.
+
+**주의 — 올리기 전 저장소가 Private 인지 확인.** 원작자 이미지·영상이 계속 늘어난다.
 
 ---
 
@@ -30,18 +47,18 @@ images/works/               flat-earther-01~12.jpg (12장 다운로드 완료)
 
 6개 카테고리에서 카드 링크를 수집한 결과 상세 페이지는 **37개**, 템플릿은 **2종**.
 
-### A. photoworks 그룹 (18개) — masonry 갤러리 ← **지금 여기부터**
+### A. photoworks 그룹 (18개) — masonry 갤러리 ✅ 틀 확립 (대표 flat-earther)
 상단 메타(뒤로가기 / 제목 / 연도 / MODEL / 설명) + **3열 masonry 사진 갤러리** +
-see more + **고정 푸터 리빌**. 사진만 다르고 틀은 전부 같다.
+see more + **고정 푸터 리빌**. 사진만 다르고 틀은 전부 같다. → 3·4절.
 
-### B. 표준 그룹 (19개) — 좌측 메타 컬럼 + 콘텐츠 블록
+### B. 표준 그룹 (19개) — 좌측 메타 컬럼 + 콘텐츠 블록 ✅ 틀 확립 (대표 overbloom)
 motion·branding·editorial·illustration·3d-tech 의 상세. 좌측 sticky 메타 컬럼
-(← SEE ALL X WORKS / 제목 / 카테고리 / 연도 / 설명) + 우측 콘텐츠(히어로 영상·이미지,
-전체폭/다열 이미지, 캡션 그리드, TOOLS/SOFTWARE 크레딧, 스토리보드/프로덕션 등) +
-see more + 고정 푸터 리빌. **콘텐츠 블록이 작업마다 다르다** (틀은 공유, 내용 가변).
+(← SEE ALL X WORKS / 제목 / 카테고리 / 연도 / 설명) + 우측 풀폭 콘텐츠 블록 스택
+(히어로 영상 임베드 · 이미지 · 텍스트 섹션). **콘텐츠 블록이 작업마다 다르다** (틀은 공유,
+내용 가변). "그리드·스토리보드·프로덕션"처럼 보이는 건 대부분 **이미지·영상 안에 그려진 것**. → 5절.
 
-docH 예시: overbloom 6644 / dipsco 8151 / wldr(editorial) 12006 / flat-earther 4508 /
-illustration 11692 / venturi(3dtech) 9900.
+> **docH 는 영상 lazy 로딩 탓에 처음엔 작게 잡힌다** (overbloom 이 7369→8661 로 커졌다).
+> 실제: flat-earther 4508 / overbloom **8661**. 다른 것도 완전 로딩 후 재야 정확하다(5절 함정2).
 
 ---
 
@@ -75,20 +92,25 @@ illustration(5): a-trip-for-a-better-earth-interactive-children-s-book ·
 
 ---
 
-## 3. flat-earther (photoworks 1호) — 남은 잔여 수정
+## 3. flat-earther (photoworks 1호) — ✅ 완료 (2026-07-24)
 
-현재 거의 맞다. 확인된 값:
+확인된 값:
 - 제목 [32,128,1376,56] **원본 정확 일치**
 - 워드마크 y743 (고정 푸터 리빌) **원본 정확 일치**
-- masonry 열 분배 col 4/4/4, 순서 [1,5,8,11]/[2,6,9,12]/[3,4,7,10] **원본 정확 일치**
+- masonry 열 분배·순서 **원본 정확 일치** (아래 4절의 data-col 방식)
 - 뒤로가기 "← SEE ALL PHOTOWORKS" 표시됨, 가로스크롤 없음, 콘솔 오류 0
 
-**남은 것:**
-1. ✅ **헤더 nav 색** — `work-detail.css` 에 `.wd-page` 헤더 반전 규칙 추가 완료
-   (흰 배경 위라 글자 --ink, roll 반전 면 --light). motion-page 와 동일.
-2. **see more 세로 여백** — docH 4740 vs 원본 4508 (232 큼). `.wd-seemore`
-   margin-top 96/padding-bottom 96 을 원본에 맞춰 줄인다. 원본 실측: 갤러리 끝 → see
-   more 제목 y3136, 프리뷰 y3192(672x504), 제목 y3492. 재서 맞출 것.
+**완료된 것:**
+1. ✅ **헤더 nav 색** — `work-detail.css` `.wd-page` 헤더 반전 규칙 (motion-page 와 동일).
+2. ✅ **see more 세로 여백** (2026-07-24) — docH 4740 → **4508 원본 정확 일치**.
+   원본 실측으로 아래 수치 확정 (이전 문서의 "프리뷰 672x504" 는 **틀렸다** — 그건
+   Framer 스크롤 transform 이 걸린 rect 였다. 실제 흐름 창은 **672x252**):
+   - `.wd-seemore` margin-top **120** (갤러리끝 3016 → 제목 y3136)
+   - `.wd-seemore-title` margin-bottom **32** (제목하단 3192 → 카드 top 3224)
+   - 프리뷰 창 **폭×0.375 (8:3)** — 원본은 4:3 이미지가 parallax 로 스크롤하지만
+     정지 기준 8:3 크롭 창(`aspect-ratio: 8/3`). 모든 폭에서 winH=winW×0.375 실측 확인.
+   - `.wd-seemore-item span` margin-top **16** (창하단 → 항목제목 y3492)
+   - `.wd-seemore` padding-bottom **80** (항목제목하단 3528 → 콘텐츠끝 3608 → docH 4508)
 
 ### photoworks 상세 실측값 (flat-earther, 1440)
 ```
@@ -98,24 +120,56 @@ illustration(5): a-trip-for-a-better-earth-interactive-children-s-book ·
 연도      32,208   14/24 mono / MODEL 32,232
 설명      720,208  12/24 mono uppercase (우측 절반, grid 1fr 1fr gap24)
 갤러리    3열 masonry 열폭 442.7 gap 24  (32 + 3*442.7 + 2*24 = 1408)
-          짧은 열 우선 배치 → js/work-detail.js
-see more  32,3136  48/56 / 프리뷰 672x504(4:3, =절반폭) / 제목 28/36 Lock Serif
+          **저자가 열을 수동 배치** → 각 img 의 data-col 로 재현 (4절)
+see more  32,3136  48/56 / 프리뷰 창 672x252(8:3, =절반폭) / 항목제목 y3492 28/36 Lock Serif
 푸터      고정 리빌 (워드마크 y743), docH = 콘텐츠 + 100vh
-반응형    갤러리 3열(≥1280) / 2열(810~1279) / 1열(≤809) — **원본에서 폭별 재확인 필요**
+반응형    갤러리 3열(≥1280) / 2열(810~1279) / 1열(≤809)
 ```
 
 ---
 
-## 4. photoworks 나머지 17개 만드는 법 (틀 동일, 사진만)
+## 4. photoworks 나머지 17개 — ✅ 완료 (2026-07-24). 자동 파이프라인
 
-flat-earther.html 을 복제하고 아래만 바꾸면 된다:
-1. `<title>`, 제목, 연도, MODEL, 설명 텍스트
-2. 갤러리 `<img>` 목록 (각 사진의 `width`/`height` 를 소스 원본 크기로 — masonry 비율에 쓰임)
-3. see more 의 다음 작업(프리뷰 이미지 + 제목 + href). 원본은 카테고리 순서상 **다음 작업**을 건다.
-4. 뒤로가기 href 는 그대로 works-photoworks.html
+**18개 전부 원본과 masonry 픽셀 일치**(1440: docH·열개수·열바닥 전부 diff 0~1px).
+104조합 QA(8폭) 가로스크롤·깨짐·콘솔오류 0. 카드 링크·see-more 링크 전부 유효.
 
-**사진·메타·see more 는 반드시 원본에서 재서 가져올 것** (감 금지).
-아래 스크립트 패턴으로 각 작업의 이미지 URL·크기·메타·see more 를 뽑는다:
+`tools/` 에 파이프라인을 만들어 반복 가능하게 했다:
+```bash
+cd tools
+node pwscrape.mjs <slug ...>   # 원본 스크랩 → pwdata.json 병합 (메타·갤러리·see-more·col)
+node pwgen.mjs [<slug ...>]    # pwdata.json + META 로 이미지 다운로드 + work-<slug>.html 생성
+node pwcmp.mjs <slug> 1440 900 # 원본 vs 구현 masonry 대조 (docH·열)
+node wdqa.mjs work-<slug>.html # 상세 페이지 QA (가로스크롤·깨짐·콘솔, 8폭)
+node pwinspect.mjs <slug>      # 원본 갤러리 구조 정밀 조사 (x,y,w,h,앵커)
+node pwdom.mjs <slug>          # 원본 DOM 순서 + 실제 열 (알고리즘 판별용)
+```
+
+### 반드시 알아야 할 두 가지 (실측으로 밝혀낸 것)
+
+**(1) masonry 는 알고리즘이 아니라 저자가 열을 수동 배치했다.**
+- shortest-column-first 도 round-robin 도 **단일 규칙으로는 18개를 다 못 맞춘다**
+  (speed-limit 은 round-robin, harder-than-steel 은 shortest-first 처럼 보인다).
+- 그래서 데스크톱(1440) 3열에서 각 이미지의 **실제 열 인덱스를 그대로 캡처**해
+  `<img data-col="N">` 로 박았다. `js/work-detail.js` 가 3열일 때 data-col 을 그대로 쓰고,
+  2열/1열에서는 DOM(행 인터리브) 순서로 round-robin 재배치한다.
+- HTML 갤러리 순서 = **행 인터리브**(col0[0],col1[0],col2[0],col0[1],...). 단순 y정렬은
+  같은 행이라도 열마다 y가 달라 뒤집힌다(speed-limit 실증). pwscrape 가 열별 y정렬 후 인터리브.
+- 원본 DOM 은 **열 우선**(col0 전부, col1 전부, col2 전부)이라 querySelectorAll 순서를
+  그대로 쓰면 안 된다.
+
+**(2) see-more 는 인접작 2개다 (이전 문서의 "다음작 1개" 는 불완전).**
+- 중간 작업: **[왼쪽 x32 = 다음작, 오른쪽 x736 = 이전작]** 2개 나란히.
+- 첫 작업(flat-earther): 다음작 1개만. 마지막(harder-than-steel): 이전작 1개만.
+- 프리뷰 이미지는 대상작의 카테고리 썸네일(`images/photoworks-NN-<slug>.jpg`) 재사용.
+- flat-earther 원본 see-more 는 매 로드마다 달라진다(랜덤). 첫 작업이라 다음작(a-deeper)로 고정.
+
+### 각 페이지에 채운 것 (전부 원본 실측)
+1. `<title>`·제목·연도·MODEL·설명 (설명은 CSS 로 대문자 표시)
+2. 갤러리 `<img>` (width/height = 소스 원본 크기, data-col = 데스크톱 열)
+3. see-more 1~2개 (다음작/이전작)
+4. 뒤로가기 href = works-photoworks.html (전부 동일)
+
+> 참고 — 아래는 초기 수동 조사용 스크립트 패턴이다. 지금은 위 파이프라인이 대신한다.
 
 ```bash
 cd tools
@@ -177,9 +231,50 @@ masonry 비율이 맞는다 (js/work-detail.js 가 이 비율로 짧은 열 우�
 
 - [x] 조사·템플릿 지도 (2종, 37 URL)
 - [x] photoworks 상세 CSS/JS 틀 (work-detail.css, work-detail.js)
-- [~] flat-earther.html — 거의 완성 (헤더색 ✅, 잔여: see more 여백 1건)
-- [ ] photoworks 나머지 17개 (4번 방법)
-- [ ] photoworks 카드 링크 연결 (works-photoworks.html)
-- [ ] 표준 그룹 19개 (5번)
-- [ ] 표준 그룹 카드 링크 연결
-- [ ] 전체 QA (6폭 × 반응형 × 인터랙션)
+- [x] flat-earther.html — 완료 (헤더색·see more 여백 ✅, 2026-07-24) — **템플릿 A 대표**
+- [x] **템플릿 A(photoworks) 검증** — 18개 전부 masonry 픽셀 일치(data-col), 메타·see-more(1~2개)
+  원본 실측 후, **대표 1개(flat-earther)만 유지**하기로 결정(2026-07-24). 나머지 17개는
+  `pwgen.mjs` 로 언제든 재생성(데이터는 `tools/pwdata.json` 에 18개 전부 보존).
+- [x] photoworks 카드 링크 — flat-earther 만 work-flat-earther.html, 나머지 17개는 #photoworks 자리표시자
+- [x] **템플릿 B(표준 그룹) — motion(overbloom) 1개 완료** (2026-07-24). docH·블록 전부 원본 일치.
+- [ ] 표준 그룹 나머지 (원할 때 카테고리별 대표 또는 전체) — **다음 작업**
+
+### 템플릿 B: 표준 그룹 상세 (works/overbloom) — ✅ 완료
+파일: `work-overbloom.html` / `css/work-detail-std.css` (work-detail.css 셸 재사용).
+works-motion.html 카드 01 → work-overbloom.html 연결.
+
+**구조 (원본 실측 1440, docH 8661 정확 일치):**
+- 레이아웃 grid: `calc(25% - 32px) / 1fr`, column-gap 32, 여백 32
+  (좌 = 25%(100vw-64)-32, 우 = 75%(100vw-64) — 3폭 실측: 1280:272 / 1440:312 / 1920:432)
+- **좌측 메타 sticky** (top:128 → 제목이 viewport y128 고정): 제목 48/56 serif y128 /
+  카테고리 14/24 mono y208(mt24) / 연도 14/24 mono y232 / 설명 12/24 mono y280(mt24)
+- **우측 콘텐츠 = 풀폭 블록 세로 스택(gap 32)**, 총 11블록:
+  히어로(Vimeo iframe 16:9) → 이미지2 → **텍스트 섹션** → 이미지 → 영상 → 이미지 →
+  영상 → 이미지 → 영상3 → (see-more)
+- **텍스트 섹션**: 우측 2/3(`margin-left:33.333%`). 문단2개(24/32 Lock Serif Light,
+  문단간 mt32) + 크레딧(Tools/Guidance, 12/24 mono mt20).
+- see-more: 672x252 창(photoworks 와 동일, `.wd-seemore` 재사용). 1개(첫 작품→다음작).
+- 고정 푸터 리빌·헤더 반전·뒤로가기 = work-detail.css 셸 그대로.
+
+**함정·교훈 (반드시 숙지):**
+1. **"MOODBOARD / STORYBOARD / PRODUCTION / 스타일프레임 그리드"는 별도 섹션이 아니라
+   이미지·영상 안에 그리드·캡션이 그려진 것**이다. 블록은 풀폭 이미지/영상 10개 + 텍스트뿐.
+   (처음에 별도 섹션으로 오해했다 — 실제로는 overbloom-07.webp 가 PRODUCTION 그리드 이미지.)
+2. **영상 lazy 로딩이 docH·블록 높이 측정을 오염**시킨다. 로딩 덜 되면 영상이 150 등으로
+   잡혀 docH 가 7369→8230→8661 로 계속 커졌다. **끝까지 여러 번 스크롤 + 바닥 3초 대기 +
+   img.complete 폴링** 후 측정할 것. OB_SH 영상은 150 밴드가 아니라 **전부 16:9(1032x581)**.
+3. **히어로는 Vimeo 임베드** (`player.vimeo.com/video/1198874178`). 로컬 아님. headless/
+   데이터센터 IP 에선 Vimeo 가 401("couldn't verify")로 막는다 — 콘솔 오류 1개는 이것이고
+   **실제 브라우저에선 정상 재생**(원본도 동일). 로컬 호스팅하려면 Vimeo 다운로드 필요.
+4. 나머지 영상 5개는 **Dropbox mp4** → `videos/works/overbloom-0N.mp4` 로컬 저장(H.264,
+   full Chromium 디코드 정상). 이미지 5개는 `images/works/overbloom-0N.webp|png`.
+5. 텍스트 섹션 문단이 **2개**다(긴 것 + 짧은 것). 첫 문단(224px)을 놓치면 이후 전부 255px 밀린다.
+
+**조사·대조 도구:** `tools/stdinspect.mjs` `stdmedia.mjs` `stddata.mjs`(원본 구조),
+`obfetch.mjs`(미디어 다운로드), `obcmp.mjs`(블록 대조), `wdqa.mjs`(QA).
+
+**표준 그룹 나머지 4개(branding/editorial/illustration/3d-tech)를 할 때:**
+- 같은 셸·좌측 메타·레이아웃 공식을 그대로 쓴다. 카테고리명·연도·설명·뒤로가기 텍스트만 바뀐다.
+- 우측 콘텐츠 블록은 **작업마다 완전히 다르다**(위 함정1처럼 이미지/영상에 다 들어있음).
+  각 작업을 stddata 로 실측해 풀폭 블록 순서·크기·텍스트 섹션 위치만 뜨면 된다.
+- see-more 는 인접작 2개 구조 재확인(overbloom 은 첫 작품이라 1개였다).
