@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="css/common.css">
   <link rel="stylesheet" href="css/index.css">
 </head>
-<body id="top">
+<body id="top" class="home-page">
 
   <!-- ===== Header ===== -->
   <header class="site-header">
@@ -45,6 +45,9 @@
   </div>
 
   <main class="page">
+
+   <!-- 스크롤 콘텐츠 레이어 — 고정 푸터 위를 덮으며 걷힌다 (다른 페이지와 동일) -->
+   <div class="reveal">
 
     <!-- ===== Hero ===== -->
     <section class="hero">
@@ -227,8 +230,13 @@
         </article>
 
       </div>
+    </div>
+   </div>
 
-      <!-- ===== Footer ===== -->
+   <!-- 스크롤 거리 확보 — 이 구간에서 고정 푸터가 드러난다 -->
+   <div class="page-spacer" aria-hidden="true"></div>
+
+   <!-- ===== Footer (고정 리빌 — 다른 페이지와 동일) ===== -->
       <footer class="footer" id="footer">
         <nav class="services" aria-label="Disciplines">
           <a href="works-motion.html"><sup>01</sup>Motion Design</a>
@@ -262,8 +270,6 @@
           <p class="credit">WEBSITE BY <a href="https://surd.studio/" target="_blank" rel="noopener">SURD.STUDIO</a></p>
         </div>
       </footer>
-
-    </div>
   </main>
 
   <!-- ===== Awwwards badge ===== -->

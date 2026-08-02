@@ -9,14 +9,23 @@ const b = await chromium.launch();
 const p = await (await b.newContext({ viewport: { width: 1440, height: 900 } })).newPage();
 await p.goto(`https://www.wildyriftian.com/works/${slug}`, { waitUntil: 'domcontentloaded', timeout: 60000 });
 await p.waitForTimeout(4500);
-await p.evaluate(async () => { for (let y=0;y<document.documentElement.scrollHeight;y+=400){window.scrollTo(0,y);await new Promise(r=>setTimeout(r,100));} window.scrollTo(0,document.documentElement.scrollHeight); await new Promise(r=>setTimeout(r,1500)); window.scrollTo(0,0); });
-await p.evaluate(async () => { const ok=()=>[...document.querySelectorAll('img')].filter(i=>/framerusercontent/.test(i.currentSrc||i.src)).every(i=>i.complete&&i.naturalWidth>0); for(let t=0;t<100&&!ok();t++) await new Promise(r=>setTimeout(r,100)); });
-await p.waitForTimeout(400);
+// 영상 lazy 로딩이 docH·블록 높이를 오염시킨다 → 여러 번 촘촘히 스크롤 + 바닥 3초 대기 + 폴링.
+await p.evaluate(async () => { for (let pass=0;pass<2;pass++){for (let y=0;y<document.documentElement.scrollHeight;y+=250){window.scrollTo(0,y);await new Promise(r=>setTimeout(r,90));}} window.scrollTo(0,document.documentElement.scrollHeight); await new Promise(r=>setTimeout(r,3000)); window.scrollTo(0,0); });
+await p.evaluate(async () => { const ok=()=>[...document.querySelectorAll('img')].filter(i=>/framerusercontent/.test(i.currentSrc||i.src)).every(i=>i.complete&&i.naturalWidth>0); for(let t=0;t<120&&!ok();t++) await new Promise(r=>setTimeout(r,100)); });
+await p.waitForTimeout(500);
 await p.evaluate(() => { try { window.lenis && window.lenis.destroy(); } catch (e) {} });
 
 const data = await p.evaluate(() => {
   const abs = (el) => { const r = el.getBoundingClientRect(); return { x: Math.round(r.x), y: Math.round(r.y+scrollY), w: Math.round(r.width), h: Math.round(r.height) }; };
-  const out = { docH: document.documentElement.scrollHeight, meta: {}, blocks: [], seemore: [] };
+  const out = { docH: document.documentElement.scrollHeight, meta: {}, blocks: [], seemore: [], hero: null };
+  // 히어로 영상 임베드(iframe: Vimeo/YouTube 등) — 우측 콘텐츠 최상단
+  for (const f of document.querySelectorAll('iframe')) {
+    const r = f.getBoundingClientRect();
+    if (r.width > 400 && r.x > 300 && (r.y + scrollY) < 900 && /vimeo|youtube|player/.test(f.src)) {
+      out.hero = { src: f.src, x: Math.round(r.x), y: Math.round(r.y + scrollY), w: Math.round(r.width), h: Math.round(r.height) };
+      break;
+    }
+  }
   // 좌측 메타
   const h1 = document.querySelector('h1');
   out.meta.title = h1 ? h1.textContent.trim() : null;

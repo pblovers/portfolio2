@@ -1,0 +1,292 @@
+{
+  "docH": 8151,
+  "meta": {
+    "title": null,
+    "lines": [
+      {
+        "y": 128,
+        "x": 32,
+        "txt": "DIPSCO Brand Identity",
+        "fs": "48px"
+      },
+      {
+        "y": 264,
+        "x": 32,
+        "txt": "Branding Works",
+        "fs": "14px"
+      },
+      {
+        "y": 288,
+        "x": 32,
+        "txt": "2022",
+        "fs": "14px"
+      },
+      {
+        "y": 336,
+        "x": 32,
+        "txt": "A branding project for a trendy hummus brand celebrated for its natural ingredients and bold retro-inspired design.",
+        "fs": "12px"
+      }
+    ]
+  },
+  "blocks": [
+    {
+      "t": "img",
+      "x": 448,
+      "y": 115,
+      "w": 546,
+      "h": 546,
+      "src": "https://framerusercontent.com/images/kdtaSoSqsA8c0LoPR41LBZhANd0.png?width=1200&height=1200"
+    },
+    {
+      "t": "img",
+      "x": 448,
+      "y": 115,
+      "w": 546,
+      "h": 546,
+      "src": "https://framerusercontent.com/images/GBw25Y7waKtBpPp2XCduaT1w.png?width=1200&height=1200"
+    },
+    {
+      "t": "img",
+      "x": 446,
+      "y": 115,
+      "w": 546,
+      "h": 546,
+      "src": "https://framerusercontent.com/images/KyoqSAiCkNLT4HUotbCnZyTLgro.png?width=1200&height=1200"
+    },
+    {
+      "t": "img",
+      "x": 446,
+      "y": 115,
+      "w": 546,
+      "h": 546,
+      "src": "https://framerusercontent.com/images/4cJcdjNdNSgkSBge2lq4THrz4.png?width=1200&height=1200"
+    },
+    {
+      "t": "img",
+      "x": 447,
+      "y": 116,
+      "w": 544,
+      "h": 544,
+      "src": "https://framerusercontent.com/images/fsrZLkxLD4fRbDoXCcY0l7KeyCY.png?width=1200&height=1200"
+    },
+    {
+      "t": "img",
+      "x": 450,
+      "y": 118,
+      "w": 540,
+      "h": 540,
+      "src": "https://framerusercontent.com/images/dwm3ehifOvGqOxQmDOF3Al7PuI.png?width=1200&height=1200"
+    },
+    {
+      "t": "img",
+      "x": 636,
+      "y": 128,
+      "w": 512,
+      "h": 293,
+      "src": "https://framerusercontent.com/images/5SzBn23usMQebx1ZQjb2p3QuBxs.webp?scale-down-to=512&width=2800&height=1600"
+    },
+    {
+      "t": "img",
+      "x": 376,
+      "y": 453,
+      "w": 1032,
+      "h": 590,
+      "src": "https://framerusercontent.com/images/iqQCNONKwH3xlHht2QtWaEKegc.webp?scale-down-to=2048&width=2800&height=1600"
+    },
+    {
+      "t": "img",
+      "x": 376,
+      "y": 1587,
+      "w": 1032,
+      "h": 590,
+      "src": "https://framerusercontent.com/images/aVT8mFTh6YQPGZajA5TZdhJPHXI.webp?scale-down-to=2048&width=2800&height=1600"
+    },
+    {
+      "t": "img",
+      "x": 376,
+      "y": 2208,
+      "w": 1032,
+      "h": 590,
+      "src": "https://framerusercontent.com/images/FTfSKigVIlVMBscRmVgtDjdbJ0.webp?scale-down-to=2048&width=2800&height=1600"
+    },
+    {
+      "t": "img",
+      "x": 636,
+      "y": 2830,
+      "w": 512,
+      "h": 293,
+      "src": "https://framerusercontent.com/images/F3nUfCYpQXE78TYVmveuMNL6SA.webp?scale-down-to=512&width=2800&height=1600"
+    },
+    {
+      "t": "img",
+      "x": 376,
+      "y": 3155,
+      "w": 1032,
+      "h": 590,
+      "src": "https://framerusercontent.com/images/y6NugRzaMCTERRT34bSTEYqtSw.webp?scale-down-to=2048&width=2800&height=1600"
+    },
+    {
+      "t": "img",
+      "x": 376,
+      "y": 3777,
+      "w": 1032,
+      "h": 590,
+      "src": "https://framerusercontent.com/images/EbKKeJb770RG9RCk2KZg51EV2U.webp?width=2000&height=1143"
+    },
+    {
+      "t": "img",
+      "x": 376,
+      "y": 4399,
+      "w": 1032,
+      "h": 590,
+      "src": "https://framerusercontent.com/images/0GY4Z3nY3PZIkDsirq94ypBskI.webp?scale-down-to=2048&width=2800&height=1600"
+    },
+    {
+      "t": "img",
+      "x": 376,
+      "y": 5020,
+      "w": 1032,
+      "h": 590,
+      "src": "https://framerusercontent.com/images/gpwA68kK4JTtTvtWIlt7Kyl2hw.webp?scale-down-to=2048&width=2800&height=1600"
+    },
+    {
+      "t": "img",
+      "x": 376,
+      "y": 5642,
+      "w": 1032,
+      "h": 590,
+      "src": "https://framerusercontent.com/images/jgOtQBexuweaxLSCldfQK1s8uqs.webp?scale-down-to=2048&width=2800&height=1600"
+    },
+    {
+      "t": "img",
+      "x": 376,
+      "y": 6264,
+      "w": 1032,
+      "h": 396,
+      "src": "https://framerusercontent.com/images/kXjrz6Ap46fs0V0FGqfuI2iLpBY.webp?width=2000&height=767"
+    }
+  ],
+  "seemore": [
+    {
+      "slug": "comotion-2025-branding",
+      "y": 6741,
+      "x": 32,
+      "w": 672,
+      "h": 504
+    },
+    {
+      "slug": "scad-startup-2026-motion",
+      "y": 6741,
+      "x": 736,
+      "w": 672,
+      "h": 504
+    }
+  ],
+  "rtext": [
+    {
+      "y": 711,
+      "x": 376,
+      "w": 76,
+      "txt": "INSTAGRAM",
+      "fs": "14px"
+    },
+    {
+      "y": 711,
+      "x": 376,
+      "w": 76,
+      "txt": "INSTAGRAM",
+      "fs": "14px"
+    },
+    {
+      "y": 711,
+      "x": 720,
+      "w": 67,
+      "txt": "LINKEDIN",
+      "fs": "14px"
+    },
+    {
+      "y": 711,
+      "x": 720,
+      "w": 67,
+      "txt": "LINKEDIN",
+      "fs": "14px"
+    },
+    {
+      "y": 711,
+      "x": 1064,
+      "w": 50,
+      "txt": "RESUME",
+      "fs": "14px"
+    },
+    {
+      "y": 711,
+      "x": 1064,
+      "w": 50,
+      "txt": "RESUME",
+      "fs": "14px"
+    },
+    {
+      "y": 860,
+      "x": 1064,
+      "w": 84,
+      "txt": "WEBSITE BY",
+      "fs": "14px"
+    },
+    {
+      "y": 860,
+      "x": 1156,
+      "w": 92,
+      "txt": "SURD.STUDIO",
+      "fs": "14px"
+    },
+    {
+      "y": 860,
+      "x": 1156,
+      "w": 92,
+      "txt": "SURD.STUDIO",
+      "fs": "14px"
+    },
+    {
+      "y": 1075,
+      "x": 720,
+      "w": 688,
+      "txt": "Dipsco, the trendy hummus sensation founded in 2022, prides itself on crafting homemade goodness.",
+      "fs": "24px"
+    },
+    {
+      "y": 1171,
+      "x": 720,
+      "w": 688,
+      "txt": "Made from 100% natural ingredients and without any artificial preservatives, Dipsco's hummus offers a pure and flavorful indulgence that stands out in the crowded market.",
+      "fs": "24px"
+    },
+    {
+      "y": 1299,
+      "x": 720,
+      "w": 688,
+      "txt": "This branding style draws heavy inspiration from vintage retro illustrations, perfectly complementing the brand's trendy, youthful, and approachable vibe.",
+      "fs": "24px"
+    }
+  ],
+  "smText": [
+    {
+      "y": 6779,
+      "x": 32,
+      "txt": "see more.",
+      "fs": "48px"
+    },
+    {
+      "y": 7135,
+      "x": 32,
+      "txt": "CoMotion 2025 Branding",
+      "fs": "28px"
+    },
+    {
+      "y": 7135,
+      "x": 736,
+      "txt": "SCAD StartUp 2026 - Design for Human Connection",
+      "fs": "28px"
+    }
+  ]
+}

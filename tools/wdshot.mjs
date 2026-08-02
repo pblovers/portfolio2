@@ -1,0 +1,21 @@
+// 상세 페이지 스크롤 전/후 스크린샷 — back(SEE ALL … WORKS)이 스크롤해도 제자리인지 눈으로 확인.
+import { chromium } from 'playwright';
+import { mine } from './root.mjs';
+import { join } from 'node:path';
+import { ROOT } from './root.mjs';
+const b = await chromium.launch();
+const file = process.argv[2] || 'work-overbloom.html';
+const outDir = join(ROOT, 'tools', 'diff');
+const ctx = await b.newContext({ viewport:{width:1440,height:900} });
+const p = await ctx.newPage();
+await p.goto(mine(file), { waitUntil:'domcontentloaded', timeout:60000 });
+await p.waitForTimeout(1200);
+await p.evaluate(()=>{ try{ if(window.WR&&WR.lenis){ WR.lenis.destroy(); WR.lenis=null; } }catch(e){} });
+await p.evaluate(()=>{ document.documentElement.style.scrollBehavior='auto'; document.scrollingElement.scrollTop=0; });
+await p.waitForTimeout(400);
+await p.screenshot({ path: join(outDir, 'wd-top.png') });
+await p.evaluate(()=>{ document.scrollingElement.scrollTop = 900; });
+await p.waitForTimeout(600);
+await p.screenshot({ path: join(outDir, 'wd-scrolled.png') });
+console.log('saved diff/wd-top.png and diff/wd-scrolled.png');
+await b.close();

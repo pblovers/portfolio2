@@ -61,6 +61,20 @@
 /* ---------- Reset ---------- */
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
+
+/* ---------- Lenis 필수 CSS (없으면 프로그램 스크롤·앵커에서 네이티브 스무스와 충돌) ----------
+   Lenis 가 활성화되면 <html> 에 `lenis` 클래스가 붙는다(원본은 `lenis-smooth` 도
+   붙지만 우리 빌드는 `lenis` 만). 이때 네이티브 scroll-behavior:smooth 가 켜져 있으면
+   앵커/프로그램 스크롤이 Lenis 와 충돌하므로 auto 로 강제 해제한다(원본도 활성 시 auto).
+   Lenis 공식 권장 스타일. reduced-motion(Lenis 미활성)일 땐 위 html 의 smooth 가 유지. */
+.lenis, .lenis body { height: auto; }
+/* 우리 Lenis 빌드는 html 에 `lenis` 클래스만 붙는다(`lenis-smooth` 없음) →
+   `.lenis` 로 확실히 잡아 네이티브 스무스를 끈다. */
+html.lenis,
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: hidden; }
+.lenis iframe { pointer-events: none; }
 body {
   background: var(--body-bg);
   color: var(--light);
@@ -68,7 +82,11 @@ body {
   font-size: 14px;
   line-height: 24px;
   -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
+  /* clip 은 가로 오버플로를 막되 body 를 스크롤 컨테이너로 만들지 않는다.
+     hidden 이면 overflow-y 가 auto 로 강제돼 body 가 스크롤 컨테이너가 되고,
+     고정 푸터가 있는 페이지에서 컴포지터 스크롤 대신 메인스레드 스크롤을
+     유발해 끊긴다(원본 body 는 overflow:visible). clip 은 이 페널티가 없다. */
+  overflow-x: clip;
 }
 img { display: block; max-width: 100%; }
 a { color: inherit; text-decoration: none; }

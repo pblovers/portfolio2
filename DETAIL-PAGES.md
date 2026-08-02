@@ -12,34 +12,184 @@
 
 ## 0. 지금 상태 (미커밋, 2026-07-24 갱신)
 
-**두 템플릿의 대표 1개씩 완성.** 원본과 픽셀 대조 완료.
+**6개 카테고리 전부 대표 상세 1개씩 완성** (템플릿 A 1 + 템플릿 B 5). 전부 원본과 docH 픽셀 일치.
 
 ```
-work-flat-earther.html       템플릿 A(photoworks) 대표 — 완성 (docH 4508 원본 일치)
-work-overbloom.html          템플릿 B(표준=motion 등) 대표 — 완성 (docH 8661 원본 일치)
-css/work-detail.css          A 셸 + photoworks 갤러리 CSS
-css/work-detail-std.css      B 레이아웃 CSS (A 셸 재사용)
-js/work-detail.js            masonry 분배 (round-robin + data-col, 3절·4절)
-images/works/flat-earther-*  12장
-images/works/overbloom-*     이미지 5장 (webp/png)
-videos/works/overbloom-*     Dropbox 영상 5개 (mp4)
-tools/pw*.mjs, std*.mjs, ob*.mjs, wdqa.mjs   조사·생성·대조 파이프라인
-tools/pwdata.json            photoworks 18개 원본 데이터(대표만 남겼어도 재생성용으로 보존)
+work-flat-earther.html                            템플릿 A(photoworks)  docH 4508 ✓
+work-overbloom.html                               템플릿 B / motion      docH 8661 ✓
+work-dipsco-brand-identity.html                   템플릿 B / branding    docH 8151 ✓
+work-wldr-a-photo-archive-photobook.html          템플릿 B / editorial   docH 12006 ✓
+work-a-trip-for-a-better-earth-...-book.html      템플릿 B / illustration docH 11692 ✓
+work-venturi-3d-sneaker-product-visualization.html 템플릿 B / 3d-tech     docH 9900 ✓ (YouTube 히어로)
+
+css/work-detail.css       A 셸(헤더반전·흰커버리빌·고정푸터·wd-back·wd-seemore) + photoworks 갤러리
+css/work-detail-std.css   B 레이아웃 (A 셸 재사용). 좌 sticky 메타 + 우 콘텐츠 블록. std-center 변형.
+js/work-detail.js         photoworks masonry (round-robin + data-col, 4절)
+images/works/, videos/works/   각 상세의 이미지·영상
+tools/pw*.mjs             photoworks 파이프라인 (pwscrape/pwgen/pwcmp/pwinspect/pwdom)
+tools/std*.mjs, stdgen.mjs, ob*.mjs   표준(B) 파이프라인 (아래 5절)
+tools/wdqa.mjs            상세 QA (가로스크롤·깨짐·콘솔, 8폭)
+tools/pwdata.json, stddata-*.json     원본 실측 데이터(재생성용 보존)
 ```
 
-카드 링크: `works-photoworks.html` 카드1 → work-flat-earther.html (나머지 17개 #photoworks),
-`works-motion.html` 카드1 → work-overbloom.html (나머지 2개 #works-motion).
+**카드 링크**: 각 카테고리 페이지의 **첫 작품 행/카드만** 상세로 연결됨, 나머지는 자리표시자.
+- works-photoworks.html 카드1 → flat-earther, works-motion.html 카드1 → overbloom
+- works-branding/editorial/illustration/3d-tech.html 첫 cat-row → 각 대표
 
 > **한 번 만들었다가 대표만 남긴 이유**: photoworks 18개를 전부 만들었으나, 사용자가
-> "카테고리마다 틀 하나씩"을 원해서 대표 1개(flat-earther)만 남기고 정리했다.
-> 나머지 17개는 `node tools/pwgen.mjs` 로 즉시 재생성된다(데이터·이미지 URL 이 pwdata.json 에 있음).
+> "카테고리마다 하나씩"을 원해서 대표 1개(flat-earther)만 남기고 정리했다.
+> 나머지 17개는 `node tools/pwgen.mjs` 로 즉시 재생성된다(데이터가 pwdata.json 에 있음).
 
-**⚠️ 미완 링크 2개** (원본에 충실한 타깃이나 형제 상세가 아직 없음 → 404):
-- work-flat-earther.html see-more → `work-a-deeper-dreamscape.html` (미제작)
-- work-overbloom.html see-more → `work-in-between-ending-credits.html` (미제작)
-데모용으로 카테고리 페이지로 돌리거나, 형제 상세를 만들면 해소된다.
+**⚠️ 미완 see-more 링크** (전부 원본에 충실한 타깃이나 형제 상세가 아직 없음 → 404):
+각 대표의 see-more 는 원본대로 이웃 작품 `work-<slug>.html` 을 가리키는데 그 상세들은 아직 없다.
+(flat-earther→a-deeper, overbloom→in-between, dipsco→comotion·scad, wldr→hues·trybreathing,
+a-trip→flavors·earthbound, venturi→hong-kong.) 형제 상세를 만들거나 카테고리 페이지로 돌리면 해소.
 
 **주의 — 올리기 전 저장소가 Private 인지 확인.** 원작자 이미지·영상이 계속 늘어난다.
+
+---
+
+## 0-B. 스크롤 버벅임·back 고정 수정 (2026-08-01)
+
+사용자 지적 두 가지를 원본 실측으로 바로잡았다. **원본 대조 근거 있음.**
+
+### (000) 메인홈(index) 모바일 featured-works 이미지 크기가 원본과 달랐다 (2026-08-02)
+사용자 지적: "메인홈 모바일 레이아웃이 원본과 다르다." 원본 대조(Playwright 375·430 캡처+실측):
+- **hero·about 티켓은 원본과 일치.** 차이는 **featured works(3개) 이미지 크기**였다.
+- 원본 featured 이미지 윈도우는 **폭 구간별로 다르다**(단일 aspect 불가). 실측:
+  - 375: work1 343×236 / work2·3 343×320~284  → 데스크 설명 offset work1 tab+468, work2·3 +516
+  - 430: work1 398×380 / work2 398×440 / work3 398×428 → 설명 offset 612/636/660
+- 우리(전): `@media(max-width:600px)` 하나로 430값(398/380 등)만 둬서 **375 에서 이미지가 너무 컸다**
+  (327/379/369). 게다가 `.work-content padding-top:192` 라 **콘텐츠 전체가 원본보다 24px 아래**
+  (title offset 72 vs 원본 48)였다.
+- 수정(`css/index.css`):
+  1. `.work-content` padding-top **192→168** (title 을 tab+48 로, 원본과 일치. 24px 위로).
+  2. featured 이미지 비율을 **두 브레이크포인트**로:
+     `@media(max-width:600px)` = 398/380·398/440·398/428 (≈430),
+     `@media(max-width:400px)` = 343/236·343/320·343/284 (375).
+- 검증: 설명 offset 이 **375·430 전부 원본과 Δ=1px** (work1/2/3). 탭 겹침 없음.
+  스크린샷(mc-*) 상 콜라주 이미지 크롭·높이가 원본과 일치. `tools/mcompare.mjs <W> <H>` 로 재비교 가능.
+- (주의) 600~809 구간(태블릿 폭) featured 이미지는 이번에 안 건드림 — 필요 시 같은 방식으로 실측·보정.
+
+### (000000) 메인홈 featured-works(폴더탭) — 이미지 높이·스크롤 인터랙션 원본 일치 (2026-08-02, 최종)
+사용자: 폴더탭(featured works) 웹/태블릿/모바일 이미지 크기가 원본과 다르고 스크롤 인터랙션(탭 스택)도 다름.
+**핵심(마침내 규명)**: 원본 featured 이미지 높이 = **`calc(100vh - 450px)`** (뷰포트 높이에 비례).
+실측: 615×816→이미지 369, 768×1024→572. 즉 원본은 이미지를 뷰포트에 맞춰 **콘텐츠(고정 ~450 + 이미지)가
+정확히 100vh** 가 되게 한다 → `.work{height:100vh}` **sticky 스택(폴더탭 누적)** 을 유지하면서도 설명이 안 잘린다.
+- 그간의 삽질: 세로비율(폭비례로 부풀어 잘림) → 고정캡(너무 작음) → flow(스택 인터랙션 깨짐) → **calc(100vh-450) 정답**.
+- 최종(`css/index.css` ≤809): `.work` base(sticky 100vh) 유지, `.work-content{absolute;inset:0}`,
+  `.wm-main{ height: calc(100vh - 450px); object-fit:cover }`. 폰 ≤460 은 원본 세로비율(398/380 등) 유지.
+- 검증: 이미지 375=236(포트레이트)/615=366/768=574 로 원본과 일치. **탭 스택 sticky=true(375·615·768 모두
+  tab 144 고정) — 원본과 동일**. 설명 전 폭에서 완전 표시. mobqa 104조합 0. docH 문서값 유지.
+
+### (00000) 메인홈(index) featured-works 중간폭 설명 잘림 (2026-08-02)
+사용자 지적(스크린샷): 폴더탭(featured works) 설명이 잘리고 다음 섹션과 겹침. 창 폭 ~590-615px.
+- 원인: featured 이미지 `@media(max-width:600px)` 세로비율(398/440 등)이 **폭에 비례해 부풀어**,
+  590px 에서 work2 이미지가 617px 까지 커짐 → `.work{height:100vh}` sticky 안에서 설명이 넘쳐 잘림
+  (600 경계에서 459→617 급점프). 원본은 이 구간 이미지 높이가 ~고정(desc offset 728→752 거의 불변).
+- 수정(`css/index.css`):
+  1. `@media(max-width:600px)` → **`@media(max-width:460px)`** 로 축소 + `.wm-main{height:auto}`
+     (세로비율은 폰 375·430 에만 적용).
+  2. `@media(max-width:809.98px) .wm-main` 을 aspect 대신 **`height: min(500px, calc(100vh - 440px))`**
+     + object-fit:cover 로. 폭에 안 커지고 뷰포트 높이에 캡 → 짧은 창에서도 설명이 절대 안 잘림.
+     (440 = work1 제목 2줄 최악 케이스 여유).
+- 검증: desc offset 500~768 에서 697 로 일정(부풀림 제거). 짧은 뷰포트(780·800·816·820)에서
+  work1/2/3 설명 전부 뷰포트 내 표시. 폰 375/430 Δ1px 유지. 이미지 정상 렌더(빈 화면은 `.appear`
+  페이드가 rapid-scroll 캡처에서 미발동한 하네스 아티팩트). mobqa 104조합 0.
+  (트레이드오프: 짧은 창에선 이미지가 원본보다 다소 짧아질 수 있으나 "설명 안 잘림"을 우선.)
+
+### (0000) 메인홈(index) 섹션별 순차 QA — Header→Footer 원본 대조 (2026-08-02)
+사용자 지시로 index 를 섹션 순서대로 원본과 실측 대조. 결과:
+- **1 Header/Nav** ✅ nav x32/376/720/1064 y16, 로고 x16·MENU x325(375), 14px JetBrains Mono, 색 일치.
+- **2 Hero** ✅ (**1건 수정**) left/right 문구·키체인(80vh=720, 중심 y90) 일치. **SCROLL DOWN 이 +8/+16px
+  아래였음 → `.scroll-down bottom` 20→28(데스크톱)/60→76(≤809). 이제 1440·375 텍스트 하단여백 52/100 정확 일치.**
+- **3 About 티켓** ✅ 좌 사진/우 About 2단·구분선·펀치홀·제목·사이클 커서·설명·좌표 일치(데스크톱·모바일).
+- **4 Featured Works** ✅ 데스크톱 이미지 위치·크기(사이드 344×274, wm-main 656)·상대간격·탭스택·chips 일치.
+  모바일은 (000)에서 Δ1px 로 수정 완료. (제목 폭 688 vs 720 은 체험판 폰트 메트릭 차이, 줄바꿈 동일.)
+- **6 Footer** ✅ EMAIL/RESUME/wordmark(1376×108)/copyright/services x 위치 데스크톱 정확 일치, 모바일도 일치.
+  (`.credit a` 는 inline 이라 rect h18 로 잡히나 텍스트 baseline 은 원본 h24 와 동일 — 비가시 차이.)
+- **7 반응형/10 QA**: `mobqa.mjs` 104조합(8p×13vp) 문제 0(가로스크롤·깨짐·콘솔·메뉴). 375·430·768·1024·1440 대조.
+- 원본이 Framer 라 hidden SSR 폴백(12px sans-serif blue)이 셀렉터에 잡히는 함정 있음 — 실측 시 폰트/가시성 필터 필요.
+
+### (00) 메인홈(index) 푸터가 일반 스크롤이었다 → 고정 리빌로 통일 (2026-08-01)
+사용자 지적: "푸터가 나타날 때 다른 페이지는 리빌인데 메인홈만 일반 스크롤. 동일하게, 푸터가
+자꾸 달라지지 않게." 원본 대조 결과 **원본 홈도 고정 푸터 리빌**(servicesY 24 고정,
+hero 가 마지막 ~900px 에서 -900 으로 걷힘)인데 **우리 index 만 푸터가 일반 흐름**이었다
+(`<body>` 에 페이지 클래스·spacer 없음 → common.css `.footer{position:relative}` 그대로 스크롤).
+
+원인 구조: 우리 index 는 `.hero`(sticky) + `.work`(sticky) **스택**이고 `.page-content{z-index:2}`
+가 hero 위를 덮는다. hero 의 sticky 컨테이너가 `.page`(전체 5480) 라 **끝까지 y0 고정**돼
+푸터가 드러날 자리가 없었다.
+
+수정(**index 전용**, 다른 페이지 셸은 그대로):
+- `index.html`: 스크롤 콘텐츠(hero+page-content)를 **`.reveal` 래퍼**로 감싸고, `footer` 를
+  `.reveal` 밖으로 빼고, 그 사이에 `.page-spacer`(100vh) 추가. `<body class="home-page">`.
+- `index.css`: `body.home-page{background:var(--footer-bg)}` / `.reveal{position:relative;z-index:1}`
+  / `.home-page .footer{position:fixed;inset:0;z-index:0;height:100vh}` / `.page-spacer{height:100vh}`.
+- 효과: hero 의 sticky 컨테이너가 `.reveal`(=콘텐츠 4580) 이 돼 **콘텐츠 끝(sy 3680)에서 해제**,
+  마지막 900px 에서 hero 가 걷히고 spacer 구간에서 fixed 푸터가 드러난다 → 원본과 동일.
+- 검증: docH 5480·maxY 4580 **불변**. servicesY 데스크톱 24 / 모바일·태블릿 8 로 **전 스크롤 고정**.
+  스크린샷: 상단(hero)·중단(featured works)·리빌 전환·하단(푸터 완전 리빌) 모두 정상,
+  1440·768·375 가로스크롤 0. sy 0~3680 구간은 이전과 픽셀 동일(hero 여전히 y0 고정).
+
+### (0) 전역 스크롤 끊김 — Lenis 설정·body overflow 가 원본과 달랐다 (모든 페이지)
+사용자가 "스크롤이 모든 페이지에서 뚝뚝 끊긴다"고 재지적. 원본 대조로 **전역 원인 3가지**를 찾음
+(common.css/js 라 index·works·상세 전부에 적용). 원본 실측값과 나란히:
+
+| 속성 | 원본 | 우리(전) | 수정 |
+|---|---|---|---|
+| body overflow | `visible/visible` | `hidden`→computed `hidden/auto` | **`overflow-x: clip`** (→ `clip/visible`) |
+| html scroll-behavior | `auto` | `smooth` | Lenis 활성 시 `auto` 로 (아래 CSS) |
+| Lenis 필수 CSS | 있음(`lenis-smooth`) | **없음** | 공식 CSS 추가 |
+
+- **`body{overflow-x:hidden}`** 이 제일 컸다. hidden 은 `overflow-y` 를 auto 로 강제해 **body 가
+  스크롤 컨테이너**가 되고, 고정 푸터가 있는 페이지에서 컴포지터(GPU) 스크롤 대신 **메인스레드
+  스크롤**을 유발 → 끊김. `overflow-x: clip` 은 가로 오버플로는 그대로 막되 스크롤 컨테이너를
+  안 만든다(→ `clip/visible`, 원본의 visible 과 동일하게 body 가 스크롤러가 아님). Lenis 는
+  `rootElement.scrollTop` 에 쓰므로 스크롤러가 html 이어야 매끄럽다.
+- **Lenis 필수 CSS 누락**. `common.css` 에 `html { scroll-behavior: smooth }` 만 있고 Lenis
+  권장 CSS 가 없었다. Lenis 활성 시 `<html>` 에 `lenis` 클래스가 붙는다(우리 빌드는
+  `lenis-smooth` 는 안 붙음) → `html.lenis { scroll-behavior:auto !important }` + `.lenis iframe
+  { pointer-events:none }`(hero 영상 위에서 휠이 iframe 에 갇혀 멈칫하는 것 방지) 등 추가.
+- **이미지 동기 디코딩**. 대형 원본이 스크롤 중 뷰포트에 들어올 때 메인스레드 디코딩으로 프레임
+  드랍 → `common.js` 가 모든 `img` 에 `decoding="async"` 부여.
+- 검증: `mobqa.mjs` 104조합 무회귀(가로스크롤·깨짐·오류 0). computed 확인: 3페이지 전부
+  `body=clip/visible, scroller=HTML, scroll-behavior=auto`(원본과 동일 상태).
+  **주의 — 이 환경은 headed(디스플레이) Playwright 가 안 떠 FPS 직접 측정은 못 했다.**
+  구조 속성을 원본과 일치시키는 방식으로 맞췄다. 실제 체감은 사용자 브라우저에서 확인 필요.
+
+### (1) 스크롤 버벅임 — 영상이 화면 밖에서도 전부 autoplay 였다
+- **원본**: 상세의 `<video>` 는 `preload="none"` 이고 **뷰포트에 들어올 때만 재생**된다
+  (measured: overbloom 영상 5개 전부 `paused=true, readyState=0` at top).
+- **우리(전)**: 5개 전부 `autoplay loop muted` → 동시 디코딩으로 스크롤이 버벅였다.
+- **수정**: HTML 영상에서 `autoplay` 제거 + `preload="none"`. `common.js` 에
+  IntersectionObserver(`.wd-page .std-content video`, rootMargin 200px)로 **보이는 것만
+  재생, 벗어나면 pause**. 로컬 영상은 overbloom(motion)만 있다(다른 B 는 이미지/임베드).
+  `stdgen.mjs` 영상 템플릿도 갱신.
+
+### (2) "SEE ALL … WORKS" back 이 스크롤하면 사라졌다 (템플릿 B)
+- **원본**: 템플릿 B 는 **back 을 포함한 좌측 컬럼 전체가 sticky**(framer 컨테이너
+  `position:sticky; top:0`). back 은 x32 **y80 에 고정**, 제목 y128, hero y128.
+  스크롤해도 back·제목·메타가 안 움직인다(measured: scrollY 0/400/1200 전부 backY 80).
+  **태블릿·모바일(≤1279)은 sticky 아님** — back 이 함께 스크롤(원본 실측 768: backY 80→-820).
+- **템플릿 A(flat-earther/photoworks)는 원본도 back 이 스크롤과 함께 사라진다** → 그대로 둠.
+- **수정**(work-detail-std.css + 5개 B HTML): `.wd-back` 을 `.std-meta`(sticky) **안으로**
+  옮기고 `position:absolute; top:-48px`(메타 top 128 - 48 = **y80**)로 흐름에서 빼
+  제목이 컬럼 top(y128)에 놓이게 했다. `.std-layout` 은 `padding-top:128px`
+  (**margin 이면 부모 `.wd-scroll` 과 상쇄돼 흰 커버가 y128 부터 시작→상단 128px 에
+  고정 푸터가 비친다**; padding 은 상쇄 안 됨 — 스크린샷으로 잡아낸 함정). ≤1279 에선
+  back 을 `position:static` 으로 되돌려 원본처럼 스크롤되게 한다.
+- **검증**: docH 전부 이전과 동일(1440 overbloom **8661** 유지, 8폭 가로스크롤·깨짐 0).
+  `wdscroll.mjs` 로 데스크톱 back y80 고정(hero 가 -772 로 밀려도)·모바일 스크롤·영상
+  lazy 재생 확인. 스크린샷(top vs scrolled)으로 좌측 컬럼 정지·상단 갭 없음 눈으로 확인.
+  콘솔 오류는 Vimeo 401/유튜브 compute-pressure(임베드 기존 사항)뿐.
+
+### 새 QA 도구
+```bash
+cd tools
+node wdscroll.mjs work-<slug>.html   # back sticky(스크롤해도 y80) + 영상 lazy 재생 + 가로스크롤/오류
+node wdshot.mjs   work-<slug>.html   # 스크롤 전/후 스크린샷 (diff/wd-top.png, diff/wd-scrolled.png)
+```
 
 ---
 
@@ -236,8 +386,10 @@ masonry 비율이 맞는다 (js/work-detail.js 가 이 비율로 짧은 열 우�
   원본 실측 후, **대표 1개(flat-earther)만 유지**하기로 결정(2026-07-24). 나머지 17개는
   `pwgen.mjs` 로 언제든 재생성(데이터는 `tools/pwdata.json` 에 18개 전부 보존).
 - [x] photoworks 카드 링크 — flat-earther 만 work-flat-earther.html, 나머지 17개는 #photoworks 자리표시자
-- [x] **템플릿 B(표준 그룹) — motion(overbloom) 1개 완료** (2026-07-24). docH·블록 전부 원본 일치.
-- [ ] 표준 그룹 나머지 (원할 때 카테고리별 대표 또는 전체) — **다음 작업**
+- [x] **템플릿 B(표준 그룹) — 5개 카테고리 대표 전부 완료** (2026-07-24). docH 전부 원본 일치.
+  overbloom(motion) · dipsco(branding) · wldr(editorial) · a-trip(illustration) · venturi(3d-tech).
+  `stdgen.mjs` 파이프라인으로 생성. 각 카테고리 첫 cat-row/카드 링크 연결.
+- [ ] (선택) 표준 그룹 나머지 14개, photoworks 17개(pwgen), 미완 see-more 형제 상세.
 
 ### 템플릿 B: 표준 그룹 상세 (works/overbloom) — ✅ 완료
 파일: `work-overbloom.html` / `css/work-detail-std.css` (work-detail.css 셸 재사용).
@@ -270,11 +422,32 @@ works-motion.html 카드 01 → work-overbloom.html 연결.
    full Chromium 디코드 정상). 이미지 5개는 `images/works/overbloom-0N.webp|png`.
 5. 텍스트 섹션 문단이 **2개**다(긴 것 + 짧은 것). 첫 문단(224px)을 놓치면 이후 전부 255px 밀린다.
 
-**조사·대조 도구:** `tools/stdinspect.mjs` `stdmedia.mjs` `stddata.mjs`(원본 구조),
-`obfetch.mjs`(미디어 다운로드), `obcmp.mjs`(블록 대조), `wdqa.mjs`(QA).
+### 표준 그룹 5개 카테고리 대표 — ✅ 전부 완료 (stdgen 파이프라인)
 
-**표준 그룹 나머지 4개(branding/editorial/illustration/3d-tech)를 할 때:**
-- 같은 셸·좌측 메타·레이아웃 공식을 그대로 쓴다. 카테고리명·연도·설명·뒤로가기 텍스트만 바뀐다.
-- 우측 콘텐츠 블록은 **작업마다 완전히 다르다**(위 함정1처럼 이미지/영상에 다 들어있음).
-  각 작업을 stddata 로 실측해 풀폭 블록 순서·크기·텍스트 섹션 위치만 뜨면 된다.
-- see-more 는 인접작 2개 구조 재확인(overbloom 은 첫 작품이라 1개였다).
+overbloom(motion, 손빌드) 로 셸을 확립한 뒤, 나머지 4개는 **`stdgen.mjs` 로 반자동 생성**했다.
+전부 원본과 docH 픽셀 일치: dipsco 8151 / wldr 12006 / a-trip 11692 / venturi 9900.
+
+```bash
+cd tools
+node stddata.mjs <slug>   # 원본 실측 → stddata-<slug>.json (히어로·블록URL·기하·좌측메타·rtext)
+# stdgen.mjs 의 CONFIG[<slug>] 에 메타·문단·크레딧·see-more 를 손으로 채운다
+#   (제목·카테고리·연도·설명·문단은 원본 innerText 로 확인. 긴 문단은 stddata 가 놓치니 innerText 필수)
+node stdgen.mjs <slug>    # 미디어 다운로드 + work-<slug>.html 생성
+node wdqa.mjs work-<slug>.html   # QA
+```
+
+**stdgen 이 자동 처리하는 것:**
+- 콘텐츠 블록 = stddata.blocks 에서 **메뉴 썸네일 6개(MENU_IDS) 제외**, x376(풀폭)/x636(중앙) 판별.
+- 중앙 축소 블록(dipsco 512폭 등) → `.std-center` + `--w:폭%`.
+- 히어로 임베드(Vimeo/YouTube) → `stddata.hero` 자동 사용(venturi=YouTube, overbloom=Vimeo).
+- **텍스트 섹션 위치 = 블록 사이 첫 큰 간격(>150px)** 뒤. (스크랩 텍스트 y 는 긴 문단을 놓쳐 못 씀.)
+- 텍스트 섹션 = 문단(24/32 serif) + 크레딧(12/24 mono). 둘 다 없으면 생략(wldr 은 문단만, venturi 는 둘 다).
+
+**함정(표준 그룹 공통):**
+1. 위 overbloom 함정 1~5 동일 (그리드/무드보드 등은 이미지 안, 영상 lazy 로딩, 히어로 임베드 등).
+2. **긴 문단(>200자)을 stddata rtext 가 버린다.** 반드시 원본 `document.body.innerText` 로 문단 전문 확인.
+   (venturi 는 문단 2개, wldr·a-trip 은 3개인데 stddata 는 0~1개만 잡았다.)
+3. 좌측 메타 세로 리듬은 제목 줄수에 따라 자동(제목 아래 24 → 카테고리, +줄, 연도, +24 → 설명).
+   CSS margin 이 처리하므로 제목이 여러 줄 wrap 해도 맞는다(venturi 4줄, dipsco 2줄).
+4. see-more 는 인접작(다음/이전) 1~2개. 프리뷰는 대상작의 카테고리 썸네일(`images/<cat>-NN-*.jpg`) 재사용.
+5. venturi 크레딧은 원본이 대문자 렌더인데 config 는 title-case 로 뒀다(사소한 차이, 원하면 대문자로).

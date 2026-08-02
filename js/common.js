@@ -20,6 +20,34 @@
     WR.lenis = lenis;
   }
 
+  /* ---------- 이미지 디코딩을 메인스레드에서 분리 ----------
+     대형 원본 이미지가 스크롤 중 뷰포트에 들어올 때 동기 디코딩되면 그 프레임이
+     끊긴다(뚝뚝). decoding=async 로 디코딩을 메인스레드에서 빼 스크롤을 매끄럽게 한다. */
+  document.querySelectorAll('img').forEach(function (img) {
+    if (!img.getAttribute('decoding')) img.decoding = 'async';
+  });
+
+  /* ---------- Detail page: 뷰포트 안에서만 영상 재생 ----------
+     원본 상세(works/overbloom 등)의 영상은 preload="none" 이고 뷰포트에
+     들어올 때만 재생된다. 우리는 5개 영상을 전부 autoplay 로 동시에 재생해
+     스크롤이 버벅였다. IntersectionObserver 로 화면에 보이는 것만 재생하고
+     벗어나면 멈춰 동시 디코딩 부하를 없앤다. */
+  var detailVideos = document.querySelectorAll('.wd-page .std-content video');
+  if (detailVideos.length && 'IntersectionObserver' in window) {
+    var vio = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        var v = en.target;
+        if (en.isIntersecting) {
+          var p = v.play();
+          if (p && p.catch) p.catch(function () {});
+        } else {
+          v.pause();
+        }
+      });
+    }, { rootMargin: '200px 0px' });
+    detailVideos.forEach(function (v) { vio.observe(v); });
+  }
+
   /* ---------- Menu overlay ---------- */
   var overlay = document.getElementById('menuOverlay');
   var menuBtn = document.querySelector('.menu-btn');

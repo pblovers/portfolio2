@@ -5,6 +5,18 @@
    ============================================================ */
 
 /* ============================================================
+   고정 푸터 리빌 (works·상세 등 다른 페이지와 동일한 스크롤 방식)
+   원본 홈: 스크롤 끝 ~900px 에서 hero 가 걷히고 고정 푸터(servicesY 24 고정)가 드러난다.
+   .reveal 이 스크롤되는 콘텐츠 레이어(z1), 그 안에서 hero(sticky z1)·page-content(z2).
+   hero 의 sticky 컨테이너가 .reveal(=콘텐츠 높이)이라 콘텐츠 끝에서 해제돼 걷힌다.
+   footer 는 fixed(z0) 로 뒤에 깔리고, .page-spacer(100vh) 가 리빌 스크롤 거리를 준다.
+   ============================================================ */
+body.home-page { background: var(--footer-bg); }
+.reveal { position: relative; z-index: 1; }
+.home-page .footer { position: fixed; inset: 0; z-index: 0; height: 100vh; }
+.page-spacer { position: relative; z-index: 1; height: 100vh; pointer-events: none; }
+
+/* ============================================================
    Hero
    ============================================================ */
 .hero {
@@ -30,7 +42,7 @@
 .scroll-down {
   position: absolute;
   left: 50%;
-  bottom: 20px;
+  bottom: 28px;                 /* 원본: SCROLL DOWN 텍스트 하단여백 52 (기존 20 은 +8 낮았다) */
   transform: translateX(-50%);
   text-align: center;
   font-size: 14px;
@@ -520,7 +532,7 @@
   .hero-right { top: 120px; }
   /* scoped to .hero so the footer keychain keeps its own size */
   .hero .keychain { width: 60vh; height: 60vh; }
-  .scroll-down { bottom: 60px; }
+  .scroll-down { bottom: 76px; }   /* 원본 375: 텍스트 하단여백 100 (기존 60 은 +16 낮았다) */
 
   /* ---- ticket: single column ---- */
   .about { padding: 0 16px; }
@@ -573,10 +585,13 @@
     padding-left: 20px;
   }
   .work-bg { top: 176px; }
+  /* ≤809 는 work 를 base 그대로(sticky, height:100vh) 둬서 폴더탭 스택 인터랙션을 유지한다.
+     이미지 높이를 뷰포트에 맞춰(calc(100vh-450)) 콘텐츠가 정확히 100vh 가 되게 하므로,
+     sticky 100vh 안에서도 설명이 안 잘린다(원본 방식: 816→이미지369, 1024→572). */
   .work-content {
     position: absolute;
     inset: 0;
-    padding: 192px var(--margin) 0;
+    padding: 168px var(--margin) 0;   /* 원본 제목 y = tab+48 */
     display: flex;
     flex-direction: column;
   }
@@ -600,13 +615,15 @@
     margin-top: 16px;
     border-top: 1px dotted rgba(33, 33, 33, 0.45);
   }
+  /* 원본 실측: featured 이미지 높이 = calc(100vh - 450px). 뷰포트 높이에 맞춰 스케일돼
+     (816→369, 1024→572) 콘텐츠가 정확히 100vh 가 된다 → sticky 100vh 스택 유지 + 설명 안 잘림. */
   .wm-main {
     margin-top: 16px;
     width: 100%;
-    height: auto;
+    height: calc(100vh - 450px);
+    aspect-ratio: auto;
+    object-fit: cover;
   }
-  .work-1 .wm-main { aspect-ratio: 736 / 556; }
-  .work-2 .wm-main, .work-3 .wm-main { aspect-ratio: 736 / 580; }
   .wm-side { display: none; }
   .work-desc { margin-top: 16px; }
   .work-view { font-size: 14px; }
@@ -621,9 +638,17 @@
   .word-script { font-size: 32px; line-height: 40px; }
 }
 
-/* main image ratios at narrow phones */
-@media (max-width: 600px) {
+/* 폰 ≤460 (Mobile ~430): 원본 세로형 이미지 398x380 / 398x440 / 398x428 (375·430 실측).
+   461~809 은 위 ≤809 landscape 비율(736/…) + work grow 를 쓴다(세로비율은 폭에 비례해 부풀어 잘렸다). */
+@media (max-width: 460px) {
+  .wm-main { height: auto; }   /* ≤809 의 고정높이(408) 해제 → 아래 세로비율 적용 */
   .work-1 .wm-main { aspect-ratio: 398 / 380; }
   .work-2 .wm-main { aspect-ratio: 398 / 440; }
   .work-3 .wm-main { aspect-ratio: 398 / 428; }
+}
+/* 375 (Small Mobile): 원본 343x236 / 343x320 / 343x284 */
+@media (max-width: 400px) {
+  .work-1 .wm-main { aspect-ratio: 343 / 236; }
+  .work-2 .wm-main { aspect-ratio: 343 / 320; }
+  .work-3 .wm-main { aspect-ratio: 343 / 284; }
 }

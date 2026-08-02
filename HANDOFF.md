@@ -48,11 +48,12 @@ works 페이지에서 **6개 카테고리 전부 링크 연결됨** (푸터 serv
 
 ### 남은 일
 
-0. 🔨 **작업물 상세 페이지 (2026-07-23~24, 진행 중)** — 카테고리 카드 → 개별 상세.
-   템플릿 2종의 대표 1개씩 완성: `work-flat-earther.html`(A=photoworks masonry),
-   `work-overbloom.html`(B=표준 그룹, motion 등 5개 카테고리 공유).
+0. 🔨 **작업물 상세 페이지 (2026-07-23~24)** — 카테고리 카드 → 개별 상세.
+   **6개 카테고리 대표 상세 전부 완성**(템플릿 A 1 + B 5, docH 전부 원본 일치):
+   flat-earther(photoworks) · overbloom(motion) · dipsco(branding) · wldr(editorial) ·
+   a-trip(illustration) · venturi(3d-tech). 각 카테고리 첫 카드/행만 링크됨.
    **이어서 하려면 반드시 → [DETAIL-PAGES.md](DETAIL-PAGES.md) 를 먼저 읽을 것.**
-   (표준 그룹 나머지 4개, photoworks 17개 재생성, 미완 see-more 링크 2개 등이 남음.)
+   (남음: 표준 나머지 14개, photoworks 17개 재생성, 미완 see-more 형제 상세 9개.)
 1. **photoworks** — [NEXT.md](NEXT.md) 3절에 조사·수정 결과 기록 (2026-07-23).
    - ✅ 모바일 카드 8px 위 → `.pw-page .m-divider{margin-top:23px}` 로 수정 (30.89%→9.61%)
    - ✅ 사진 크롭: **크롭 버그 아님** (크롭 이미 일치). 7.00% 는 리샘플링 잔차이고

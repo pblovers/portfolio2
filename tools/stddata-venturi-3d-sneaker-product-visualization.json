@@ -1,0 +1,280 @@
+{
+  "docH": 9900,
+  "meta": {
+    "title": null,
+    "lines": [
+      {
+        "y": 128,
+        "x": 32,
+        "txt": "Venturi: 3D Sneaker Product Visualization",
+        "fs": "48px"
+      },
+      {
+        "y": 376,
+        "x": 32,
+        "txt": "3D Tech Works",
+        "fs": "14px"
+      },
+      {
+        "y": 400,
+        "x": 32,
+        "txt": "2025",
+        "fs": "14px"
+      },
+      {
+        "y": 448,
+        "x": 32,
+        "txt": "A 3D visualization of the futuristic Venturi sneaker series, created through detailed modeling, texturing, and cinematic product rendering.",
+        "fs": "12px"
+      }
+    ]
+  },
+  "blocks": [
+    {
+      "t": "img",
+      "x": 443,
+      "y": 109,
+      "w": 563,
+      "h": 563,
+      "src": "https://framerusercontent.com/images/kdtaSoSqsA8c0LoPR41LBZhANd0.png?width=1200&height=1200"
+    },
+    {
+      "t": "img",
+      "x": 443,
+      "y": 109,
+      "w": 563,
+      "h": 563,
+      "src": "https://framerusercontent.com/images/GBw25Y7waKtBpPp2XCduaT1w.png?width=1200&height=1200"
+    },
+    {
+      "t": "img",
+      "x": 433,
+      "y": 109,
+      "w": 563,
+      "h": 563,
+      "src": "https://framerusercontent.com/images/KyoqSAiCkNLT4HUotbCnZyTLgro.png?width=1200&height=1200"
+    },
+    {
+      "t": "img",
+      "x": 433,
+      "y": 109,
+      "w": 563,
+      "h": 563,
+      "src": "https://framerusercontent.com/images/4cJcdjNdNSgkSBge2lq4THrz4.png?width=1200&height=1200"
+    },
+    {
+      "t": "img",
+      "x": 439,
+      "y": 113,
+      "w": 556,
+      "h": 556,
+      "src": "https://framerusercontent.com/images/fsrZLkxLD4fRbDoXCcY0l7KeyCY.png?width=1200&height=1200"
+    },
+    {
+      "t": "img",
+      "x": 450,
+      "y": 120,
+      "w": 540,
+      "h": 540,
+      "src": "https://framerusercontent.com/images/dwm3ehifOvGqOxQmDOF3Al7PuI.png?width=1200&height=1200"
+    },
+    {
+      "t": "img",
+      "x": 376,
+      "y": 740,
+      "w": 1032,
+      "h": 430,
+      "src": "https://framerusercontent.com/images/jvGWbWqSo4VVfyK1B2yUB6RRJmQ.webp?width=2592&height=1080"
+    },
+    {
+      "t": "img",
+      "x": 376,
+      "y": 1202,
+      "w": 1032,
+      "h": 581,
+      "src": "https://framerusercontent.com/images/XBjA66PIL7J3rTtqRUmdslVs79Q.webp?width=1920&height=1080"
+    },
+    {
+      "t": "img",
+      "x": 376,
+      "y": 2315,
+      "w": 1032,
+      "h": 581,
+      "src": "https://framerusercontent.com/images/ekNLdptiZxdr5mgc1oLwwwXB8c.gif?width=800&height=450"
+    },
+    {
+      "t": "img",
+      "x": 376,
+      "y": 2927,
+      "w": 1032,
+      "h": 581,
+      "src": "https://framerusercontent.com/images/fLncmtUsVVCT88grmFwUVV9trc.png?width=1920&height=1080"
+    },
+    {
+      "t": "img",
+      "x": 376,
+      "y": 3540,
+      "w": 1032,
+      "h": 581,
+      "src": "https://framerusercontent.com/images/pG72aVXtlZ08R1WBKlmlP955Y.webp?width=1920&height=1080"
+    },
+    {
+      "t": "img",
+      "x": 376,
+      "y": 4152,
+      "w": 1032,
+      "h": 581,
+      "src": "https://framerusercontent.com/images/ew3IAi4Z2ZNcCGayQOvyGUB84A.webp?width=1920&height=1080"
+    },
+    {
+      "t": "img",
+      "x": 376,
+      "y": 4765,
+      "w": 1032,
+      "h": 581,
+      "src": "https://framerusercontent.com/images/ZGK3rYdlxC9VPu3gkc2BAkNL2h0.webp?width=1920&height=1080"
+    },
+    {
+      "t": "img",
+      "x": 376,
+      "y": 5377,
+      "w": 1032,
+      "h": 581,
+      "src": "https://framerusercontent.com/images/zg3ai97eT5vnUt82IkH3QJMOVaM.gif?width=800&height=450"
+    },
+    {
+      "t": "img",
+      "x": 376,
+      "y": 5990,
+      "w": 1032,
+      "h": 581,
+      "src": "https://framerusercontent.com/images/uBN4H75KyuZTs2ZmKqrHVqLG4.webp?width=1920&height=1080"
+    },
+    {
+      "t": "img",
+      "x": 376,
+      "y": 6602,
+      "w": 1032,
+      "h": 581,
+      "src": "https://framerusercontent.com/images/THikd0pOol7Kq2IYIfkV22pp4A.gif?width=800&height=450"
+    },
+    {
+      "t": "img",
+      "x": 376,
+      "y": 7215,
+      "w": 1032,
+      "h": 581,
+      "src": "https://framerusercontent.com/images/vxC5vjjIqiFBhNtHuHDGSZDhmo.webp?width=1920&height=1080"
+    },
+    {
+      "t": "img",
+      "x": 376,
+      "y": 7827,
+      "w": 1032,
+      "h": 581,
+      "src": "https://framerusercontent.com/images/9JwzEgKVV19i6yB0Esf5Z04puWI.webp?width=1920&height=1080"
+    }
+  ],
+  "seemore": [
+    {
+      "slug": "hong-kong-eatery-3d-look-development-study",
+      "y": 8490,
+      "x": 32,
+      "w": 672,
+      "h": 504
+    }
+  ],
+  "hero": {
+    "src": "https://www.youtube.com/embed/gjXC7NPiHsU?iv_load_policy=3&rel=0&modestbranding=1&playsinline=1&autoplay=1&mute=1&loop=1&playlist=gjXC7NPiHsU&color=white",
+    "x": 376,
+    "y": 128,
+    "w": 1032,
+    "h": 580
+  },
+  "rtext": [
+    {
+      "y": 711,
+      "x": 376,
+      "w": 76,
+      "txt": "INSTAGRAM",
+      "fs": "14px"
+    },
+    {
+      "y": 711,
+      "x": 376,
+      "w": 76,
+      "txt": "INSTAGRAM",
+      "fs": "14px"
+    },
+    {
+      "y": 711,
+      "x": 720,
+      "w": 67,
+      "txt": "LINKEDIN",
+      "fs": "14px"
+    },
+    {
+      "y": 711,
+      "x": 720,
+      "w": 67,
+      "txt": "LINKEDIN",
+      "fs": "14px"
+    },
+    {
+      "y": 711,
+      "x": 1064,
+      "w": 50,
+      "txt": "RESUME",
+      "fs": "14px"
+    },
+    {
+      "y": 711,
+      "x": 1064,
+      "w": 50,
+      "txt": "RESUME",
+      "fs": "14px"
+    },
+    {
+      "y": 860,
+      "x": 1064,
+      "w": 84,
+      "txt": "WEBSITE BY",
+      "fs": "14px"
+    },
+    {
+      "y": 860,
+      "x": 1156,
+      "w": 92,
+      "txt": "SURD.STUDIO",
+      "fs": "14px"
+    },
+    {
+      "y": 860,
+      "x": 1156,
+      "w": 92,
+      "txt": "SURD.STUDIO",
+      "fs": "14px"
+    },
+    {
+      "y": 2187,
+      "x": 720,
+      "w": 688,
+      "txt": "Sneaker Design by Simulated Sequences by Fashion Film Directed by Tools: Autodesk Maya, Cinema 4D, Redshift, Adobe Substance Painter",
+      "fs": "12px"
+    }
+  ],
+  "smText": [
+    {
+      "y": 8528,
+      "x": 32,
+      "txt": "see more.",
+      "fs": "48px"
+    },
+    {
+      "y": 8884,
+      "x": 32,
+      "txt": "Hong Kong Eatery: 3D Look Development Study",
+      "fs": "28px"
+    }
+  ]
+}

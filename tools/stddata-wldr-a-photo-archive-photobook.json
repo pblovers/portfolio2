@@ -1,0 +1,304 @@
+{
+  "docH": 12006,
+  "meta": {
+    "title": null,
+    "lines": [
+      {
+        "y": 128,
+        "x": 32,
+        "txt": "wldr : a photo archive [photobook]",
+        "fs": "48px"
+      },
+      {
+        "y": 320,
+        "x": 32,
+        "txt": "Editorial Works",
+        "fs": "14px"
+      },
+      {
+        "y": 344,
+        "x": 32,
+        "txt": "2024",
+        "fs": "14px"
+      },
+      {
+        "y": 392,
+        "x": 32,
+        "txt": "a zine showcasing my journey in portraits and fashion photography, featuring curated editorial works that reflect my artistic vision and growth.",
+        "fs": "12px"
+      }
+    ]
+  },
+  "blocks": [
+    {
+      "t": "img",
+      "x": 444,
+      "y": 109,
+      "w": 562,
+      "h": 562,
+      "src": "https://framerusercontent.com/images/kdtaSoSqsA8c0LoPR41LBZhANd0.png?width=1200&height=1200"
+    },
+    {
+      "t": "img",
+      "x": 444,
+      "y": 109,
+      "w": 562,
+      "h": 562,
+      "src": "https://framerusercontent.com/images/GBw25Y7waKtBpPp2XCduaT1w.png?width=1200&height=1200"
+    },
+    {
+      "t": "img",
+      "x": 435,
+      "y": 109,
+      "w": 562,
+      "h": 562,
+      "src": "https://framerusercontent.com/images/KyoqSAiCkNLT4HUotbCnZyTLgro.png?width=1200&height=1200"
+    },
+    {
+      "t": "img",
+      "x": 435,
+      "y": 109,
+      "w": 562,
+      "h": 562,
+      "src": "https://framerusercontent.com/images/4cJcdjNdNSgkSBge2lq4THrz4.png?width=1200&height=1200"
+    },
+    {
+      "t": "img",
+      "x": 440,
+      "y": 113,
+      "w": 554,
+      "h": 554,
+      "src": "https://framerusercontent.com/images/fsrZLkxLD4fRbDoXCcY0l7KeyCY.png?width=1200&height=1200"
+    },
+    {
+      "t": "img",
+      "x": 450,
+      "y": 120,
+      "w": 540,
+      "h": 540,
+      "src": "https://framerusercontent.com/images/dwm3ehifOvGqOxQmDOF3Al7PuI.png?width=1200&height=1200"
+    },
+    {
+      "t": "img",
+      "x": 376,
+      "y": 128,
+      "w": 1032,
+      "h": 590,
+      "src": "https://framerusercontent.com/images/Zidm7dvEQPSagdlt6BNvHCmByE0.webp?width=1400&height=800"
+    },
+    {
+      "t": "img",
+      "x": 376,
+      "y": 750,
+      "w": 1032,
+      "h": 590,
+      "src": "https://framerusercontent.com/images/1X0e92oB5U2wWhavSdLYqcUuDc.webp?width=1400&height=800"
+    },
+    {
+      "t": "img",
+      "x": 376,
+      "y": 1979,
+      "w": 1032,
+      "h": 590,
+      "src": "https://framerusercontent.com/images/dM1kaevfpsGvsScZ36CYttlqjfE.webp?width=1400&height=800"
+    },
+    {
+      "t": "img",
+      "x": 376,
+      "y": 2601,
+      "w": 1032,
+      "h": 722,
+      "src": "https://framerusercontent.com/images/DnK1B9IQIO6iSQPACViTULervM.webp?scale-down-to=2048&width=3068&height=2146"
+    },
+    {
+      "t": "img",
+      "x": 376,
+      "y": 3355,
+      "w": 1032,
+      "h": 722,
+      "src": "https://framerusercontent.com/images/Xbl1GZqqixaLTWFGK6DbN2gLag.webp?scale-down-to=2048&width=3068&height=2146"
+    },
+    {
+      "t": "img",
+      "x": 376,
+      "y": 4109,
+      "w": 1032,
+      "h": 590,
+      "src": "https://framerusercontent.com/images/ung79n1bvTIjAh49kCq0Dd5Bk.webp?width=1400&height=800"
+    },
+    {
+      "t": "img",
+      "x": 376,
+      "y": 4731,
+      "w": 1032,
+      "h": 722,
+      "src": "https://framerusercontent.com/images/KLUk7eB3KHLU4ksMTjiNMMWFADA.webp?scale-down-to=2048&width=3068&height=2146"
+    },
+    {
+      "t": "img",
+      "x": 376,
+      "y": 5484,
+      "w": 1032,
+      "h": 367,
+      "src": "https://framerusercontent.com/images/q5aVJYKE32R0Z44PoVQ7vSPj0Y.webp?scale-down-to=2048&width=3068&height=1092"
+    },
+    {
+      "t": "img",
+      "x": 376,
+      "y": 5884,
+      "w": 1032,
+      "h": 722,
+      "src": "https://framerusercontent.com/images/yxJtPW2jyX6y4BgEdQ9sWHfWBY.webp?scale-down-to=2048&width=3068&height=2146"
+    },
+    {
+      "t": "img",
+      "x": 376,
+      "y": 6638,
+      "w": 1032,
+      "h": 367,
+      "src": "https://framerusercontent.com/images/MQuajQostmI5gf0NaB637GKObE.webp?scale-down-to=2048&width=3068&height=1092"
+    },
+    {
+      "t": "img",
+      "x": 376,
+      "y": 7037,
+      "w": 1032,
+      "h": 722,
+      "src": "https://framerusercontent.com/images/RElvTf7pexwEgWGW3gQ8eKlmCE.webp?scale-down-to=2048&width=3068&height=2146"
+    },
+    {
+      "t": "img",
+      "x": 376,
+      "y": 7791,
+      "w": 1032,
+      "h": 590,
+      "src": "https://framerusercontent.com/images/UpewrZsCVc48amDFsGBbR21pqQ.webp?width=1400&height=800"
+    },
+    {
+      "t": "img",
+      "x": 376,
+      "y": 8412,
+      "w": 1032,
+      "h": 367,
+      "src": "https://framerusercontent.com/images/Q8P7mtd5Dbve53DBEut3hu8DB8.webp?scale-down-to=2048&width=3068&height=1092"
+    },
+    {
+      "t": "img",
+      "x": 376,
+      "y": 8812,
+      "w": 1032,
+      "h": 590,
+      "src": "https://framerusercontent.com/images/jiKpgbTpHPElbb0qEU07Pc9g.webp?width=1400&height=800"
+    },
+    {
+      "t": "img",
+      "x": 376,
+      "y": 9433,
+      "w": 1032,
+      "h": 1045,
+      "src": "https://framerusercontent.com/images/SwqEzlBvqiQwBDTN1mG6GyReIE.webp?width=1400&height=1417"
+    }
+  ],
+  "seemore": [
+    {
+      "slug": "hues-of-harmony-love-s-journey-in-rajasthan-photobook",
+      "y": 10560,
+      "x": 32,
+      "w": 672,
+      "h": 504
+    },
+    {
+      "slug": "trybreathing-brand-identity",
+      "y": 10560,
+      "x": 736,
+      "w": 672,
+      "h": 504
+    }
+  ],
+  "hero": null,
+  "rtext": [
+    {
+      "y": 711,
+      "x": 376,
+      "w": 76,
+      "txt": "INSTAGRAM",
+      "fs": "14px"
+    },
+    {
+      "y": 711,
+      "x": 376,
+      "w": 76,
+      "txt": "INSTAGRAM",
+      "fs": "14px"
+    },
+    {
+      "y": 711,
+      "x": 720,
+      "w": 67,
+      "txt": "LINKEDIN",
+      "fs": "14px"
+    },
+    {
+      "y": 711,
+      "x": 720,
+      "w": 67,
+      "txt": "LINKEDIN",
+      "fs": "14px"
+    },
+    {
+      "y": 711,
+      "x": 1064,
+      "w": 50,
+      "txt": "RESUME",
+      "fs": "14px"
+    },
+    {
+      "y": 711,
+      "x": 1064,
+      "w": 50,
+      "txt": "RESUME",
+      "fs": "14px"
+    },
+    {
+      "y": 860,
+      "x": 1064,
+      "w": 84,
+      "txt": "WEBSITE BY",
+      "fs": "14px"
+    },
+    {
+      "y": 860,
+      "x": 1156,
+      "w": 92,
+      "txt": "SURD.STUDIO",
+      "fs": "14px"
+    },
+    {
+      "y": 860,
+      "x": 1156,
+      "w": 92,
+      "txt": "SURD.STUDIO",
+      "fs": "14px"
+    }
+  ],
+  "smText": [
+    {
+      "y": 10598,
+      "x": 32,
+      "txt": "see more.",
+      "fs": "48px"
+    },
+    {
+      "y": 10954,
+      "x": 32,
+      "txt": "Hues of Harmony: Love's Journey in Rajasthan Photo",
+      "fs": "28px"
+    },
+    {
+      "y": 10954,
+      "x": 736,
+      "txt": "TryBreathing Brand Identity",
+      "fs": "28px"
+    }
+  ]
+}

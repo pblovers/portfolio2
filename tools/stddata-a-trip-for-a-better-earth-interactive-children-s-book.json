@@ -1,0 +1,287 @@
+{
+  "docH": 11692,
+  "meta": {
+    "title": null,
+    "lines": [
+      {
+        "y": 128,
+        "x": 32,
+        "txt": "A Trip for a Better Earth Interactive Children's Book",
+        "fs": "48px"
+      },
+      {
+        "y": 432,
+        "x": 32,
+        "txt": "Illustration Works",
+        "fs": "14px"
+      },
+      {
+        "y": 456,
+        "x": 32,
+        "txt": "2020",
+        "fs": "14px"
+      },
+      {
+        "y": 504,
+        "x": 32,
+        "txt": "A children’s interactive e-book following Hana on a summer world journey, tackling environmental issues and animal welfare to inspire the next generation to create a better Earth.",
+        "fs": "12px"
+      }
+    ]
+  },
+  "blocks": [
+    {
+      "t": "img",
+      "x": 443,
+      "y": 108,
+      "w": 565,
+      "h": 565,
+      "src": "https://framerusercontent.com/images/kdtaSoSqsA8c0LoPR41LBZhANd0.png?width=1200&height=1200"
+    },
+    {
+      "t": "img",
+      "x": 443,
+      "y": 108,
+      "w": 565,
+      "h": 565,
+      "src": "https://framerusercontent.com/images/GBw25Y7waKtBpPp2XCduaT1w.png?width=1200&height=1200"
+    },
+    {
+      "t": "img",
+      "x": 432,
+      "y": 108,
+      "w": 565,
+      "h": 565,
+      "src": "https://framerusercontent.com/images/KyoqSAiCkNLT4HUotbCnZyTLgro.png?width=1200&height=1200"
+    },
+    {
+      "t": "img",
+      "x": 432,
+      "y": 108,
+      "w": 565,
+      "h": 565,
+      "src": "https://framerusercontent.com/images/4cJcdjNdNSgkSBge2lq4THrz4.png?width=1200&height=1200"
+    },
+    {
+      "t": "img",
+      "x": 438,
+      "y": 112,
+      "w": 557,
+      "h": 557,
+      "src": "https://framerusercontent.com/images/fsrZLkxLD4fRbDoXCcY0l7KeyCY.png?width=1200&height=1200"
+    },
+    {
+      "t": "img",
+      "x": 450,
+      "y": 121,
+      "w": 540,
+      "h": 540,
+      "src": "https://framerusercontent.com/images/dwm3ehifOvGqOxQmDOF3Al7PuI.png?width=1200&height=1200"
+    },
+    {
+      "t": "img",
+      "x": 376,
+      "y": 128,
+      "w": 1032,
+      "h": 590,
+      "src": "https://framerusercontent.com/images/FHeE1Tf8NOF8MS2T9ojIPYFyc.webp?width=1400&height=800"
+    },
+    {
+      "t": "img",
+      "x": 376,
+      "y": 1198,
+      "w": 1032,
+      "h": 1105,
+      "src": "https://framerusercontent.com/images/Wt2pFxKCvfIvYfw2KjKwlgcnM.webp?scale-down-to=2048&width=2917&height=3124"
+    },
+    {
+      "t": "img",
+      "x": 376,
+      "y": 2335,
+      "w": 1032,
+      "h": 590,
+      "src": "https://framerusercontent.com/images/P1s4x4Hqjh8FZSV7w5fonPNYMKg.webp?scale-down-to=2048&width=2917&height=1667"
+    },
+    {
+      "t": "img",
+      "x": 376,
+      "y": 2957,
+      "w": 1032,
+      "h": 1179,
+      "src": "https://framerusercontent.com/images/zhJW2eUXYD48ZASc52oGIIqBk.webp?scale-down-to=2048&width=2917&height=3333"
+    },
+    {
+      "t": "img",
+      "x": 376,
+      "y": 4168,
+      "w": 1032,
+      "h": 206,
+      "src": "https://framerusercontent.com/images/iDvs2suvGtqoLzv5gFn3hI3Ww.gif?width=2000&height=400"
+    },
+    {
+      "t": "img",
+      "x": 376,
+      "y": 4406,
+      "w": 1032,
+      "h": 800,
+      "src": "https://framerusercontent.com/images/qHGetVJ3qEA5qkdW7YIEZO5aYo.webp?scale-down-to=2048&width=2073&height=1607"
+    },
+    {
+      "t": "img",
+      "x": 376,
+      "y": 5239,
+      "w": 1032,
+      "h": 800,
+      "src": "https://framerusercontent.com/images/97jboRm24oq69tdGKVQV66F46bA.webp?scale-down-to=2048&width=2073&height=1607"
+    },
+    {
+      "t": "img",
+      "x": 376,
+      "y": 6071,
+      "w": 1032,
+      "h": 800,
+      "src": "https://framerusercontent.com/images/HMH4kGq6jeyQlQ2afiMNcSGT45g.webp?scale-down-to=2048&width=2073&height=1607"
+    },
+    {
+      "t": "img",
+      "x": 376,
+      "y": 6903,
+      "w": 1032,
+      "h": 800,
+      "src": "https://framerusercontent.com/images/jy2pPLYvAx0nriLYf03JOosHR8.webp?scale-down-to=2048&width=2073&height=1607"
+    },
+    {
+      "t": "img",
+      "x": 376,
+      "y": 7735,
+      "w": 1032,
+      "h": 800,
+      "src": "https://framerusercontent.com/images/AxTWU1nAh6KzNbWVMW6YPgGL0.webp?scale-down-to=2048&width=2073&height=1607"
+    },
+    {
+      "t": "img",
+      "x": 376,
+      "y": 8567,
+      "w": 1032,
+      "h": 800,
+      "src": "https://framerusercontent.com/images/cLafDnyyaj3r8sHfOKOguTRbnV0.webp?scale-down-to=2048&width=2073&height=1607"
+    },
+    {
+      "t": "img",
+      "x": 376,
+      "y": 9400,
+      "w": 1032,
+      "h": 800,
+      "src": "https://framerusercontent.com/images/bIdX39Ifs02eAVxUsvVHLvXlmYM.webp?scale-down-to=2048&width=2073&height=1607"
+    }
+  ],
+  "seemore": [
+    {
+      "slug": "flavors-of-indonesia",
+      "y": 10282,
+      "x": 32,
+      "w": 672,
+      "h": 504
+    },
+    {
+      "slug": "earthbound-typeface-design",
+      "y": 10282,
+      "x": 736,
+      "w": 672,
+      "h": 504
+    }
+  ],
+  "hero": null,
+  "rtext": [
+    {
+      "y": 711,
+      "x": 376,
+      "w": 76,
+      "txt": "INSTAGRAM",
+      "fs": "14px"
+    },
+    {
+      "y": 711,
+      "x": 376,
+      "w": 76,
+      "txt": "INSTAGRAM",
+      "fs": "14px"
+    },
+    {
+      "y": 711,
+      "x": 720,
+      "w": 67,
+      "txt": "LINKEDIN",
+      "fs": "14px"
+    },
+    {
+      "y": 711,
+      "x": 720,
+      "w": 67,
+      "txt": "LINKEDIN",
+      "fs": "14px"
+    },
+    {
+      "y": 711,
+      "x": 1064,
+      "w": 50,
+      "txt": "RESUME",
+      "fs": "14px"
+    },
+    {
+      "y": 711,
+      "x": 1064,
+      "w": 50,
+      "txt": "RESUME",
+      "fs": "14px"
+    },
+    {
+      "y": 750,
+      "x": 720,
+      "w": 688,
+      "txt": "The environmental conditions on Earth are deteriorating, so I worked on a children’s book about the environment with the aim of raising awareness of this issue for the next generation.",
+      "fs": "24px"
+    },
+    {
+      "y": 860,
+      "x": 1064,
+      "w": 84,
+      "txt": "WEBSITE BY",
+      "fs": "14px"
+    },
+    {
+      "y": 860,
+      "x": 1156,
+      "w": 92,
+      "txt": "SURD.STUDIO",
+      "fs": "14px"
+    },
+    {
+      "y": 860,
+      "x": 1156,
+      "w": 92,
+      "txt": "SURD.STUDIO",
+      "fs": "14px"
+    }
+  ],
+  "smText": [
+    {
+      "y": 10320,
+      "x": 32,
+      "txt": "see more.",
+      "fs": "48px"
+    },
+    {
+      "y": 10676,
+      "x": 32,
+      "txt": "Flavors of Indonesia Illustrated Cookbook",
+      "fs": "28px"
+    },
+    {
+      "y": 10676,
+      "x": 736,
+      "txt": "Earthbound Typeface Design",
+      "fs": "28px"
+    }
+  ]
+}

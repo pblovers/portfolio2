@@ -15,9 +15,11 @@
 ```
 
 이번 세션(07-24)에서 새로 한 것:
-- **상세 페이지 템플릿 2종 대표 완성** — work-flat-earther.html(A), work-overbloom.html(B).
+- **작업물 상세 6개 카테고리 대표 전부 완성** (템플릿 A 1 + 템플릿 B 5). docH 전부 원본 픽셀 일치:
+  flat-earther(photoworks) · overbloom(motion) · dipsco(branding) · wldr(editorial) ·
+  a-trip(illustration) · venturi(3d-tech). 각 카테고리 첫 카드/행 링크 연결.
   자세한 건 [DETAIL-PAGES.md](DETAIL-PAGES.md) (반드시 이걸 읽고 이어갈 것).
-- overbloom 미디어(이미지 5 + Dropbox 영상 5), 파이프라인 스크립트(tools/), 카드 링크 2개.
+- 상세용 미디어(images/works, videos/works), 파이프라인(tools/pw*·std*·ob*·wdqa).
 
 새 PC 로 넘기려면 둘 중 하나를 해야 한다.
 
