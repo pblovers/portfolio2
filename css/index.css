@@ -397,21 +397,26 @@ body.home-page { background: var(--footer-bg); }
 .work-2 .work-view { top: 432px; }
 .work-3 .work-view { top: 408px; }
 .work-media img { object-fit: cover; }
+/* 데스크톱(≥1280) — 원본 실측 공식.
+   폭은 vw 에 비례(폭 커지면 이미지 폭도 커짐), 높이는 뷰포트 높이에 연동(100vh 카드 안에서 채움).
+   원본 실측: 1920×1080 메인 888×760·사이드 460×364, 1440×900 648×580·340×274,
+   1280×900 568×580·300×274 → 메인폭 50vw-72, 사이드폭 25vw-20, 메인높이 100vh-320.
+   블록은 우측 기준: 사이드 우측여백 32, 그 왼쪽에 간격 32 두고 메인. 간격은 항상 32px. */
 .wm-main {
   position: absolute;
   top: 288px;
-  left: 376px;
-  width: 656px;
-  height: calc(100vh - 288px - 32px);
+  right: calc(25vw + 44px);      /* 32(우여백) + 사이드폭(25vw-20) + 32(간격) */
+  width: calc(50vw - 72px);
+  height: calc(100vh - 320px);   /* top 288 + 하단여백 32 */
 }
 .wm-side {
   position: absolute;
-  right: var(--margin);
-  width: var(--col);
-  height: calc((100vh - 288px - 32px - 32px) / 2);
+  right: var(--margin);          /* 32 */
+  width: calc(25vw - 20px);
+  height: calc(50vh - 176px);    /* (100vh - 320 - 32) / 2 */
 }
 .wm-side1 { top: 288px; }
-.wm-side2 { bottom: 32px; }
+.wm-side2 { top: calc(288px + 50vh - 176px + 32px); } /* 사이드1 아래 + 간격 32 */
 
 /* ============================================================
    Tablet (810 ~ 1279px)
@@ -480,6 +485,9 @@ body.home-page { background: var(--footer-bg); }
     width: calc(75vw - 48px);
     font-size: 48px;
     line-height: 56px;
+    /* 원본은 제목 영역을 2줄 높이로 고정 → 제목 줄 수와 무관하게 이미지 top 이 항상 344.
+       (예: 1줄 제목 Overbloom 도 다른 작품과 같은 위치에서 이미지 시작) */
+    min-height: 112px;
   }
   .work-meta {
     position: absolute;
@@ -591,7 +599,9 @@ body.home-page { background: var(--footer-bg); }
   .work-content {
     position: absolute;
     inset: 0;
-    padding: 168px var(--margin) 0;   /* 원본 제목 y = tab+48 */
+    /* 원본 실측(390×844): 이미지가 카드 top+360 에서 시작, 하단 216 여백.
+       위 191 / 아래 56 로 맞추면 이미지 높이가 원본과 정확히 일치(268/352/316). */
+    padding: 191px var(--margin) 56px;
     display: flex;
     flex-direction: column;
   }
@@ -615,12 +625,19 @@ body.home-page { background: var(--footer-bg); }
     margin-top: 16px;
     border-top: 1px dotted rgba(33, 33, 33, 0.45);
   }
-  /* 원본 실측: featured 이미지 높이 = calc(100vh - 450px). 뷰포트 높이에 맞춰 스케일돼
-     (816→369, 1024→572) 콘텐츠가 정확히 100vh 가 된다 → sticky 100vh 스택 유지 + 설명 안 잘림. */
-  .wm-main {
+  /* 원본 방식: 이미지가 카드(100vh)의 남은 세로공간을 채운다.
+     제목·설명 텍스트 분량이 작품마다 달라 이미지 높이도 작품별로 달라진다
+     (원본 실측 484×844: 292/376/340, 390×844: 268/352/316). aspect-ratio 고정이 아님.
+     flex 항목은 이미지를 감싸는 .work-media 이므로 여기에 flex:1 을 준다. */
+  .work-media {
+    flex: 1 1 0;
+    min-height: 0;
     margin-top: 16px;
+    display: block;
+  }
+  .wm-main {
     width: 100%;
-    height: calc(100vh - 450px);
+    height: 100%;
     aspect-ratio: auto;
     object-fit: cover;
   }
@@ -638,17 +655,3 @@ body.home-page { background: var(--footer-bg); }
   .word-script { font-size: 32px; line-height: 40px; }
 }
 
-/* 폰 ≤460 (Mobile ~430): 원본 세로형 이미지 398x380 / 398x440 / 398x428 (375·430 실측).
-   461~809 은 위 ≤809 landscape 비율(736/…) + work grow 를 쓴다(세로비율은 폭에 비례해 부풀어 잘렸다). */
-@media (max-width: 460px) {
-  .wm-main { height: auto; }   /* ≤809 의 고정높이(408) 해제 → 아래 세로비율 적용 */
-  .work-1 .wm-main { aspect-ratio: 398 / 380; }
-  .work-2 .wm-main { aspect-ratio: 398 / 440; }
-  .work-3 .wm-main { aspect-ratio: 398 / 428; }
-}
-/* 375 (Small Mobile): 원본 343x236 / 343x320 / 343x284 */
-@media (max-width: 400px) {
-  .work-1 .wm-main { aspect-ratio: 343 / 236; }
-  .work-2 .wm-main { aspect-ratio: 343 / 320; }
-  .work-3 .wm-main { aspect-ratio: 343 / 284; }
-}
