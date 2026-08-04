@@ -81,7 +81,7 @@
     tpName.textContent = d.name;
     tpCounter.textContent = d.num + ' / 06';
     tpImg.classList.add('switching');
-    var next = 'images/about-obj-' + (idx + 1) + '.png';
+    var next = 'assets/images/about-obj-' + (idx + 1) + '.png';
     setTimeout(function () {
       tpImg.src = next;
       tpImg.classList.remove('switching');

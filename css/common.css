@@ -558,3 +558,21 @@ a:hover .arr { margin-left: 12px; }
   }
   .credit { grid-column: 1; }
 }
+
+/* ============================================================
+   3D 유리 로고 (js/logo3d.js)
+   크기를 가진 요소에 class="logo3d js-logo3d" 를 붙이면 그 박스를 canvas 가 채운다.
+   하늘 배경은 유리 안쪽(굴절)에서만 보이므로 박스 자체는 투명하게 둔다.
+   모델과 배경이 모두 준비되면 .is-ready 가 붙어 페이드인한다.
+   ============================================================ */
+.logo3d {
+  overflow: hidden;
+}
+.logo3d canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.logo3d.is-ready canvas { opacity: 1; }
