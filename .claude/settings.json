@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cp /tmp/shotcmp.mjs ./shotcmp.mjs)",
+      "Bash(node shotcmp.mjs 390 844)",
+      "Bash(node shotcmp.mjs 820 1180)",
+      "Bash(node shotcmp.mjs 1440 900)",
+      "Bash(python -c ' *)",
+      "Bash(node chipsbg.mjs 1440 900)"
+    ]
+  }
+}

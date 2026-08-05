@@ -33,7 +33,7 @@
 .wd-scroll {
   position: relative;
   z-index: 1;
-  background: #fff;
+  background: var(--white);
   padding: 0 var(--margin);
 }
 /* 스크롤 거리 확보 — 이 구간에서 고정 푸터가 드러난다. */
@@ -64,6 +64,7 @@
 .wd-head { padding-top: 24px; }   /* 뒤로가기(80~104) 아래 24 → 제목 y128 */
 .wd-title {
   font-family: var(--serif);
+  letter-spacing: -0.06em;
   font-weight: 300;
   font-size: 48px;
   line-height: 56px;
@@ -114,6 +115,7 @@
 }
 .wd-seemore-title {
   font-family: var(--serif);
+  letter-spacing: -0.06em;
   font-weight: 300;
   font-size: 48px;
   line-height: 56px;
@@ -143,6 +145,7 @@
   display: block;
   margin-top: 16px;       /* 프리뷰 창 하단 → 항목제목 y3492 */
   font-family: var(--serif);
+  letter-spacing: -0.06em;
   font-weight: 300;
   font-size: 28px;
   line-height: 36px;

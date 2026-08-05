@@ -265,7 +265,12 @@ function pixelRatioCap() {
   const narrow = window.innerWidth < 810;
   const lowMem = typeof navigator.deviceMemory === 'number' && navigator.deviceMemory < 4;
   if (coarse || narrow) return lowMem ? 1 : 1.5;   // 모바일 / 태블릿
-  return lowMem ? 1.25 : 2;                        // 데스크톱
+  /* transmission 재질은 화면을 두 번(굴절 패스 + 최종 패스) 그려서 픽셀 수에
+     특히 민감하다. 2배 → 1.5배로 낮추면 실제로 그리는 픽셀이 (1.5/2)²≈56%
+     로 줄어(44% 절감) 고해상도(레티나 등) 모니터에서 렌더 비용이 크게
+     빠진다. 일반(1배) 모니터는 Math.min(devicePixelRatio, cap) 이라 애초에
+     영향이 없다. 곡면 유리라 픽셀비율을 낮춰도 화질 저하는 거의 안 보인다. */
+  return lowMem ? 1.25 : 1.5;                      // 데스크톱
 }
 
 /* =============================================================

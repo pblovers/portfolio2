@@ -57,7 +57,7 @@ body.motion-page { background: var(--footer-bg); }
 .msec {
   position: relative;
   z-index: 1;
-  background: #fff;
+  background: var(--white);
   display: flex;
   align-items: flex-start;
   padding: 0 var(--margin);
@@ -87,7 +87,11 @@ body.motion-page { background: var(--footer-bg); }
   position: absolute;
   top: 80px;
   left: 0;                 /* 섹션 padding 32 가 이미 여백을 만든다 */
-  z-index: 2;              /* 태그 영상이 위를 덮지 않도록 */
+  /* z-index 3 — 태블릿/모바일에서는 .msec-left 가 static 이 되며 .m-back 이
+     .msec 기준으로 배치돼, DOM상 뒤에 오는 .m-head(z-index:2, padding-top
+     만큼 빈 상자)와 같은 값이면 나중에 그려지는 .m-head 가 위를 덮어
+     SEE ALL WORKS 링크가 클릭되지 않는다. */
+  z-index: 3;
   display: inline-flex;
   align-items: center;
   font-size: 14px;
@@ -166,7 +170,7 @@ body.motion-page { background: var(--footer-bg); }
    sticky 는 데스크톱(≥1280) 전용 — 태블릿·모바일은 .m-head 가 relative 라
    비침이 없고, photoworks 모바일 섹션은 다크(#1d1d1d)라 흰 배경을 주면 안 된다. */
 @media (min-width: 1280px) {
-  .m-head { background: #fff; }
+  .m-head { background: var(--white); }
 }
 
 /* 탭 스트립.
@@ -177,7 +181,7 @@ body.motion-page { background: var(--footer-bg); }
   z-index: 1;
   width: calc((100% - 16px) / 3 - 32px);
   height: 40px;
-  background: var(--light);
+  background: var(--grey1);
   border-radius: 6px 0 0 0;
   display: flex;
   align-items: flex-end;
@@ -190,7 +194,7 @@ body.motion-page { background: var(--footer-bg); }
   top: 0;
   width: 40px;
   height: 40px;
-  background: var(--light);
+  background: var(--grey1);
   clip-path: polygon(0 0, 2px 0, 100% 100%, 0 100%);
 }
 .m-num {
@@ -204,7 +208,7 @@ body.motion-page { background: var(--footer-bg); }
 /* padding-top 16 은 제목 여백이다. .m-title 의 margin 으로 주면
    패딩이 0 이라 마진 상쇄로 패널 자체가 16px 내려가 탭 아래에 흰 틈이 생긴다.
    원본은 패널 상단이 탭 하단에 정확히 붙는다 (1440 y120 / 1024 y184). */
-.m-body { background: var(--light); }
+.m-body { background: var(--grey1); }
 /* 제목판 — 원본 1440 실측 [344,120,1096,128], radius 0 0 0 6px */
 .m-body-head {
   padding: 16px var(--margin) 0;
@@ -226,7 +230,8 @@ body.motion-page { background: var(--footer-bg); }
 }
 .m-title {
   font-family: var(--serif);
-  font-weight: 400;
+  letter-spacing: -0.06em;
+  font-weight: 300;
   font-size: 72px;
   line-height: 80px;
   color: var(--ink);
@@ -271,7 +276,7 @@ body.motion-page { background: var(--footer-bg); }
   width: 24px;
   height: 24px;
   padding: 4px 0 0 6px;
-  background: var(--light);
+  background: var(--grey1);
   font-family: var(--mono);
   font-size: 10px;
   line-height: 16px;

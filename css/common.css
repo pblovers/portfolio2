@@ -4,58 +4,63 @@
    (fonts, tokens, reset, header, menu, keychain, footer, utils)
    ============================================================ */
 
-/* ---------- Fonts ---------- */
-@font-face {
-  font-family: "Lock Serif Light";
-  src: url("../fonts/LockSerif-Light.woff2") format("woff2");
-  font-weight: 300 400;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Lock Serif TRIAL Light";
-  src: url("../fonts/LockSerifTRIAL-Light.woff2") format("woff2");
-  font-weight: 300 400;
-  font-display: swap;
-}
+/* ---------- Fonts ----------
+   @import 는 반드시 다른 규칙보다 먼저 와야 한다(주석은 앞에 와도 된다).
+   Cormorant Garamond 기본 자간은 -6% (--serif 를 쓰는 규칙마다 letter-spacing: -0.06em).
+   로컬 woff2 는 손글씨(Biro Script) 하나만 남아 있다. */
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap");
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css");
+
 @font-face {
   font-family: "Biro Script reduced Regular";
   src: url("../fonts/BiroScript-Regular.woff2") format("woff2");
   font-weight: 400;
   font-display: swap;
 }
-@font-face {
-  font-family: "JetBrains Mono";
-  src: url("../fonts/JetBrainsMono-Regular.woff2") format("woff2");
-  font-weight: 400;
-  font-display: swap;
-}
-@font-face {
-  font-family: "JetBrains Mono";
-  src: url("../fonts/JetBrainsMono-Bold.woff2") format("woff2");
-  font-weight: 700;
-  font-display: swap;
-}
 
 /* ---------- Tokens ---------- */
 :root {
   --yellow: #ffe430;
-  --ink: #212121;
+  --ink: #1a1a1a;
   --ink2: #2b2b2b;
   --light: #f5f5f5;
   --muted: #ababab;
-  --body-bg: #212121;
-  --about-bg: #171717;
-  --footer-bg: #202020;
+  --body-bg: #232323;
+  --about-bg: #232323;
+  --footer-bg: #232323;
   --w1-bg: #f5f5f5;
   --w2-bg: #ffe430;
   --w3-bg: #d9d9d9;
-  --chip-bg: #ededed;
-  --mono: "JetBrains Mono", "Courier New", monospace;
-  --serif: "Lock Serif Light", "Times New Roman", serif;
-  --serif-trial: "Lock Serif TRIAL Light", "Times New Roman", serif;
+  /* chips 밴드는 카드 시트색을 약간 어둡게 한 색이다 (원본 픽셀 실측) */
+  --w1-chip: #e3e3e3;
+  --w2-chip: #edd42d;
+  --w3-chip: #c9c9c9;
+  /* 한글은 Pretendard 로 떨어진다 (라틴은 앞의 폰트가 커버) */
+  --kr: "Pretendard Variable", Pretendard;
+  --mono: "JetBrains Mono", var(--kr), "Courier New", monospace;
+  --serif: "Cormorant Garamond", var(--kr), "Times New Roman", serif;
+  --serif-trial: var(--serif);
   --script: "Biro Script reduced Regular", cursive;
   --margin: 32px;
   --col: 344px;
+
+  /* ---------- 새 컬러 팔레트 (마이그레이션 중) ----------
+     기존 토큰(--ink, --light, --body-bg 등)과 값이 겹치는 것도 있지만,
+     교체 작업이 끝날 때까지는 서로 참조하지 않고 완전히 분리해 둔다.
+     기존 토큰은 색상 교체가 전부 끝난 뒤에 정리한다.
+     사용처 메모:
+       --black1 배경색, 글자색
+       --black2 hero/footer 배경색, SEE ALL WORKS 폴더탭 배경색
+       --white  배경색, 폴더탭, 글자색
+       --pink   폴더탭, 글자색
+       --grey1  폴더탭
+       --grey2  폴더탭 */
+  --black1: #232323;
+  --black2: #1a1a1a;
+  --white: #ffffff;
+  --pink: #ff4a8a;
+  --grey1: #f5f5f5;
+  --grey2: #d9d9d9;
 }
 
 /* ---------- Reset ---------- */
@@ -81,6 +86,9 @@ body {
   font-family: var(--mono);
   font-size: 14px;
   line-height: 24px;
+  /* 상속되는 속성이라 여기 한 번만 걸면 Cormorant Garamond 전체에 적용된다 */
+  font-optical-sizing: auto;
+  font-style: normal;
   -webkit-font-smoothing: antialiased;
   /* clip 은 가로 오버플로를 막되 body 를 스크롤 컨테이너로 만들지 않는다.
      hidden 이면 overflow-y 가 auto 로 강제돼 body 가 스크롤 컨테이너가 되고,
@@ -220,7 +228,7 @@ a:hover .arr { margin-left: 12px; }
   position: fixed;
   inset: 0;
   z-index: 200;
-  background: var(--yellow);
+  background: var(--pink);
   color: var(--ink2);
   transform: translateY(-100%);
   transition: transform 0.55s cubic-bezier(0.7, 0, 0.25, 1);
@@ -270,6 +278,8 @@ a:hover .arr { margin-left: 12px; }
   position: relative;
   transform: translateZ(0);
   font-family: var(--serif);
+  letter-spacing: -0.06em;
+  font-weight: 300;
   font-size: 48px;
   line-height: 56px;
   color: var(--ink2);
@@ -313,7 +323,7 @@ a:hover .arr { margin-left: 12px; }
 .keychain {
   position: absolute;
   left: 50%;
-  top: 50%;
+  top: 40%;
   width: 80vh;
   height: 80vh;
   transform: translate(-50%, -50%);
@@ -358,7 +368,7 @@ a:hover .arr { margin-left: 12px; }
 .footer {
   position: relative;
   height: 100vh;
-  background: var(--footer-bg);
+  background: var(--black2);
   overflow: hidden;
 }
 .services {
@@ -377,6 +387,7 @@ a:hover .arr { margin-left: 12px; }
 }
 .services a {
   font-family: var(--serif);
+  letter-spacing: -0.06em;
   font-weight: 300;
   font-size: 28px;
   line-height: 36px;
@@ -397,10 +408,10 @@ a:hover .arr { margin-left: 12px; }
 .footer-keychain {
   /* 원본 실측 4점이 정확히 맞는다: vh700→95 / 800→108 / 900→121 / 1200→160.
      120px 고정은 900 에서만 얼추 맞고 그 밖에선 어긋난다. */
-  top: calc(13vh + 4px);
+  top: calc(13vh + 64px);
   transform: translateX(-50%);
-  width: 60vh;
-  height: 60vh;
+  width: 50vh;
+  height: 50vh;
   filter: grayscale(1);
 }
 /* 원본 푸터 글자는 그레이스케일 안티에일리어싱이다 (컬러 프린지 0).
@@ -441,6 +452,7 @@ a:hover .arr { margin-left: 12px; }
   bottom: calc(48px + var(--wm-slack, 0.42px));
   width: max-content;
   font-family: var(--serif-trial);
+  letter-spacing: -0.06em;
   font-weight: 300;
   font-size: 119.539px;
   line-height: 95.6315px;
@@ -483,9 +495,43 @@ a:hover .arr { margin-left: 12px; }
    링크하단 dist 106 / 워드마크하단 dist 16 / 카피라이트 dist -25).
    ※ 원본 리빌은 뷰포트 높이에도 반응하므로 1024×900 기준으로 맞췄다. */
 @media (min-width: 810px) and (max-width: 1279.98px) {
-  .footer-links  { bottom: calc(32px + var(--wm-h, 74.6px)); }
-  .wordmark      { bottom: calc(16px + var(--wm-slack, 0.29px)); }
-  .footer-bottom { bottom: -24px; }
+  /* 원본 실측(폭 810/1024/1200, 높이 900): 워드마크 하단여백 56 / 카피라이트
+     하단여백 16 는 폭과 무관하게 고정이다(태블릿 구간에서 워드마크 폰트가
+     119.539px 로 고정, --wm-h 로 커지지 않는다 — 데스크톱 전용 스케일).
+     링크 줄만 폭에 비례(810→131 / 1024→148 / 1200→162, 선형 적합 7.95vw+66.6). */
+  .footer-links  { bottom: calc(7.95vw + 66.6px); }
+  .wordmark      { bottom: 56px; }
+  .footer-bottom { bottom: 16px; }
+
+  /* 원본은 태블릿에서 데스크톱의 가운데정렬 줄바꿈 목록이 아니라, 왼쪽
+     세로 목록(키링 옆)이다 — 모바일과 같은 구조지만 글자 크기(28/36, 이미
+     .services a 기본값과 같다)와 위치는 다르다.
+     원본 실측(1024x900): top 24(=데스크톱과 동일) / left 44 / 줄 피치 44
+     (=line-height 36 + gap 8). */
+  .services {
+    top: 24px;
+    left: 44px;
+    right: auto;
+    transform: none;
+    width: auto;
+    flex-direction: column;
+    align-items: flex-start;
+    row-gap: 8px;
+  }
+
+  /* 원본은 태블릿에서 footer 자체가 데스크톱의 100vh 가 아니라 60vh 다
+     (3개 높이(700/900/1024)에서 실측: 420/540/614 → 전부 정확히 60vh).
+     키링도 데스크톱 공식(60vh)이 아니라 36vh — top 도 13vh+4 가 아니라
+     8vh-2 (실측: h700→54 / h900→70 / h1024→80, 전부 오차 1px 이내).
+     #footer(id) 를 쓰는 이유: 페이지마다 있는 `.xxx-page .footer
+     { height:100vh }`(고정 리빌용, 클래스 2개) 가 이 규칙(클래스 1개)보다
+     우선해 버려 60vh 가 하나도 안 먹혔다 — id 로 확실히 이긴다. */
+  #footer { height: 60vh; }
+  .footer-keychain {
+    top: calc(8vh - 2px);
+    width: 36vh;
+    height: 36vh;
+  }
 }
 
 /* ============================================================
@@ -576,3 +622,35 @@ a:hover .arr { margin-left: 12px; }
   transition: opacity 0.4s ease;
 }
 .logo3d.is-ready canvas { opacity: 1; }
+
+/* ============================================================
+   커스텀 커서 (js/common.js 의 WR.initCursor)
+   30x30 블롭 두 장(핑크/화이트)을 마우스를 따라다니는 실제 엘리먼트로 그린다.
+   네이티브 cursor:url() 은 이미지를 CSS 로 스케일할 수 없어서(클릭 시
+   살짝 작아지는 효과가 안 됨) 대신 이 방식을 쓴다.
+   마우스가 있는 기기(hover:hover, pointer:fine)에서만 켠다 — 터치 기기는
+   커서 자체가 없어서 숨긴 네이티브 커서만 남고 아무것도 안 보이게 된다. */
+@media (hover: hover) and (pointer: fine) {
+  body.has-custom-cursor,
+  body.has-custom-cursor * {
+    cursor: none;
+  }
+  #customCursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 30px;
+    height: 30px;
+    background-image: url("../assets/images/bear-pink.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%) scale(1);
+    transition: transform 0.15s ease, opacity 0.15s ease;
+    opacity: 0;
+  }
+  #customCursor.is-visible { opacity: 1; }
+  #customCursor.is-white { background-image: url("../assets/images/bear-white.png"); }
+  #customCursor.is-down { transform: translate(-50%, -50%) scale(0.8); }
+}

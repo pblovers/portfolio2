@@ -52,7 +52,7 @@ body.works-page { background: var(--footer-bg); }
   position: relative;
   z-index: 1;
   height: 100vh;
-  background: #fff;
+  background: var(--white);
   overflow: hidden;
 }
 
@@ -67,10 +67,10 @@ body.works-page { background: var(--footer-bg); }
 }
 .wtab {
   font-family: var(--serif);
-  font-weight: 400;
+  letter-spacing: -0.06em;
+  font-weight: 300;
   font-size: 72px;
   line-height: 80px;
-  letter-spacing: normal;
   color: var(--ink);
 }
 /* 원본에서 Works 는 h1 직접 텍스트, Archive 만 안쪽 앵커에 색이 실린다.
@@ -79,7 +79,7 @@ body.works-page { background: var(--footer-bg); }
 .wtab-link { display: inline; }
 .wtab-active { color: var(--ink); }
 .wtab-muted {
-  color: var(--w3-bg);          /* #d9d9d9 */
+  color: var(--grey2);          /* #d9d9d9 */
   cursor: pointer;
   transition: color 0.3s ease;
 }
@@ -144,7 +144,7 @@ body.works-page { background: var(--footer-bg); }
   display: block;
   height: 187px;
   color: var(--ink);
-  --wf-bg: var(--w3-bg);
+  --wf-bg: var(--grey2);
 }
 .wf-r1 { top: 0; z-index: 1; }
 .wf-r2 { top: 130px; z-index: 2; }
@@ -157,20 +157,20 @@ body.works-page { background: var(--footer-bg); }
 .wf-r2.wf-right { left: 38%;    width: 62%; }
 
 /* 색 — --own 이 폴더 고유색, --wf-bg 가 실제로 칠해지는 색 */
-.wf-motion       { --own: var(--w2-bg); }   /* #ffe430 */
-.wf-branding     { --own: var(--w3-bg); }   /* #d9d9d9 */
-.wf-editorial    { --own: var(--w3-bg); }
-.wf-photoworks   { --own: var(--muted); }   /* #ababab */
-.wf-illustration { --own: var(--w2-bg); }
-.wf-3dtech       { --own: var(--w3-bg); }
+.wf-motion       { --own: var(--pink); }
+.wf-branding     { --own: var(--grey1); }
+.wf-editorial    { --own: var(--white); }
+.wf-photoworks   { --own: var(--grey2); }
+.wf-illustration { --own: var(--pink); }
+.wf-3dtech       { --own: var(--grey1); }
 .wf { --wf-bg: var(--own); }
 
 /* 하나에 호버하면 나머지는 전부 흐려진다 (원본 실측:
    배경 #f5f5f5, 제목·번호 #d9d9d9). 호버한 것만 고유색을 유지한다. */
-.wfolders:hover .wf { --wf-bg: var(--light); }
+.wfolders:hover .wf { --wf-bg: var(--grey1); }
 .wfolders:hover .wf:hover { --wf-bg: var(--own); }
 .wfolders:hover .wf .wf-title,
-.wfolders:hover .wf .wf-num { color: var(--w3-bg); }
+.wfolders:hover .wf .wf-num { color: var(--grey2); }
 .wfolders:hover .wf:hover .wf-title,
 .wfolders:hover .wf:hover .wf-num { color: var(--ink); }
 
@@ -236,7 +236,8 @@ body.works-page { background: var(--footer-bg); }
   top: 8px;
   left: var(--margin);
   font-family: var(--serif);
-  font-weight: 400;
+  letter-spacing: -0.06em;
+  font-weight: 300;
   font-size: 72px;
   line-height: 80px;
   color: var(--ink);
@@ -370,7 +371,7 @@ body.works-page { background: var(--footer-bg); }
 
   /* editorial 은 태블릿에서도 고유색이 #f5f5f5 다 (원본 실측: 1024 에서 rgb(245,245,245)).
      데스크톱만 #d9d9d9 이다. */
-  .wf-editorial { --own: var(--light); }
+  .wf-editorial { --own: var(--white); }
 
   /* ---- 호버 효과 없음 (원본 태블릿과 동일) ---- */
   .wf:hover { transform: none; }
@@ -452,7 +453,7 @@ body.works-page { background: var(--footer-bg); }
   /* editorial 은 모바일에서 고유색이 #f5f5f5 다.
      --wf-bg 를 덮으면 데스크톱의 .wfolders:hover .wf:hover 규칙(0,4,0)에
      밀려 호버 때 #d9d9d9 로 바뀐다. 고유색인 --own 자체를 바꾼다. */
-  .wf-editorial { --own: var(--light); }
+  .wf-editorial { --own: var(--white); }
 
   /* ---- 썸네일 ----
      원본도 마지막 폴더에만 3장이 opacity 1 로 존재하지만,

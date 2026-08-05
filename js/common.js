@@ -151,4 +151,112 @@
     window.addEventListener('resize', fitWordmark);
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitWordmark);
   }
+
+  /* ---------- Custom cursor ----------
+     기본은 핑크 블롭, 배경이 핑크인 요소 위에서는(안 그러면 핑크 위에 핑크라
+     안 보인다) 화이트로 바뀐다. 마우스 버튼을 누르고 있는 동안 살짝 작아진다.
+     마우스가 있는 기기에서만 켠다(CSS 의 hover:hover/pointer:fine 미디어쿼리와
+     짝) — 터치 기기에서 mousemove 가 아예 안 오면 커서가 화면 구석에 뜬 채
+     고정돼 있는 것처럼 보일 수 있어 JS 도 같은 조건으로 막는다.
+
+     라이브러리 없이 rAF 로 직접 구현했다 — GSAP 같은 트윈 라이브러리를
+     새로 불러올 만큼 무거운 작업이 아니고(transform·opacity 두 속성만
+     건드리는 CSS transition이면 충분), 매 프레임 하는 일도 座표 대입 하나뿐이라
+     추가 의존성을 들일 이유가 없다. cursor:none 자체도 렌더링 비용이 없다
+     (아이콘을 안 그릴 뿐 컴포지팅에 영향 없음) — 실제로 무거워질 수 있는
+     지점은 "마우스가 움직일 때마다 hit-test 하는 부분" 뿐이라 그 부분만
+     rAF 로 1프레임에 1번으로 묶었다(옮기는 것 자체는 이벤트마다 바로 반영). */
+  if (window.matchMedia && matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    var cursor = document.createElement('div');
+    cursor.id = 'customCursor';
+    document.body.appendChild(cursor);
+    document.body.classList.add('has-custom-cursor');
+
+    /* elementFromPoint 로 히트테스트하면 SEE ALL WORKS 클릭 통과를 위해
+       pointer-events:none 을 걸어둔 .work/.work-content/.work-strip 같은
+       요소들이 히트테스트에서 아예 빠져 핑크 카드 위인데도 그 뒤의 요소가
+       잡힌다. pointer-events 와 무관하게 항상 맞는 결과를 내도록, 배경이
+       핑크인 요소들을 로드 시 한 번만 스캔해 두고 매번은 좌표 포함 여부만
+       (getBoundingClientRect, 히트테스트 아님) 확인한다. */
+    var PINK = 'rgb(255, 74, 138)';
+    var pinkEls = Array.prototype.filter.call(document.querySelectorAll('*'), function (el) {
+      return getComputedStyle(el).backgroundColor === PINK;
+    });
+    /* .work-1~3 는 폴더처럼 쌓이는 구조라(각자 position:sticky) 스크롤이
+       지나간 카드도 화면에서 안 사라지고 계속 같은 자리(top:0, 100vh)에
+       남아 있다 — 나중 카드가 시각적으로만 위에 덮일 뿐, 이전 카드의
+       .work-bg 도 여전히 같은 사각형을 차지한다. 그래서 3번째(회색) 카드
+       위인데도 2번째(핑크) 카드의 배경 사각형이 좌표상 겹쳐 있어 핑크로
+       오판했다. 어느 work 카드가 지금 실제로 맨 위인지(=DOM 순서상 가장
+       나중이면서 이 좌표를 덮는 카드) 먼저 찾고, 다른 카드에 속한 후보는
+       가려진 것으로 보고 무시한다. */
+    var workCards = Array.prototype.slice.call(document.querySelectorAll('.work'));
+    var topWorkAt = function (x, y) {
+      for (var w = workCards.length - 1; w >= 0; w--) {
+        var wr = workCards[w].getBoundingClientRect();
+        if (x >= wr.left && x < wr.right && y >= wr.top && y < wr.bottom) return workCards[w];
+      }
+      return null;
+    };
+    var isOverPink = function (x, y) {
+      var topWork = topWorkAt(x, y);
+      for (var i = 0; i < pinkEls.length; i++) {
+        var el = pinkEls[i];
+        var owner = el.closest('.work');
+        if (owner && owner !== topWork) continue; // 가려진 이전 카드 소속이면 건너뛴다
+        var r = el.getBoundingClientRect();
+        if (x >= r.left && x < r.right && y >= r.top && y < r.bottom) return true;
+      }
+      return false;
+    };
+
+    /* cursorX/cursorY 라는 이름을 쓴다 — 파일 위쪽 "Header hide-on-scroll" 도
+       var lastY 를 쓰는데, var 는 블록이 아니라 함수(이 IIFE) 전체 스코프라
+       이름이 같으면 실제로 같은 변수다. 전에 여기서도 lastX/lastY 를 썼더니
+       스크롤할 때마다 헤더 쪽 코드가 그 변수에 "페이지 스크롤 위치"(예:
+       3040)를 덮어써서, 커서가 마우스 Y 좌표 대신 스크롤 위치로 순간이동
+       했었다 — 스크롤 중 커서가 깜빡이고 마음대로 움직이던 진짜 원인이 이거였다. */
+    var rafId = null, cursorX = 0, cursorY = 0, hasPosition = false;
+    var scheduleUpdate = function () {
+      if (rafId || !hasPosition) return;
+      rafId = requestAnimationFrame(function () {
+        rafId = null;
+        cursor.style.left = cursorX + 'px';
+        cursor.style.top = cursorY + 'px';
+        cursor.classList.toggle('is-white', isOverPink(cursorX, cursorY));
+      });
+    };
+    /* 스크롤 중엔 마우스 자체는 화면 좌표상 그대로다(고정 커서니까 위치는
+       안 바뀐다) — 다만 그 자리 밑에 있던 내용이 바뀌므로 핑크 판정은
+       다시 해야 한다(스크롤해서 핑크 카드가 지나가는데 흰 커서로 남는 문제). */
+    window.addEventListener('scroll', scheduleUpdate, { passive: true });
+    if (lenis) lenis.on('scroll', scheduleUpdate);
+
+    /* mousemove 대신 pointermove 를 쓴다 — pointerType 검사는 하이브리드
+       기기(터치스크린 노트북)에서 터치를 마우스로 오인하지 않기 위한
+       안전장치다(hover:hover 미디어쿼리만으로는 못 거른다). 좌표가 뷰포트
+       밖이면(실제 포인터는 절대 그런 값을 보고하지 않는다) 버린다 —
+       위 변수 충돌처럼 다른 곳에서 잘못 흘러든 값을 한 번 더 막아준다. */
+    window.addEventListener('pointermove', function (e) {
+      if (e.pointerType !== 'mouse') return;
+      if (e.clientX < 0 || e.clientY < 0 || e.clientX > window.innerWidth || e.clientY > window.innerHeight) return;
+      cursorX = e.clientX; cursorY = e.clientY;
+      hasPosition = true;
+      cursor.classList.add('is-visible');
+      scheduleUpdate();
+    });
+
+    window.addEventListener('pointerdown', function (e) { if (e.pointerType === 'mouse') cursor.classList.add('is-down'); });
+    window.addEventListener('pointerup', function (e) { if (e.pointerType === 'mouse') cursor.classList.remove('is-down'); });
+    /* "뷰포트를 벗어났다" 는 relatedTarget 유무가 아니라 좌표로 판단한다 —
+       relatedTarget 없는 pointerout 은 스크롤로 인한 내부 재계산에서도
+       나올 수 있어 못 믿는다. 포인터 좌표가 뷰포트 경계에 닿았을 때만
+       진짜로 나간 것이다. */
+    document.addEventListener('pointerout', function (e) {
+      if (e.pointerType !== 'mouse') return;
+      if (e.clientX <= 0 || e.clientY <= 0 || e.clientX >= window.innerWidth || e.clientY >= window.innerHeight) {
+        cursor.classList.remove('is-visible');
+      }
+    });
+  }
 })();

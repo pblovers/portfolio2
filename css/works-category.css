@@ -23,14 +23,19 @@
 /* 좌측 열(뒤로가기·태그영상) sticky 높이 — 카테고리는 **65vh** 다 (motion 은 60vh).
    원본 실측: vh900→585, vh800→520 (÷=0.65). works-motion.css 의 60vh(540)를 그대로
    물려받으면 sticky 가 45px 더 오래 붙어, 스크롤 시 좌측 열만 아래로 튀어나온다
-   (원본은 585 까지 잡아 더 일찍 풀려 위로 올라간다). */
-.cat-page .msec-left { height: 65vh; }
+   (원본은 585 까지 잡아 더 일찍 풀려 위로 올라간다).
+   데스크톱(≥1280) 전용 — 이 규칙에 미디어쿼리가 없으면 태블릿/모바일에서
+   works-motion.css 의 height:0 리셋(미디어쿼리 규칙)보다 클래스 2개라 우선해
+   버려, 사라져야 할 좌측 열이 65vh 만큼 차지해 헤더 아래 큰 공백을 만든다. */
+@media (min-width: 1280px) {
+  .cat-page .msec-left { height: 65vh; }
+}
 
 /* 카테고리색 — works 폴더 색과 맞물린다 (원본 실측) */
-.cat-branding    { --cat-bg: #d9d9d9; }
-.cat-editorial   { --cat-bg: #d9d9d9; }
-.cat-illustration{ --cat-bg: #ffe430; }
-.cat-3dtech      { --cat-bg: #d9d9d9; }
+.cat-branding    { --cat-bg: var(--grey2); }
+.cat-editorial   { --cat-bg: var(--grey2); }
+.cat-illustration{ --cat-bg: var(--pink); }
+.cat-3dtech      { --cat-bg: var(--grey2); }
 
 .cat-page .m-tab,
 .cat-page .m-tab::after,
@@ -127,7 +132,8 @@
   left: 0;
   width: calc(66.667% - 32px);
   font-family: var(--serif);
-  font-weight: 400;
+  letter-spacing: -0.06em;
+  font-weight: 300;
   font-size: 28px;
   line-height: 36px;
 }

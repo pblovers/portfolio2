@@ -27,7 +27,7 @@
 /* ---------- 다크 테마 ---------- */
 .pw-page .m-tab,
 .pw-page .m-tab::after,
-.pw-page .m-body { background: var(--ink); }      /* #212121 */
+.pw-page .m-body { background: var(--black1); }
 .pw-page .m-num,
 .pw-page .m-title { color: var(--light); }
 /* 구분선도 밝은 색으로 뒤집힌다 */
@@ -87,7 +87,7 @@
   width: 24px;
   height: 24px;
   padding: 4px 0 0 6px;
-  background: var(--ink);
+  background: var(--black1);
   font-family: var(--mono);
   font-size: 10px;
   line-height: 16px;
