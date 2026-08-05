@@ -145,6 +145,19 @@
         </div>
       </section>
 
+      <!-- ===== Archive — 3D 회전 카드 캐러셀 =====
+           원본: https://interesting-studies-473096.framer.app/ (Framer 코드 컴포넌트)
+           원본 페이지 좌상단의 데모용 버튼(Full view / Black BG)은 제외하고
+           캐러셀 자체만 옮겼다. 파라미터·동작은 js/carousel3d.js 참고. -->
+      <section class="archive" id="archive">
+        <div class="arc-stage js-carousel3d"
+             data-cards="5"
+             data-radius="3.2"
+             data-distance="10.5"
+             data-images="assets/images/carousel/card-01.jpeg,assets/images/carousel/card-02.png,assets/images/carousel/card-03.png,assets/images/carousel/card-04.jpeg,assets/images/carousel/card-05.png,assets/images/carousel/card-06.png,assets/images/carousel/card-07.png,assets/images/carousel/card-08.png,assets/images/carousel/card-09.png,assets/images/carousel/card-10.png"
+             role="img" aria-label="Rotating 3D archive card carousel"></div>
+      </section>
+
       <!-- ===== Featured Works ===== -->
       <div class="works" id="works">
 
@@ -313,5 +326,6 @@
   <script src="js/common.js"></script>
   <script src="js/index.js"></script>
   <script type="module" src="js/logo3d.js"></script>
+  <script type="module" src="js/carousel3d.js"></script>
 </body>
 </html>

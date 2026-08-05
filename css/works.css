@@ -17,11 +17,11 @@
    (아래 "스크롤" 절 참고). #fff 로 두면 걷힌 자리가 하얗게 남는다. */
 .works-page .header-nav .nav-link,
 .works-page .header-logo,
-.works-page .menu-btn { color: var(--ink); }
+.works-page .menu-btn { color: var(--black2); }
 /* 흰 배경 위 헤더이므로 차오르는 배경도 반전 (원본 측정: bg #212121) */
 /* 흰 배경 위 헤더라 반전 면의 색이 뒤집힌다 */
-.works-page .site-header .roll .roll-box span:nth-child(2) { color: var(--light); }
-.works-page .site-header .roll .roll-box::before { background: var(--ink); }
+.works-page .site-header .roll .roll-box span:nth-child(2) { color: var(--grey1); }
+.works-page .site-header .roll .roll-box::before { background: var(--black2); }
 /* 메뉴 오버레이는 노란 배경이므로 원래 색(#2b2b2b)을 유지 */
 .works-page .menu-overlay .header-logo,
 .works-page .menu-close { color: var(--ink2); }
@@ -32,7 +32,7 @@
    흰 섹션(100vh)이 그 위를 덮고 있다가 위로 밀려 올라간다.
    docH = 흰 섹션 + 100vh (1440x900 → 1800, 375x812 → 1668).
    푸터가 정상 흐름이면 푸터도 같이 밀려 올라와 전혀 다른 움직임이 된다. */
-body.works-page { background: var(--footer-bg); }
+body.works-page { background: var(--black1); }
 .works-page .footer {
   position: fixed;
   inset: 0;
@@ -71,13 +71,13 @@ body.works-page { background: var(--footer-bg); }
   font-weight: 300;
   font-size: 72px;
   line-height: 80px;
-  color: var(--ink);
+  color: var(--black2);
 }
 /* 원본에서 Works 는 h1 직접 텍스트, Archive 만 안쪽 앵커에 색이 실린다.
    앵커는 inline 이라 rect 가 폰트 메트릭(72px→90px) 기준으로 잡혀
    h1(80) 보다 위로 5px 넓다. display 를 바꾸지 않아야 원본과 같아진다. */
 .wtab-link { display: inline; }
-.wtab-active { color: var(--ink); }
+.wtab-active { color: var(--black2); }
 .wtab-muted {
   color: var(--grey2);          /* #d9d9d9 */
   cursor: pointer;
@@ -143,7 +143,7 @@ body.works-page { background: var(--footer-bg); }
   position: absolute;
   display: block;
   height: 187px;
-  color: var(--ink);
+  color: var(--black2);
   --wf-bg: var(--grey2);
 }
 .wf-r1 { top: 0; z-index: 1; }
@@ -172,7 +172,7 @@ body.works-page { background: var(--footer-bg); }
 .wfolders:hover .wf .wf-title,
 .wfolders:hover .wf .wf-num { color: var(--grey2); }
 .wfolders:hover .wf:hover .wf-title,
-.wfolders:hover .wf:hover .wf-num { color: var(--ink); }
+.wfolders:hover .wf:hover .wf-num { color: var(--black2); }
 
 .wf-tab, .wf-body { transition: background-color 0.35s ease, box-shadow 0.35s ease; }
 .wf-title, .wf-num { transition: color 0.35s ease; }
@@ -215,7 +215,7 @@ body.works-page { background: var(--footer-bg); }
   font-family: var(--mono);
   font-size: 14px;
   line-height: 24px;
-  color: var(--ink);
+  color: var(--black2);
 }
 
 /* 본문 — 스트립과 1px 겹친다 (스트립 40, 본문 top 39)
@@ -240,7 +240,7 @@ body.works-page { background: var(--footer-bg); }
   font-weight: 300;
   font-size: 72px;
   line-height: 80px;
-  color: var(--ink);
+  color: var(--black2);
   white-space: nowrap;
   z-index: 2;
 }
@@ -350,6 +350,12 @@ body.works-page { background: var(--footer-bg); }
      썸네일      마지막 폴더에만 3장, 호버로 뜨지 않음
    ============================================================ */
 @media (min-width: 810px) and (max-width: 1279.98px) {
+  /* 리빌 스페이서 = 고정 푸터 박스 높이(--foot-h, 태블릿 50vh).
+     100vh 로 두면 흰 섹션이 다 걷힌 뒤에도 50vh 만큼 스크롤이 남아
+     푸터 위쪽에 body 배경이 그대로 드러난다 (= 푸터가 잘려 보이는 증상).
+     원본 실측(1024x900) docH 1350 = 흰섹션 900 + 450(=50vh). */
+  .wsec-spacer { height: var(--foot-h); }
+
   .wfolders { top: calc(100% - 483px); height: 483px; }   /* 444 + 39 */
   .wf { height: 195px; }                                   /* 39 + 156 */
   .wf-body { height: 156px; }
@@ -378,7 +384,7 @@ body.works-page { background: var(--footer-bg); }
   .wf:hover .wf-th { opacity: 0; transform: none; width: 200px; height: 200px; }
   .wfolders:hover .wf { --wf-bg: var(--own); }
   .wfolders:hover .wf .wf-title,
-  .wfolders:hover .wf .wf-num { color: var(--ink); }
+  .wfolders:hover .wf .wf-num { color: var(--black2); }
 
   /* ---- 썸네일 ----
      원본도 마지막 폴더에만 3장이 opacity 1 로 존재하지만,
@@ -449,7 +455,7 @@ body.works-page { background: var(--footer-bg); }
   .wf:hover .wf-th { opacity: 0; transform: none; width: auto; height: auto; }
   .wfolders:hover .wf { --wf-bg: var(--own); }
   .wfolders:hover .wf .wf-title,
-  .wfolders:hover .wf .wf-num { color: var(--ink); }
+  .wfolders:hover .wf .wf-num { color: var(--black2); }
   /* editorial 은 모바일에서 고유색이 #f5f5f5 다.
      --wf-bg 를 덮으면 데스크톱의 .wfolders:hover .wf:hover 규칙(0,4,0)에
      밀려 호버 때 #d9d9d9 로 바뀐다. 고유색인 --own 자체를 바꾼다. */

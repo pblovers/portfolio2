@@ -20,17 +20,8 @@
 
 /* ---------- Tokens ---------- */
 :root {
-  --yellow: #ffe430;
-  --ink: #1a1a1a;
   --ink2: #2b2b2b;
-  --light: #f5f5f5;
   --muted: #ababab;
-  --body-bg: #232323;
-  --about-bg: #232323;
-  --footer-bg: #232323;
-  --w1-bg: #f5f5f5;
-  --w2-bg: #ffe430;
-  --w3-bg: #d9d9d9;
   /* chips 밴드는 카드 시트색을 약간 어둡게 한 색이다 (원본 픽셀 실측) */
   --w1-chip: #e3e3e3;
   --w2-chip: #edd42d;
@@ -44,10 +35,19 @@
   --margin: 32px;
   --col: 344px;
 
-  /* ---------- 새 컬러 팔레트 (마이그레이션 중) ----------
-     기존 토큰(--ink, --light, --body-bg 등)과 값이 겹치는 것도 있지만,
-     교체 작업이 끝날 때까지는 서로 참조하지 않고 완전히 분리해 둔다.
-     기존 토큰은 색상 교체가 전부 끝난 뒤에 정리한다.
+  /* 태블릿(810~1279) 고정 푸터 박스의 높이. 원본은 페이지마다 다르다 —
+     index 만 60vh 이고 works·works-motion·카테고리·photoworks·상세는 전부 50vh
+     (1024x900 실측: index 540 / 나머지 450, 1024x700: 420 / 350, 1024x1024: 614.4 / 512).
+     데스크톱(≥1280)과 모바일(≤809)은 100vh 라 이 변수를 쓰지 않는다.
+     리빌 스페이서 높이도 반드시 이 값과 같아야 한다 (아래 #footer 주석 참고). */
+  --foot-h: 50vh;
+
+  /* ---------- 컬러 팔레트 ----------
+     색은 이 5개만 쓴다. 값이 같아 기계적으로 치환 가능했던 구 토큰
+     (--ink→--black2, --light→--grey1, --body-bg/--footer-bg/--about-bg→--black1)
+     과 쓰이지 않던 --yellow/--w1-bg/--w2-bg/--w3-bg 는 정리했다.
+     대응하는 값이 없어 아직 남아 있는 것: --ink2(#2b2b2b), --muted(#ababab),
+     --w1-chip/--w2-chip/--w3-chip(카드 칩 밴드) — 이건 나중에 고친다.
      사용처 메모:
        --black1 배경색, 글자색
        --black2 hero/footer 배경색, SEE ALL WORKS 폴더탭 배경색
@@ -81,8 +81,8 @@ html.lenis,
 .lenis.lenis-stopped { overflow: hidden; }
 .lenis iframe { pointer-events: none; }
 body {
-  background: var(--body-bg);
-  color: var(--light);
+  background: var(--black1);
+  color: var(--grey1);
   font-family: var(--mono);
   font-size: 14px;
   line-height: 24px;
@@ -143,7 +143,7 @@ p { margin: 0; }
   position: absolute;
   inset: 0;
   z-index: 0;
-  background: var(--light);
+  background: var(--grey1);
   clip-path: inset(100% 0 0 0);
   transition: clip-path 0.475s cubic-bezier(0.2, 0.2, 0.1, 1);
 }
@@ -151,7 +151,7 @@ p { margin: 0; }
   position: absolute;
   inset: 0;
   z-index: 1;
-  color: var(--ink);
+  color: var(--black2);
   clip-path: inset(100% 0 0 0);
   transition: clip-path 0.475s cubic-bezier(0.2, 0.2, 0.1, 1);
 }
@@ -203,7 +203,7 @@ a:hover .arr { margin-left: 12px; }
   font-size: 14px;
   line-height: 24px;
   text-transform: uppercase;
-  color: var(--light);
+  color: var(--grey1);
   justify-self: start;
 }
 .header-nav .nav-right { justify-self: start; }
@@ -212,9 +212,9 @@ a:hover .arr { margin-left: 12px; }
   font-size: 14px;
   line-height: 24px;
   text-transform: uppercase;
-  color: var(--light);
+  color: var(--grey1);
 }
-.menu-btn { font-size: 14px; line-height: 24px; text-transform: uppercase; color: var(--light); }
+.menu-btn { font-size: 14px; line-height: 24px; text-transform: uppercase; color: var(--grey1); }
 
 /* ============================================================
    Menu overlay
@@ -391,7 +391,7 @@ a:hover .arr { margin-left: 12px; }
   font-weight: 300;
   font-size: 28px;
   line-height: 36px;
-  color: var(--light);
+  color: var(--grey1);
   transition: opacity 0.25s ease;
 }
 /* 원본은 기울이지 않는다 — 밝기만 낮춘다 (실측 opacity 0.5) */
@@ -403,7 +403,7 @@ a:hover .arr { margin-left: 12px; }
   vertical-align: super;
   /* 원본 실측: 번호 397.6~409.6, 글자 시작 417.6 → 간격 8 (6 이면 항목마다 2px 좁다) */
   margin-right: 8px;
-  color: var(--light);
+  color: var(--grey1);
 }
 .footer-keychain {
   /* 원본 실측 4점이 정확히 맞는다: vh700→95 / 800→108 / 900→121 / 1200→160.
@@ -436,6 +436,11 @@ a:hover .arr { margin-left: 12px; }
   font-size: 14px;
   line-height: 24px;
   text-transform: uppercase;
+  /* 상속에 맡기면 안 된다 — 상세 페이지는 흰 콘텐츠 때문에 body 에
+     `color: var(--black2)`(#1a1a1a) 를 거는데, 푸터 배경도 #1a1a1a 라
+     링크 4개가 통째로 안 보였다 (모든 폭에서). 푸터는 항상 어두운 면이므로
+     여기서 밝은색을 못박는다. .services·.footer-bottom 은 이미 그렇게 돼 있다. */
+  color: var(--grey1);
 }
 /* 원본 링크 폭은 글자 폭(42px)이다. 셀 전체(344px)로 늘리면
    빈 여백에서도 호버가 걸린다. */
@@ -486,7 +491,7 @@ a:hover .arr { margin-left: 12px; }
 }
 .credit { grid-column: 4; }
 /* 원본 SURD.STUDIO 는 호버해도 아무 변화가 없다 (색·투명도·밑줄 전부 그대로) */
-.credit a { color: var(--light); }
+.credit a { color: var(--grey1); }
 
 /* ------- 태블릿(810~1279) 푸터 하단 밴드 위치 — 원본 실측 일치 -------
    원본은 태블릿 폭에서 하단 밴드(링크·워드마크·카피라이트)가 데스크톱보다
@@ -519,18 +524,49 @@ a:hover .arr { margin-left: 12px; }
     row-gap: 8px;
   }
 
-  /* 원본은 태블릿에서 footer 자체가 데스크톱의 100vh 가 아니라 60vh 다
-     (3개 높이(700/900/1024)에서 실측: 420/540/614 → 전부 정확히 60vh).
-     키링도 데스크톱 공식(60vh)이 아니라 36vh — top 도 13vh+4 가 아니라
-     8vh-2 (실측: h700→54 / h900→70 / h1024→80, 전부 오차 1px 이내).
-     #footer(id) 를 쓰는 이유: 페이지마다 있는 `.xxx-page .footer
-     { height:100vh }`(고정 리빌용, 클래스 2개) 가 이 규칙(클래스 1개)보다
-     우선해 버려 60vh 가 하나도 안 먹혔다 — id 로 확실히 이긴다. */
-  #footer { height: 60vh; }
+  /* ---------- 태블릿 고정 푸터 박스 (원본 구조 실측) ----------
+     원본은 태블릿에서 푸터 박스가 100vh 가 아니라 --foot-h 다. 그리고
+     **뷰포트 위가 아니라 아래(bottom:0)에 붙는다** — 이게 핵심이다.
+     `inset:0` + `height:60vh` 로 두면 박스가 위에 붙어 아래 40vh 에
+     body 배경이 그대로 비친다 (사용자 신고: "푸터 아래 여백 / 푸터 잘림").
+
+     원본 실측 (fixed 컨테이너 rect, index / works):
+       1024x900  360~900(h540) / 450~900(h450)
+       1024x700  280~700(h420) / 350~700(h350)
+       1024x1024 410~1024(h614) / 512~1024(h512)
+     전부 `top = 100vh - foot-h, bottom = 100vh` 다.
+
+     그런데 콘텐츠(링크·워드마크·카피라이트)에는 **최소 높이**가 있다.
+     박스가 그보다 낮아지면 콘텐츠는 안 줄고 박스 아래로 넘쳐, 카피라이트가
+     화면 밖으로 밀린다 (원본도 동일 — 1024x900 works 카피라이트 y902 = 26px 밖).
+
+     최소 높이는 상수가 아니라 **폭에 비례**한다. 워드마크만 폭에 따라 커지고
+     (810→59 / 1024→75 / 1279→96) 나머지는 고정이라, 실측 최소높이에서
+     워드마크 높이를 빼면 416.5 로 일정하다 (475-59 / 492-75 / 512-96).
+     워드마크 높이 ≈ 7.89vw - 4.9px → 최소높이 ≈ 7.89vw + 411.6px.
+     (같은 기울기가 아래 .footer-links 의 7.95vw 공식에도 이미 들어 있다.)
+
+     height 를 max(--foot-h, 그 최소높이) 로 주면 아래쪽 밴드를 잡는
+     `bottom:` 값들(링크 72+워드마크 / 워드마크 56 / 카피라이트 16)이
+     자동으로 원본과 같은 자리에 떨어진다. 폭 3종 x 높이 3종 실측 전부 1px 이내.
+
+     #footer(id) 를 쓰는 이유: 페이지마다 있는 `.xxx-page .footer`(클래스 2개)가
+     이 규칙보다 우선해 버려 클래스 1개로는 하나도 안 먹혔다 — id 로 확실히 이긴다. */
+  #footer {
+    top: calc(100vh - var(--foot-h));
+    bottom: auto;
+    height: max(var(--foot-h), 7.89vw + 411.6px);
+  }
+
+  /* 키링은 푸터 박스 높이에 비례한다 (min-height 가 아니라 --foot-h 기준).
+     원본 img 실측 비율: top = 박스높이 x 0.123, 크기 = 박스높이 x 0.63 —
+     index(60vh)·works(50vh) 양쪽에서 같은 비율이었다.
+     여기 계수(0.1296 / 0.6)는 index 에서 이미 검증된 값(8vh-2 = 7.78vh, 36vh)을
+     그대로 재현하면서 50vh 페이지로 함께 줄어들게 만든 것이다. */
   .footer-keychain {
-    top: calc(8vh - 2px);
-    width: 36vh;
-    height: 36vh;
+    top: calc(var(--foot-h) * 0.1296);
+    width: calc(var(--foot-h) * 0.6);
+    height: calc(var(--foot-h) * 0.6);
   }
 }
 
@@ -573,18 +609,22 @@ a:hover .arr { margin-left: 12px; }
     align-items: center;
   }
 
-  /* ---- footer ---- */
+  /* ---- footer ----
+     원본 실측(375x812, 스크롤 끝): 첫 항목 글자 top 16, 줄 피치 44,
+     글자 28px/36px (= 데스크톱·태블릿과 같은 기본값. 모바일이라고 키우지 않는다).
+     32px/40px + gap 4 로 두면 피치는 44 로 같지만 글자가 4px 크고
+     목록 전체가 8px 위로 붙어 원본과 어긋난다.
+     피치 44 = line-height 36 + row-gap 8. */
   .services {
-    top: 8px;
+    top: 16px;
     left: var(--margin);
     right: var(--margin);
     transform: none;
     width: auto;
     flex-direction: column;
     align-items: flex-start;
-    row-gap: 4px;
+    row-gap: 8px;
   }
-  .services a { font-size: 32px; line-height: 40px; }
   .footer-keychain {
     top: 32vh;
     width: 40vh;

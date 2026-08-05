@@ -18,14 +18,14 @@
    ============================================================ */
 
 /* 배경은 푸터색 — 흰 콘텐츠가 걷힌 자리에 고정 푸터가 드러난다. */
-.wd-page { background: var(--footer-bg); color: var(--ink); }
+.wd-page { background: var(--black1); color: var(--black2); }
 
 /* 흰 배경 위 헤더이므로 글자색·roll 하이라이트를 반전 (motion-page 와 동일). */
 .wd-page .header-nav .nav-link,
 .wd-page .header-logo,
-.wd-page .menu-btn { color: var(--ink); }
-.wd-page .site-header .roll .roll-box span:nth-child(2) { color: var(--light); }
-.wd-page .site-header .roll .roll-box::before { background: var(--ink); }
+.wd-page .menu-btn { color: var(--black2); }
+.wd-page .site-header .roll .roll-box span:nth-child(2) { color: var(--grey1); }
+.wd-page .site-header .roll .roll-box::before { background: var(--black2); }
 .wd-page .menu-overlay .header-logo,
 .wd-page .menu-close { color: var(--ink2); }
 
@@ -54,7 +54,7 @@
   font-size: 14px;
   line-height: 24px;
   text-transform: uppercase;
-  color: var(--ink);
+  color: var(--black2);
 }
 .wd-back .arr { margin-right: 6px; }
 .wd-back:hover .arr-txt { transform: translateX(6px); }
@@ -68,7 +68,7 @@
   font-weight: 300;
   font-size: 48px;
   line-height: 56px;
-  color: var(--ink);
+  color: var(--black2);
 }
 /* 연도 + 모델 (좌) / 설명 (우) 한 줄 */
 .wd-meta {
@@ -83,7 +83,7 @@
   font-size: 14px;
   line-height: 24px;
   text-transform: uppercase;
-  color: var(--ink);
+  color: var(--black2);
 }
 .wd-desc { font-size: 12px; }
 .wd-year { display: block; }
@@ -119,7 +119,7 @@
   font-weight: 300;
   font-size: 48px;
   line-height: 56px;
-  color: var(--ink);
+  color: var(--black2);
   margin-bottom: 32px;    /* 제목 하단(3192) → 카드 top 3224 */
 }
 .wd-seemore-list {
@@ -129,7 +129,7 @@
 /* 프리뷰는 콘텐츠 절반폭(원본 672 = (1376-32)/2) */
 .wd-seemore-item {
   display: block;
-  color: var(--ink);
+  color: var(--black2);
   width: calc(50% - 16px);
 }
 /* 프리뷰 창은 폭×0.375 (원본: 672x252=8:3). 원본은 4:3 이미지가 창 안에서
@@ -157,6 +157,13 @@
 @media (max-width: 1279.98px) {
   .wd-gallery { gap: 16px; }
   .wd-col { gap: 16px; }
+}
+
+/* 리빌 스페이서 = 고정 푸터 박스 높이(--foot-h, 태블릿 50vh).
+   100vh 로 두면 흰 콘텐츠가 다 걷힌 뒤에도 50vh 만큼 스크롤이 남아
+   푸터 위에 body 배경 띠가 생긴다. 모바일(≤809)은 푸터가 100vh 라 그대로 둔다. */
+@media (min-width: 810px) and (max-width: 1279.98px) {
+  .wd-spacer { height: var(--foot-h); }
 }
 
 /* ============================================================

@@ -11,7 +11,9 @@
    hero 의 sticky 컨테이너가 .reveal(=콘텐츠 높이)이라 콘텐츠 끝에서 해제돼 걷힌다.
    footer 는 fixed(z0) 로 뒤에 깔리고, .page-spacer(100vh) 가 리빌 스크롤 거리를 준다.
    ============================================================ */
-body.home-page { background: var(--black1); }
+/* 태블릿 푸터 박스 높이 — index 만 60vh 다 (다른 페이지는 공용 기본값 50vh).
+   원본 실측: 1024x900 에서 index 540 / works·motion·카테고리·상세 450. */
+body.home-page { background: var(--black1); --foot-h: 60vh; }
 .reveal { position: relative; z-index: 1; }
 .home-page .footer { position: fixed; inset: 0; z-index: 0; height: 100vh; }
 .page-spacer { position: relative; z-index: 1; height: 100vh; pointer-events: none; }
@@ -34,7 +36,7 @@ body.home-page { background: var(--black1); }
   font-size: 14px;
   line-height: 24px;
   text-transform: uppercase;
-  color: var(--light);
+  color: var(--grey1);
 }
 .hero-left { left: var(--margin); }
 .hero-right { right: var(--margin); }
@@ -76,7 +78,7 @@ body.home-page { background: var(--black1); }
   font-size: 14px;
   line-height: 24px;
   text-transform: uppercase;
-  color: var(--light);
+  color: var(--grey1);
 }
 .scroll-arrow {
   display: inline-block;
@@ -204,7 +206,7 @@ body.home-page { background: var(--black1); }
   font-weight: 300;
   font-size: 80px;
   line-height: 80px;
-  color: var(--ink);
+  color: var(--black2);
   padding: 4px 0 12px;
 }
 .tb-word {
@@ -239,7 +241,7 @@ body.home-page { background: var(--black1); }
   font-size: 12px;
   line-height: 24px;
   text-transform: uppercase;
-  color: var(--ink);
+  color: var(--black2);
   max-width: 544px;
   display: flex;
   flex-direction: column;
@@ -267,6 +269,46 @@ body.home-page { background: var(--black1); }
   color: var(--ink2);
 }
 .back-foot { justify-content: center; }
+
+/* ============================================================
+   Archive — 3D 회전 카드 캐러셀 (WebGL)
+   원본: https://interesting-studies-473096.framer.app/
+   원본은 컴포넌트가 뷰포트를 꽉 채우는 단독 페이지다(body 배경 #fff,
+   컨테이너 width/height 100%). 여기서도 한 화면(100vh)을 통째로 쓴다.
+   ============================================================ */
+.archive {
+  position: relative;
+  height: 100vh;
+  background: #fff;
+  overflow: hidden;
+}
+.arc-stage {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  cursor: default;
+  /* 원본은 단독 페이지라 touch-action:none 이지만, 여기서는 세로 스크롤을
+     페이지에 넘겨야 다음 섹션으로 내려갈 수 있다. 가로 드래그만 링을 돌린다. */
+  touch-action: pan-y;
+}
+/* 카드가 실제로 놓인 영역 위에서만 휠이 링을 돌린다(js). 그 자리에선 커서로 알린다. */
+.arc-stage.arc-over { cursor: grab; }
+.arc-stage.arc-drag { cursor: grabbing; }
+.arc-stage canvas { display: block; width: 100%; height: 100%; }
+/* 호버 프리뷰 — 원본 실측: 230×150, 좌상단(24, 24), radius 0, 0.25s 페이드 */
+.arc-preview {
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  width: 230px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 0;
+  opacity: 0;
+  z-index: 10;
+  pointer-events: none;
+  transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
 
 /* ============================================================
    Featured works — stacked sticky cards
@@ -323,7 +365,7 @@ body.home-page { background: var(--black1); }
   font-size: 14px;
   line-height: 24px;
   text-transform: uppercase;
-  color: var(--ink);
+  color: var(--black2);
 }
 /* 원본은 1440 고정폭이 아니라 뷰포트 전체에서 25vw 비율로 계속 늘어난다
    (1440 실측 328px = 1997 실측 468px 로 스케일 → calc(25vw - 16px) 이 전 구간에서 성립) */
@@ -341,7 +383,7 @@ body.home-page { background: var(--black1); }
   top: 0;
   height: 40px;
   width: calc(25vw + 8px);
-  background: var(--ink);
+  background: var(--black2);
   clip-path: polygon(0 0, calc(100% - 35px) 0, 100% 100%, 0 100%);
   display: flex;
   align-items: center;
@@ -349,7 +391,7 @@ body.home-page { background: var(--black1); }
   font-size: 14px;
   line-height: 24px;
   text-transform: uppercase;
-  color: var(--light);
+  color: var(--grey1);
   pointer-events: auto;
 }
 /* .arr 의 기본 6px 간격을 그대로 쓴다 (원본 실측) */
@@ -372,7 +414,7 @@ body.home-page { background: var(--black1); }
   position: absolute;
   inset: 0;
   z-index: 1;
-  color: var(--ink);
+  color: var(--black2);
   pointer-events: none;
 }
 /* 원본 구조 실측(1440/1024/390 모두 동일):
@@ -392,7 +434,7 @@ body.home-page { background: var(--black1); }
   font-weight: 300;
   font-size: 48px;
   line-height: 56px;
-  color: var(--ink);
+  color: var(--black2);
 }
 /* 우측 메타 칼럼 — 연도·분류·chips 를 담는 한 상자.
    원본 실측(1440): x1064(=75vw-16) y120 폭 344(=25vw-16), 메타 48 + 간격 40 → chips 208 */
@@ -459,7 +501,7 @@ body.home-page { background: var(--black1); }
   font-size: 14px;
   line-height: 24px;
   text-transform: uppercase;
-  color: var(--ink);
+  color: var(--black2);
   pointer-events: auto;
 }
 /* 데스크톱에서는 메타 칼럼 쪽 사본을 숨긴다 */
@@ -499,13 +541,11 @@ body.home-page { background: var(--black1); }
      work 탭     left 0 / 25vw-16 / 50vw-32
    ============================================================ */
 @media (min-width: 810px) and (max-width: 1279.98px) {
-  /* footer(#footer)가 태블릿에서 100vh 가 아니라 60vh 라(common.css),
-     리빌용 여분 스크롤도 그만큼 줄여야 한다 — 100vh 그대로 두면 footer
-     가 다 드러난 뒤에도 60vh~100vh 구간만큼 빈 스크롤이 남아 그 아래
-     body 배경(footer 보다 밝은 색)이 비쳐 보인다.
-     원본 실측(1024x900) 총 문서길이 5120 vs 이전(100vh) 5480 → 차이 360
-     = 정확히 40vh(900*0.4) → 100vh 에서 40vh 를 빼면 60vh. */
-  .page-spacer { height: 60vh; }
+  /* 리빌 스페이서는 **반드시 푸터 박스 높이와 같아야 한다.**
+     스크롤 끝에서 흰 콘텐츠의 하단이 정확히 푸터 박스 상단(100vh - --foot-h)에
+     떨어져야 둘 사이에 body 배경이 새지 않는다. 어긋나면 그만큼 띠가 생긴다.
+     원본 실측(1024x900) docH 5120 = 콘텐츠 4580 + 540(=60vh) 로 일치. */
+  .page-spacer { height: var(--foot-h); }
 
   /* ---- 티켓: 사진 칼럼 없는 단일 칼럼 ---- */
   .ticket {
@@ -530,7 +570,7 @@ body.home-page { background: var(--black1); }
     display: block;
     margin: 48px auto 12px;
     font-size: 14px; line-height: 24px;
-    text-transform: uppercase; color: var(--ink);
+    text-transform: uppercase; color: var(--black2);
   }
   .tb-foot { margin-top: 0; }
   .tb-foot .tb-currently { display: none; }
@@ -690,7 +730,7 @@ body.home-page { background: var(--black1); }
     font-size: 14px;
     line-height: 24px;
     text-transform: uppercase;
-    color: var(--ink);
+    color: var(--black2);
   }
   .tb-foot { margin-top: 0; }
   .tb-foot .tb-currently { display: none; }

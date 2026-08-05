@@ -48,7 +48,7 @@
   font-weight: 300;
   font-size: 48px;
   line-height: 56px;
-  color: var(--ink);
+  color: var(--black2);
 }
 .std-cat {
   margin-top: 24px;            /* 제목 하단(184) → 카테고리 y208 */
@@ -56,13 +56,13 @@
   font-size: 14px;
   line-height: 24px;
   text-transform: uppercase;
-  color: var(--ink);
+  color: var(--black2);
 }
 .std-year {
   font-family: var(--mono);
   font-size: 14px;
   line-height: 24px;
-  color: var(--ink);
+  color: var(--black2);
 }
 .std-desc {
   margin-top: 24px;            /* 연도 하단(256) → 설명 y280 */
@@ -70,7 +70,7 @@
   font-size: 12px;
   line-height: 24px;
   text-transform: uppercase;
-  color: var(--ink);
+  color: var(--black2);
 }
 
 /* ---------- 우측 콘텐츠 블록 ---------- */
@@ -113,7 +113,7 @@
   font-weight: 300;
   font-size: 24px;
   line-height: 32px;
-  color: var(--ink);
+  color: var(--black2);
 }
 .std-para + .std-para { margin-top: 32px; }   /* 문단 사이 한 줄(32) */
 .std-credit {
@@ -121,7 +121,7 @@
   font-family: var(--mono);
   font-size: 12px;
   line-height: 24px;
-  color: var(--ink);
+  color: var(--black2);
 }
 .std-credit span { display: block; }
 
