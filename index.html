@@ -61,7 +61,7 @@
       <p class="hero-left">A COLLECTION OF VISUAL WORKS</p>
       <p class="hero-right">POLARBEARLOVERSCLUB 2026</p>
 
-      <p class="hero-tagline" aria-hidden="true"><span class="hero-tagline-mark">(L)</span>i&rsquo;m so hyeon</p>
+      <p class="hero-tagline" aria-hidden="true" data-char-reveal data-char-reveal-delay="0.15"><span class="hero-tagline-mark">(L)</span>i&rsquo;m so hyeon</p>
 
       <div class="scroll-down">
         <p>SCROLL DOWN</p>
@@ -192,9 +192,18 @@
                       <span class="work-window-title">Aquaplanet</span>
                     </div>
                     <div class="work-window-body">
-                      <iframe class="work-window-frame" src="https://ezen-aquaplanet-project.vercel.app/" title="Aquaplanet live preview" loading="lazy"></iframe>
+                      <!-- src 가 아니라 data-src 다 — 이 카드가 실제로 보일 때만
+                           js/works-intro.js 가 붙였다 뗀다(안 보이는 사이트가
+                           계속 돌면 프레임이 밀린다).
+                           모바일에서는 iframe 을 아예 안 쓰고 아래 링크로 대체한다. -->
+                      <iframe class="work-window-frame" data-src="https://ezen-aquaplanet-project.vercel.app/" title="Aquaplanet live preview"></iframe>
+                      <a class="work-window-link" href="https://ezen-aquaplanet-project.vercel.app/" target="_blank" rel="noopener">OPEN SITE<span class="arr" aria-hidden="true">&#8599;</span></a>
                     </div>
                   </div>
+                  <!-- 히어로의 SCROLL DOWN 과 같은 안내 — 이 창이 그림이 아니라
+                       실제로 눌러볼 수 있는 사이트라는 걸 알린다.
+                       창 아래 가로 띠라 세로로 쌓지 않고 옆으로 늘어놓는다. -->
+                  <p class="work-click-hint" aria-hidden="true">CLICK ME<span class="click-arrow">&rarr;</span></p>
                 </div>
               </div>
               <div class="work-info">
@@ -238,9 +247,14 @@
                       <span class="work-window-title work-window-title-layer">Layer</span>
                     </div>
                     <div class="work-window-body">
-                      <iframe class="work-window-frame" src="https://ezen-layerproject.vercel.app/" title="Layer live preview" loading="lazy"></iframe>
+                      <iframe class="work-window-frame" data-src="https://ezen-layerproject.vercel.app/" title="Layer live preview"></iframe>
+                      <a class="work-window-link" href="https://ezen-layerproject.vercel.app/" target="_blank" rel="noopener">OPEN SITE<span class="arr" aria-hidden="true">&#8599;</span></a>
                     </div>
                   </div>
+                  <!-- 히어로의 SCROLL DOWN 과 같은 안내 — 이 창이 그림이 아니라
+                       실제로 눌러볼 수 있는 사이트라는 걸 알린다.
+                       창 아래 가로 띠라 세로로 쌓지 않고 옆으로 늘어놓는다. -->
+                  <p class="work-click-hint" aria-hidden="true">CLICK ME<span class="click-arrow">&rarr;</span></p>
                 </div>
               </div>
               <div class="work-info">
@@ -277,17 +291,21 @@
             <div class="work-divider" aria-hidden="true"></div>
             <div class="work-body">
               <div class="work-media">
-                <!-- 실제 배포 링크가 아직 없어 Layer 프로젝트를 임시로 넣어둔다 -->
                 <div class="wm-main work-window-outer">
                   <div class="work-window">
                     <div class="work-window-titlebar">
                       <span class="work-window-traffic" aria-hidden="true"><i></i><i></i><i></i></span>
-                      <span class="work-window-title work-window-title-layer">Layer</span>
+                      <span class="work-window-title work-window-title-hanne">Hanne</span>
                     </div>
                     <div class="work-window-body">
-                      <iframe class="work-window-frame" src="https://ezen-layerproject.vercel.app/" title="Layer live preview" loading="lazy"></iframe>
+                      <iframe class="work-window-frame" data-src="https://hanne-six.vercel.app/" title="Hanne live preview"></iframe>
+                      <a class="work-window-link" href="https://hanne-six.vercel.app/" target="_blank" rel="noopener">OPEN SITE<span class="arr" aria-hidden="true">&#8599;</span></a>
                     </div>
                   </div>
+                  <!-- 히어로의 SCROLL DOWN 과 같은 안내 — 이 창이 그림이 아니라
+                       실제로 눌러볼 수 있는 사이트라는 걸 알린다.
+                       창 아래 가로 띠라 세로로 쌓지 않고 옆으로 늘어놓는다. -->
+                  <p class="work-click-hint" aria-hidden="true">CLICK ME<span class="click-arrow">&rarr;</span></p>
                 </div>
               </div>
               <div class="work-info">
@@ -315,12 +333,15 @@
            이 섹션(#aboutme)으로 이동한다(티켓 쪽 #about 은 그대로 둔다). -->
       <section class="archive" id="aboutme">
         <div class="arc-stage js-carousel3d"
-             data-cards="5"
-             data-radius="3.2"
-             data-distance="10.5"
+             data-cards="8"
+             data-radius="3.6"
+             data-distance="16.8"
+             data-autorotate="-26"
+             data-intro-when=".arc-stage"
+             data-intro-threshold="1"
              data-images="assets/images/carousel/card-01.jpeg,assets/images/carousel/card-02.png,assets/images/carousel/card-03.png,assets/images/carousel/card-04.jpeg,assets/images/carousel/card-05.png,assets/images/carousel/card-06.png,assets/images/carousel/card-07.png,assets/images/carousel/card-08.png,assets/images/carousel/card-09.png,assets/images/carousel/card-10.png"
              role="img" aria-label="Rotating 3D archive card carousel"></div>
-        <p class="aboutme-title" aria-hidden="true">(<span class="aboutme-title-plain">About&nbsp;</span>me)</p>
+        <p class="aboutme-title" aria-hidden="true" data-char-reveal="scroll">(<span class="aboutme-title-plain">About&nbsp;</span>me)</p>
       </section>
     </div>
    </div>
@@ -365,6 +386,7 @@
   <script type="module" src="js/carousel3d.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script src="js/char-reveal.js"></script>
   <script src="js/works-intro.js"></script>
 </body>
 </html>

@@ -66,6 +66,12 @@
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 
+/* 드래그 선택 색 — 브라우저 기본 파랑 대신 사이트 핑크.
+   ::selection 과 ::-moz-selection 은 한 셀렉터로 묶으면 그 브라우저가 규칙
+   전체를 버리므로 반드시 따로 쓴다. */
+::selection { background: var(--pink); color: var(--white); }
+::-moz-selection { background: var(--pink); color: var(--white); }
+
 /* ---------- Lenis 필수 CSS (없으면 프로그램 스크롤·앵커에서 네이티브 스무스와 충돌) ----------
    Lenis 가 활성화되면 <html> 에 `lenis` 클래스가 붙는다(원본은 `lenis-smooth` 도
    붙지만 우리 빌드는 `lenis` 만). 이때 네이티브 scroll-behavior:smooth 가 켜져 있으면

@@ -342,12 +342,20 @@ function initLogo3D(mount) {
     requestOnce();
   }
 
-  /* 모델을 컨테이너 안에 꽉 차게 스케일 — 카메라는 고정 */
+  /* 모델을 컨테이너 안에 꽉 차게 스케일 — 카메라는 고정.
+     호버하면 로고가 가만히 있지 않는다 — 커서 쪽으로 통째로 끌려가고
+     (HOVER_MAGNETIC_STRENGTH, 로고 너비의 4%) 조각들이 제자리에서 흔들린다
+     (HOVER_WOBBLE_POS). 가만히 있는 크기에 딱 맞춰 놓으면 호버한 순간 그만큼
+     가장자리가 잘린다 — 프레임의 overflow 문제가 아니라 카메라 시야가 거기서
+     끝나는 거라 CSS 로는 못 고친다. 최대 이탈량을 미리 빼두고 맞춘다. */
   function fitSymbol() {
     if (!symbolSize) return;
     const vh = 2 * Math.tan((camera.fov * Math.PI / 180) / 2) * CAMERA_Z;
     const vw = vh * camera.aspect;
-    const s = Math.min(vh / Math.max(symbolSize.y, 0.0001), vw / Math.max(symbolSize.x, 0.0001)) / FIT_PADDING;
+    const magnetic = HOVER_MAGNETIC_STRENGTH * symbolSize.x;
+    const needX = symbolSize.x + 2 * (magnetic + HOVER_WOBBLE_POS);
+    const needY = symbolSize.y + 2 * (magnetic + HOVER_WOBBLE_POS * 0.75);
+    const s = Math.min(vh / Math.max(needY, 0.0001), vw / Math.max(needX, 0.0001)) / FIT_PADDING;
     symGroup.scale.setScalar(s);
 
     // 하늘 프레이밍을 로고 높이에 고정 — 박스 크기가 바뀌어도 같은 하늘이 뒤에 온다
