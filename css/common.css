@@ -81,8 +81,7 @@ html.lenis,
 .lenis.lenis-stopped { overflow: hidden; }
 .lenis iframe { pointer-events: none; }
 body {
-  background: var(--body-bg);
-  color: var(--light);
+  background: var(--black1);
   font-family: var(--mono);
   font-size: 14px;
   line-height: 24px;
@@ -203,7 +202,7 @@ a:hover .arr { margin-left: 12px; }
   font-size: 14px;
   line-height: 24px;
   text-transform: uppercase;
-  color: var(--light);
+  color: var(--pink);
   justify-self: start;
 }
 .header-nav .nav-right { justify-self: start; }
