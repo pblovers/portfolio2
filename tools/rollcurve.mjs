@@ -51,7 +51,7 @@ const measure = async (tag, url) => {
 
 const out = {};
 if (which !== 'mine') out.orig = await measure('orig', 'https://www.wildyriftian.com/works-motion');
-if (which !== 'orig') out.mine = await measure('mine', mine('works-motion.html'));
+if (which !== 'orig') out.mine = await measure('mine', mine('works/works-uiux.html'));
 await browser.close();
 
 const GRID = [33, 67, 100, 133, 167, 200, 250, 300, 400, 500];

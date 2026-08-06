@@ -2,7 +2,7 @@
 import { chromium } from 'playwright';
 import { mine } from './root.mjs';
 const b = await chromium.launch();
-const file = process.argv[2] || 'work-flat-earther.html';
+const file = process.argv[2] || 'works/work-flat-earther.html';
 for (const [W, H] of [[1920,1080],[1440,900],[1280,800],[1024,768],[810,1080],[768,1024],[430,932],[375,812]]) {
   const errs = [];
   const ctx = await b.newContext({ viewport: { width: W, height: H } });

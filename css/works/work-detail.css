@@ -1,0 +1,176 @@
+/* ============================================================
+   Wildy Riftian — clone
+   work-detail.css — 작업물 상세 페이지 (photoworks 그룹)
+   Requires common.css.
+
+   원본 실측 (works/flat-earther, 1440x900):
+     여백 32
+     뒤로가기  ~32,92  14/24 mono
+     제목      32,128  48px/56px Lock Serif Light
+     연도      32,208  14px/24px mono
+     MODEL     32,232
+     설명      720,208  12px/24px mono uppercase (우측 절반)
+     갤러리    3열 masonry, 열폭 442.7, gap 24 (32 + 3*442.7 + 2*24 = 1408)
+              짧은 열 우선(shortest-column-first) → JS 로 분배
+     see more  32,3136  48/56 Lock Serif / 프리뷰 672x504(4:3) / 제목 28/36
+     푸터      **고정 리빌** (워드마크 고정 y743). 흰 콘텐츠가 스크롤되며 드러난다.
+     docH 4508 = 콘텐츠 + 100vh
+   ============================================================ */
+
+/* 배경은 푸터색 — 흰 콘텐츠가 걷힌 자리에 고정 푸터가 드러난다. */
+.wd-page { background: var(--black1); color: var(--black2); }
+
+/* 흰 배경 위 헤더 — 글자는 common.css 의 핑크 그대로 두고,
+   롤오버만 반전한다: 핑크 면이 차오르고 글자가 흰색으로 (uiux-page·works-page 와 동일). */
+.wd-page .site-header .roll .roll-box::before { background: var(--pink); }
+.wd-page .site-header .roll .roll-box span:nth-child(2) { color: var(--white); }
+.wd-page .menu-overlay .header-logo,
+.wd-page .menu-close { color: var(--black1); }
+
+/* 흰 콘텐츠 커버 (z1) — 위로 밀려 올라가며 고정 푸터를 드러낸다. */
+.wd-scroll {
+  position: relative;
+  z-index: 1;
+  background: var(--white);
+  padding: 0 var(--margin);
+}
+/* 스크롤 거리 확보 — 이 구간에서 고정 푸터가 드러난다. */
+.wd-spacer {
+  position: relative;
+  z-index: 1;
+  height: 100vh;
+  pointer-events: none;
+}
+/* 고정 푸터 리빌 */
+.wd-page .footer { position: fixed; inset: 0; z-index: 0; }
+
+/* ---------- 뒤로가기 ---------- */
+.wd-back {
+  display: inline-block;
+  padding-top: 80px;
+  font-family: var(--mono);
+  font-size: 14px;
+  line-height: 24px;
+  text-transform: uppercase;
+  color: var(--black2);
+}
+.wd-back .arr { margin-right: 6px; }
+.wd-back:hover .arr-txt { transform: translateX(6px); }
+.wd-back .arr-txt { display: inline-block; transition: transform 0.35s cubic-bezier(.2,.2,.1,1); }
+
+/* ---------- 메타 ---------- */
+.wd-head { padding-top: 24px; }   /* 뒤로가기(80~104) 아래 24 → 제목 y128 */
+.wd-title {
+  font-family: var(--serif);
+  letter-spacing: -0.06em;
+  font-weight: 300;
+  font-size: 48px;
+  line-height: 56px;
+  color: var(--black2);
+}
+/* 연도 + 모델 (좌) / 설명 (우) 한 줄 */
+.wd-meta {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 24px;
+  margin-top: 24px;
+}
+.wd-meta-left,
+.wd-desc {
+  font-family: var(--mono);
+  font-size: 14px;
+  line-height: 24px;
+  text-transform: uppercase;
+  color: var(--black2);
+}
+.wd-desc { font-size: 12px; }
+.wd-year { display: block; }
+.wd-model { display: block; }
+
+/* ---------- 갤러리 (masonry, JS 가 열에 분배) ---------- */
+.wd-gallery {
+  display: flex;
+  gap: 24px;
+  margin-top: 32px;
+}
+.wd-col {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.wd-gallery img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* ---------- see more ---------- */
+.wd-seemore {
+  margin-top: 120px;      /* 갤러리 끝(3016) → 제목 y3136 */
+  padding-bottom: 80px;   /* 항목제목 하단(3528) → 콘텐츠 끝 3608 → docH 4508 */
+}
+.wd-seemore-title {
+  font-family: var(--serif);
+  letter-spacing: -0.06em;
+  font-weight: 300;
+  font-size: 48px;
+  line-height: 56px;
+  color: var(--black2);
+  margin-bottom: 32px;    /* 제목 하단(3192) → 카드 top 3224 */
+}
+.wd-seemore-list {
+  display: flex;
+  gap: 32px;
+}
+/* 프리뷰는 콘텐츠 절반폭(원본 672 = (1376-32)/2) */
+.wd-seemore-item {
+  display: block;
+  color: var(--black2);
+  width: calc(50% - 16px);
+}
+/* 프리뷰 창은 폭×0.375 (원본: 672x252=8:3). 원본은 4:3 이미지가 창 안에서
+   parallax 로 스크롤하지만, 정지 상태 기준 8:3 크롭 창으로 맞춘다. */
+.wd-seemore-item img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 8 / 3;
+  object-fit: cover;
+}
+.wd-seemore-item span {
+  display: block;
+  margin-top: 16px;       /* 프리뷰 창 하단 → 항목제목 y3492 */
+  font-family: var(--serif);
+  letter-spacing: -0.06em;
+  font-weight: 300;
+  font-size: 28px;
+  line-height: 36px;
+}
+
+/* ============================================================
+   Tablet (≤ 1279px) — 갤러리 2열
+   ============================================================ */
+@media (max-width: 1279.98px) {
+  .wd-gallery { gap: 16px; }
+  .wd-col { gap: 16px; }
+}
+
+/* 리빌 스페이서 = 고정 푸터 박스 높이(--foot-h, 태블릿 50vh).
+   100vh 로 두면 흰 콘텐츠가 다 걷힌 뒤에도 50vh 만큼 스크롤이 남아
+   푸터 위에 body 배경 띠가 생긴다. 모바일(≤809)은 푸터가 100vh 라 그대로 둔다. */
+@media (min-width: 810px) and (max-width: 1279.98px) {
+  .wd-spacer { height: var(--foot-h); }
+}
+
+/* ============================================================
+   Mobile (≤ 809px) — 메타 세로, 갤러리 1열
+   ============================================================ */
+@media (max-width: 809.98px) {
+  .wd-title { font-size: 40px; line-height: 48px; }
+  .wd-meta { grid-template-columns: 1fr; row-gap: 16px; }
+  .wd-seemore-list { flex-direction: column; }
+  .wd-seemore-item { width: 100%; }
+  .wd-seemore-title { font-size: 40px; line-height: 48px; }
+}

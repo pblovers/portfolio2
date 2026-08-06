@@ -9,7 +9,7 @@ import { mine } from './root.mjs';
 const which = process.argv[2] || 'orig';
 const W = Number(process.argv[3] || 1440);
 const H = Number(process.argv[4] || 900);
-const url = which === 'orig' ? 'https://www.wildyriftian.com/works' : mine('works.html');
+const url = which === 'orig' ? 'https://www.wildyriftian.com/works' : mine('works/works.html');
 
 const browser = await chromium.launch();
 const ctx = await browser.newContext({ viewport: { width: W, height: H }, deviceScaleFactor: 1 });

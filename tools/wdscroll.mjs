@@ -6,7 +6,7 @@
 import { chromium } from 'playwright';
 import { mine } from './root.mjs';
 
-const file = process.argv[2] || 'work-overbloom.html';
+const file = process.argv[2] || 'project/project-aquaplanet.html';
 const b = await chromium.launch();
 
 async function run(W, H, label) {

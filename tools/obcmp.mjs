@@ -7,7 +7,7 @@ const orig = JSON.parse(readFileSync(join(ROOT,'tools','stddata-overbloom.json')
 
 const b = await chromium.launch();
 const p = await (await b.newContext({ viewport: { width: 1440, height: 900 } })).newPage();
-await p.goto(mine('work-overbloom.html'), { waitUntil: 'domcontentloaded', timeout: 60000 });
+await p.goto(mine('project/project-aquaplanet.html'), { waitUntil: 'domcontentloaded', timeout: 60000 });
 await p.waitForTimeout(1200);
 await p.evaluate(() => { try { window.lenis && window.lenis.destroy(); } catch (e) {} });
 await p.waitForTimeout(400);

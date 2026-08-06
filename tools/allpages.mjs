@@ -1,7 +1,12 @@
 import { chromium } from 'playwright';
 import { readdirSync } from 'node:fs';
+import { join } from 'node:path';
 import { mine, ROOT } from './root.mjs';
-const pages = readdirSync(ROOT).filter(f=>f.endsWith('.html'));
+// html 은 루트(index)와 works/ 두 곳에 있다. mine() 이 받는 건 ROOT 기준 상대경로다.
+const pages = [
+  ...readdirSync(ROOT).filter(f => f.endsWith('.html')),
+  ...readdirSync(join(ROOT, 'works')).filter(f => f.endsWith('.html')).map(f => `works/${f}`),
+];
 const b = await chromium.launch();
 for (const f of pages) {
   const ctx = await b.newContext({ viewport:{width:1440,height:900} });

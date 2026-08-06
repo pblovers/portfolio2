@@ -4,7 +4,7 @@ import { mine } from './root.mjs';
 import { join } from 'node:path';
 import { ROOT } from './root.mjs';
 const b = await chromium.launch();
-const file = process.argv[2] || 'work-overbloom.html';
+const file = process.argv[2] || 'project/project-aquaplanet.html';
 const outDir = join(ROOT, 'tools', 'diff');
 const ctx = await b.newContext({ viewport:{width:1440,height:900} });
 const p = await ctx.newPage();

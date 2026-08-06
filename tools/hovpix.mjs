@@ -11,8 +11,8 @@ import { mine } from './root.mjs';
 
 const PAGES = {
   index: ['https://www.wildyriftian.com/', 'index.html'],
-  works: ['https://www.wildyriftian.com/works', 'works.html'],
-  motion: ['https://www.wildyriftian.com/works-motion', 'works-motion.html'],
+  works: ['https://www.wildyriftian.com/works', 'works/works.html'],
+  motion: ['https://www.wildyriftian.com/works-motion', 'works/works-uiux.html'],
 };
 const key = process.argv[2] || 'motion';
 const LABEL = process.argv[3] || 'EMAIL';

@@ -16,7 +16,7 @@ const browser = await chromium.launch();
 const shots = {};
 for (const [tag, url] of [
   ['orig', 'https://www.wildyriftian.com/works-motion'],
-  ['mine', mine('works-motion.html')],
+  ['mine', mine('works/works-uiux.html')],
 ]) {
   const ctx = await browser.newContext({ viewport: { width: W, height: H }, deviceScaleFactor: 1 });
   const p = await ctx.newPage();

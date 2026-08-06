@@ -12,8 +12,8 @@ async function measure(url) {
 }
 
 const pairs = [
-  ['https://www.wildyriftian.com/works', 'http://127.0.0.1:5500/works.html'],
-  ['https://www.wildyriftian.com/work/overbloom', 'http://127.0.0.1:5500/work-overbloom.html'],
+  ['https://www.wildyriftian.com/works', 'http://127.0.0.1:5500/works/works.html'],
+  ['https://www.wildyriftian.com/work/overbloom', 'http://127.0.0.1:5500/project/project-aquaplanet.html'],
 ];
 for (const [o, l] of pairs) {
   const oh = await measure(o).catch(e => 'ERR:'+e.message.slice(0,80));

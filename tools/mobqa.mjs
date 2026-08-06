@@ -7,13 +7,13 @@ import { mine } from './root.mjs';
 
 const PAGES = [
   ['index', mine('index.html')],
-  ['works', mine('works.html')],
-  ['motion', mine('works-motion.html')],
-  ['branding', mine('works-branding.html')],
-  ['editorial', mine('works-editorial.html')],
-  ['illustration', mine('works-illustration.html')],
-  ['3dtech', mine('works-3d-tech.html')],
-  ['photoworks', mine('works-photoworks.html')]
+  ['works', mine('works/works.html')],
+  ['motion', mine('works/works-uiux.html')],
+  ['branding', mine('works/works-branding.html')],
+  ['editorial', mine('works/works-editorial.html')],
+  ['illustration', mine('works/works-illustration.html')],
+  ['3dtech', mine('works/works-3d-tech.html')],
+  ['photoworks', mine('works/works-photoworks.html')]
 ];
 // 경계값 포함 (1280 은 데스크톱, 1279 부터 적층 레이아웃)
 const SIZES = [

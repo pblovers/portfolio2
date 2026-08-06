@@ -26,7 +26,7 @@
   <header class="site-header">
     <nav class="header-nav" aria-label="Main">
       <a class="nav-link roll" href="#top"><span class="roll-box"><span>HOME</span><span aria-hidden="true">HOME</span></span></a>
-      <a class="nav-link roll" href="works.html"><span class="roll-box"><span>WORKS</span><span aria-hidden="true">WORKS</span></span></a>
+      <a class="nav-link roll" href="works/works.html"><span class="roll-box"><span>WORKS</span><span aria-hidden="true">WORKS</span></span></a>
       <a class="nav-link roll" href="#about"><span class="roll-box"><span>ABOUT</span><span aria-hidden="true">ABOUT</span></span></a>
       <a class="nav-link roll nav-right" href="#footer"><span class="roll-box"><span>CONTACT</span><span aria-hidden="true">CONTACT</span></span></a>
     </nav>
@@ -44,8 +44,8 @@
     </div>
     <nav class="menu-nav" aria-label="Menu">
       <a href="#top">Home</a>
-      <a href="works.html">Works</a>
-      <a href="works.html#archive">Archive</a>
+      <a href="works/works.html">Works</a>
+      <a href="works/works.html#archive">Archive</a>
       <a href="#about">About</a>
       <a href="#footer">Contact</a>
     </nav>
@@ -145,14 +145,27 @@
         </div>
       </section>
 
+      <!-- ===== Archive — 3D 회전 카드 캐러셀 =====
+           원본: https://interesting-studies-473096.framer.app/ (Framer 코드 컴포넌트)
+           원본 페이지 좌상단의 데모용 버튼(Full view / Black BG)은 제외하고
+           캐러셀 자체만 옮겼다. 파라미터·동작은 js/carousel3d.js 참고. -->
+      <section class="archive" id="archive">
+        <div class="arc-stage js-carousel3d"
+             data-cards="5"
+             data-radius="3.2"
+             data-distance="10.5"
+             data-images="assets/images/carousel/card-01.jpeg,assets/images/carousel/card-02.png,assets/images/carousel/card-03.png,assets/images/carousel/card-04.jpeg,assets/images/carousel/card-05.png,assets/images/carousel/card-06.png,assets/images/carousel/card-07.png,assets/images/carousel/card-08.png,assets/images/carousel/card-09.png,assets/images/carousel/card-10.png"
+             role="img" aria-label="Rotating 3D archive card carousel"></div>
+      </section>
+
       <!-- ===== Featured Works ===== -->
       <div class="works" id="works">
 
         <!-- Work 1 -->
         <article class="work work-1">
           <div class="work-strip">
-            <div class="work-tab"><p>FEATURED WORK 01</p></div>
-            <a class="work-seeall" href="works.html">SEE ALL WORKS<span class="arr">-&gt;</span></a>
+            <div class="work-tab"><p>RESENT WORK 01</p></div>
+            <a class="work-seeall" href="works/works.html">SEE ALL WORKS<span class="arr">-&gt;</span></a>
           </div>
           <div class="work-bg" aria-hidden="true"></div>
           <div class="work-content">
@@ -192,7 +205,7 @@
         <!-- Work 2 -->
         <article class="work work-2">
           <div class="work-strip">
-            <div class="work-tab"><p>FEATURED WORK 02</p></div>
+            <div class="work-tab"><p>RESENT WORK 02</p></div>
           </div>
           <div class="work-bg" aria-hidden="true"></div>
           <div class="work-content">
@@ -229,7 +242,7 @@
         <!-- Work 3 -->
         <article class="work work-3">
           <div class="work-strip">
-            <div class="work-tab"><p>FEATURED WORK 03</p></div>
+            <div class="work-tab"><p>RESENT WORK 03</p></div>
           </div>
           <div class="work-bg" aria-hidden="true"></div>
           <div class="work-content">
@@ -273,12 +286,12 @@
    <!-- ===== Footer (고정 리빌 — 다른 페이지와 동일) ===== -->
       <footer class="footer" id="footer">
         <nav class="services" aria-label="Disciplines">
-          <a href="works-motion.html"><sup>01</sup>Motion Design</a>
-          <a href="works-branding.html"><sup>02</sup>Brand Design</a>
-          <a href="works-editorial.html"><sup>03</sup>Editorial Design</a>
-          <a href="works-photoworks.html"><sup>04</sup>Photography</a>
-          <a href="works-illustration.html"><sup>05</sup>Illustration</a>
-          <a href="works-3d-tech.html"><sup>06</sup>3D Tech</a>
+          <a href="works/works-uiux.html"><sup>01</sup>Motion Design</a>
+          <a href="works/works-branding.html"><sup>02</sup>Brand Design</a>
+          <a href="works/works-editorial.html"><sup>03</sup>Editorial Design</a>
+          <a href="works/works-photoworks.html"><sup>04</sup>Photography</a>
+          <a href="works/works-illustration.html"><sup>05</sup>Illustration</a>
+          <a href="works/works-3d-tech.html"><sup>06</sup>3D Tech</a>
         </nav>
 
         <div class="keychain footer-keychain" aria-hidden="true">
@@ -313,5 +326,6 @@
   <script src="js/common.js"></script>
   <script src="js/index.js"></script>
   <script type="module" src="js/logo3d.js"></script>
+  <script type="module" src="js/carousel3d.js"></script>
 </body>
 </html>

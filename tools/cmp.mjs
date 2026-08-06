@@ -9,7 +9,7 @@ const W = Number(process.argv[2] || 1440);
 const H = W >= 1920 ? 1080 : W >= 1440 ? 900 : W >= 1280 ? 800 : W >= 768 ? 1024 : W >= 430 ? 932 : 812;
 
 const ORIG = 'https://www.wildyriftian.com/works';
-const MINE = mine('works.html');
+const MINE = mine('works/works.html');
 
 const probe = () => {
   const px = v => Math.round(v * 10) / 10;
