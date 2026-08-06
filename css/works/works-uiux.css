@@ -95,7 +95,7 @@ body.uiux-page { background: var(--black1); }
   font-size: 14px;
   line-height: 24px;
   text-transform: uppercase;
-  color: var(--black2);
+  color: var(--pink);
 }
 /* 화살표가 글자 앞에 온다 (works 의 .arr 은 뒤).
    원본은 유니코드 ← 가 아니라 ASCII "<-" 두 글자다 (mono 8.4x2 = 16.81px).
@@ -105,6 +105,7 @@ body.uiux-page { background: var(--black1); }
   display: inline-block;
   margin-left: 0;
   margin-right: 6px;
+  vertical-align: middle;
   transition: margin-right 0.3s ease;
 }
 /* 원본 호버: 화살표는 제자리에 있고 글자가 6px 밀려난다
@@ -122,17 +123,27 @@ body.uiux-page { background: var(--black1); }
 .m-tag {
   position: absolute;
   top: 88px;
+  /* msec-left(=SEE ALL WORKS 가 있는 좌측 열) 안에 들어오도록 그 폭(100%)을
+     넘지 않게, 왼쪽도 SEE ALL WORKS(.m-back, left:0)와 같은 기준으로 맞춘다.
+     예전 550px 고정 + translateX(-16.4%) 는 좌측 열보다 커서 화면 밖으로
+     튀어나갔다. */
   left: 0;
-  width: calc(125% - 40px);
-  aspect-ratio: 1;
-  transform: translateX(-16.4%);
-  pointer-events: none;
-}
-.m-tag video {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
+  aspect-ratio: 1;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  /* 캔버스(.m-tag-canvas)가 이 박스의 60% 폭이라, center 로 두면 보이는
+     로고 형상 자체는 박스 왼쪽 가장자리(=SEE ALL WORKS 곰 아이콘)보다
+     오른쪽으로 밀려 보인다 — 왼쪽으로 붙여서 로고 왼쪽 가장자리가 곰
+     아이콘 왼쪽과 맞도록 한다. */
+  justify-content: flex-start;
+}
+/* 로고에 제자리 부유(bob)·호버 반응 애니메이션이 있어서 컨테이너를 꽉
+   채우면 그 움직임 범위가 잘린다 — 부모(.m-tag)의 60%만 채워 여유를 둔다. */
+.m-tag-canvas {
+  width: 60%;
+  height: 60%;
 }
 
 /* ============================================================

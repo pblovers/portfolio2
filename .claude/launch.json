@@ -3,8 +3,8 @@
   "configurations": [
     {
       "name": "static",
-      "runtimeExecutable": "python",
-      "runtimeArgs": ["-m", "http.server", "8080"],
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["C:\\Users\\EZEN\\AppData\\Local\\Temp\\claude\\D------portfolio2-new\\88189109-ec05-41ba-a5dd-a7cb28a6cb5e\\scratchpad\\static-server.js"],
       "port": 8080
     }
   ]

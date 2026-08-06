@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="../css/common.css">
   <link rel="stylesheet" href="../css/works/work-detail.css">
   <link rel="stylesheet" href="../css/works/work-detail-std.css">
+  <link rel="stylesheet" href="../css/project/project-aquaplanet.css">
 </head>
 <body id="top" class="wd-page">
 
@@ -24,7 +25,7 @@
     </nav>
     <div class="header-mobile">
       <a class="header-logo" href="../index.html">POLARBEARLOVERSCLUB</a>
-      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menuOverlay">MENU</button>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menuOverlay"><span class="menu-btn-label">MENU</span><span class="arr menu-btn-bear"><img class="bear-icon" src="../assets/images/bear-pink.png" alt=""></span></button>
     </div>
   </header>
 
@@ -37,11 +38,40 @@
     <nav class="menu-nav" aria-label="Menu">
       <a href="../index.html">Home</a>
       <a href="../works/works.html">Works</a>
-      <a href="../works/works.html#archive">Archive</a>
       <a href="../index.html#about">About</a>
       <a href="../index.html#footer">Contact</a>
     </nav>
     <p class="menu-foot">MENU</p>
+  </div>
+
+  <!-- ===== Hero (피그마 node 1052:506) — 기존 레이아웃 위, 가장 먼저 보인다 =====
+       .aq-hero-slot 이 정확히 히어로 자기 높이(100vh)만큼만 감싸는 이유:
+       sticky 엘리먼트는 "가장 가까운 블록 조상(containing block)" 을 기준으로
+       고정 예산을 갖는다. body 를 바로 부모로 두면 body 전체(수천px)가 예산이
+       돼 페이지 끝 몇 px 에서야 겨우 풀려나고, 그동안 z-index:1 인 히어로가
+       계속 footer(z-index:0) 위에 남아 푸터가 영영 안 보였다. 감싸는 박스를
+       히어로와 같은 높이로 딱 맞추면(index.html 의 work-1 이 work-2 에
+       덮이는 것과 동일 원리) — 뒤이어 오는 .wd-scroll(흰 배경)이 아래에서
+       올라와 덮는 동안만 화면에 남아 있다가, 그 구간(100vh)이 끝나면
+       정상적으로 풀려나 스크롤을 그대로 따라가고, 이후 히어로 → 설명
+       섹션(.wd-scroll) → 푸터 순서로 자연스럽게 이어진다. -->
+  <div class="aq-hero-slot">
+    <section class="aq-hero">
+      <div class="aq-hero-inner">
+        <h1 class="aq-hero-title">Aquaplanet</h1>
+        <div class="aq-hero-info">
+          <div class="aq-hero-meta">
+            <p>UI/UX</p>
+            <p>2026</p>
+          </div>
+          <div class="aq-hero-desc">
+            <p>A short animated piece about spring allergies, turning</p>
+            <p>pollen season into a playful visual journey through</p>
+            <p>handmade textures, soft colors, and blooming transitions.</p>
+          </div>
+        </div>
+      </div>
+    </section>
   </div>
 
   <main class="wd-main">
@@ -49,9 +79,9 @@
     <div class="std-layout">
       <!-- 좌측 sticky 메타 (back 포함 — 전체가 sticky, 스크롤해도 고정) -->
       <aside class="std-meta">
-        <a class="wd-back" href="../works/works-uiux.html"><span class="arr" aria-hidden="true">&lt;-</span><span class="arr-txt">SEE ALL MOTION WORKS</span></a>
-        <h1 class="std-title">Overbloom</h1>
-        <p class="std-cat">Motion Works</p>
+        <a class="wd-back" href="../works/works-uiux.html"><span class="arr" aria-hidden="true"><img class="bear-icon" src="../assets/images/bear-pink.png" alt=""></span><span class="arr-txt">SEE ALL UI/UX WORKS</span></a>
+        <h1 class="std-title">AQUAPLANET</h1>
+        <p class="std-cat">UI/UX</p>
         <p class="std-year">2026</p>
         <p class="std-desc">A short animated piece about spring allergies, turning pollen season into a playful visual journey through handmade textures, soft colors, and blooming transitions.</p>
       </aside>
@@ -101,7 +131,7 @@
     <!-- ===== Footer ===== -->
     <footer class="footer" id="footer">
       <nav class="services" aria-label="Disciplines">
-        <a href="../works/works-uiux.html"><sup>01</sup>Motion Design</a>
+        <a href="../works/works-uiux.html"><sup>01</sup>UIUX Design</a>
         <a href="../works/works-branding.html"><sup>02</sup>Brand Design</a>
         <a href="../works/works-editorial.html"><sup>03</sup>Editorial Design</a>
         <a href="../works/works-photoworks.html"><sup>04</sup>Photography</a>
@@ -109,14 +139,6 @@
         <a href="../works/works-3d-tech.html"><sup>06</sup>3D Tech</a>
       </nav>
 
-      <div class="keychain footer-keychain" aria-hidden="true">
-        <div class="kc-layer kc-padlock"><img src="../assets/images/keychain-00-padlock.png" alt=""></div>
-        <div class="kc-layer kc-illustration"><img src="../assets/images/keychain-05-illustration.png" alt=""></div>
-        <div class="kc-layer kc-photoworks"><img src="../assets/images/keychain-04-photoworks.png" alt=""></div>
-        <div class="kc-layer kc-editorial"><img src="../assets/images/keychain-03-editorial.png" alt=""></div>
-        <div class="kc-layer kc-branding"><img src="../assets/images/keychain-02-branding.png" alt=""></div>
-        <div class="kc-layer kc-motion"><img src="../assets/images/keychain-01-motion.png" alt=""></div>
-      </div>
 
       <div class="footer-links">
         <a class="roll" href="mailto:wildyriftian@gmail.com"><span class="roll-box"><span>EMAIL</span><span aria-hidden="true">EMAIL</span></span></a>
@@ -129,12 +151,14 @@
 
       <div class="footer-bottom">
         <p class="copyright">&copy; 2026 POLARBEARLOVERSCLUB</p>
-        <p class="credit">WEBSITE BY <a href="https://surd.studio/" target="_blank" rel="noopener">SURD.STUDIO</a></p>
+        <p class="credit">WEBSITE BY LIM SOHYUN</p>
       </div>
     </footer>
   </main>
 
   <script src="../js/lenis.min.js"></script>
   <script src="../js/common.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="../js/project/project-aquaplanet.js"></script>
 </body>
 </html>

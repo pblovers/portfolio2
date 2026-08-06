@@ -52,7 +52,7 @@
   font-size: 14px;
   line-height: 24px;
   text-transform: uppercase;
-  color: var(--black2);
+  color: var(--pink);
 }
 .wd-back .arr { margin-right: 6px; }
 .wd-back:hover .arr-txt { transform: translateX(6px); }

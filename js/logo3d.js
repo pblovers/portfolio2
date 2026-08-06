@@ -21,11 +21,16 @@ import { GLTFLoader }     from 'three/addons/loaders/GLTFLoader.js';
 import { MeshoptDecoder } from 'three/addons/libs/meshopt_decoder.module.js';
 
 const MOUNT_SELECTOR = '.js-logo3d';
-const SYMBOL_SRC     = 'assets/models/logo-symbol.glb';
+/* 이 모듈은 index.html(루트)과 works/works-uiux.html(한 단계 아래) 양쪽에서
+   로드된다. 'assets/...' 같은 상대 경로는 페이지 URL 기준으로 풀리므로 하위
+   경로 페이지에서는 깨진다 — 대신 이 스크립트 자신의 위치(js/)에서 한 단계
+   위(사이트 루트)를 기준으로 절대 경로를 만든다. */
+const SITE_ROOT       = new URL('..', import.meta.url).href;
+const SYMBOL_SRC      = SITE_ROOT + 'assets/models/logo-symbol.glb';
 /* 굴절에 비칠 하늘 — 구름이 흐르며 밝기가 변하는 게 원본 인상의 핵심이라 영상을 쓴다.
    자동재생이 막히는 환경(iOS 저전력 모드 등)에서는 정지 이미지로 대체한다. */
-const BACKDROP_VIDEO_SRC = 'assets/videos/Aquaplanet/logo3d-backdrop.webm';
-const BACKDROP_IMAGE_SRC = 'assets/images/Aquaplanet/logo3d-backdrop.webp';
+const BACKDROP_VIDEO_SRC = SITE_ROOT + 'assets/videos/Aquaplanet/logo3d-backdrop.webm';
+const BACKDROP_IMAGE_SRC = SITE_ROOT + 'assets/images/Aquaplanet/logo3d-backdrop.webp';
 
 /* 카메라는 z=10 고정, 배경 평면은 그 앞 z=-2.4 — 원본과 동일한 배치 */
 const CAMERA_FOV      = 35;

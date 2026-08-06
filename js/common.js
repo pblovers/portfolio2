@@ -58,6 +58,8 @@
       overlay.classList.toggle('open', open);
       overlay.setAttribute('aria-hidden', String(!open));
       menuBtn.setAttribute('aria-expanded', String(open));
+      /* 곰 아이콘이 커지는 애니메이션(css/common.css .menu-btn.is-opening) */
+      menuBtn.classList.toggle('is-opening', open);
       document.body.style.overflow = open ? 'hidden' : '';
       /* 메뉴가 열려 있는 동안은 Lenis 를 멈춰 뒤 페이지가 스크롤되지 않게 한다. */
       if (lenis) { open ? lenis.stop() : lenis.start(); }
@@ -204,6 +206,12 @@
         var el = pinkEls[i];
         var owner = el.closest('.work');
         if (owner && owner !== topWork) continue; // 가려진 이전 카드 소속이면 건너뛴다
+        /* .menu-overlay 는 닫혀 있어도(clip-path 로만 숨김) getBoundingClientRect 가
+           여전히 뷰포트 전체를 돌려준다 — transform 기반이던 예전과 달리 박스 자체가
+           화면 밖으로 안 나가기 때문. 닫힌 상태의 그 박스를 실제로 보이는 핑크로
+           오판하지 않도록 열려 있을 때만 판정에 포함시킨다. */
+        var menu = el.closest('.menu-overlay');
+        if (menu && !menu.classList.contains('open')) continue;
         var r = el.getBoundingClientRect();
         if (x >= r.left && x < r.right && y >= r.top && y < r.bottom) return true;
       }
@@ -240,6 +248,12 @@
     window.addEventListener('pointermove', function (e) {
       if (e.pointerType !== 'mouse') return;
       if (e.clientX < 0 || e.clientY < 0 || e.clientX > window.innerWidth || e.clientY > window.innerHeight) return;
+      /* iframe(예: work-1 의 Aquaplanet 미리보기) 경계에 닿는 마지막 한 번은
+         target 이 그 iframe 엘리먼트인 pointermove 가 부모 문서에도 찍힌다 —
+         이걸 그대로 처리하면 바로 아래 mouseenter 핸들러가 숨긴 커서를 여기서
+         다시 보여버려서(is-visible 재추가) 숨김이 무효화된다. iframe 이 타깃인
+         이벤트는 위치 갱신·표시 모두 건너뛴다. */
+      if (e.target && e.target.tagName === 'IFRAME') return;
       cursorX = e.clientX; cursorY = e.clientY;
       hasPosition = true;
       cursor.classList.add('is-visible');
@@ -256,6 +270,21 @@
       if (e.pointerType !== 'mouse') return;
       if (e.clientX <= 0 || e.clientY <= 0 || e.clientX >= window.innerWidth || e.clientY >= window.innerHeight) {
         cursor.classList.remove('is-visible');
+      }
+    });
+
+    /* iframe(예: work-1 의 Aquaplanet 미리보기) 위로 들어가면 그 안에서
+       일어나는 pointermove 는 별도 문서라 부모로 안 올라온다 — 그대로 두면
+       우리 커스텀 커서가 진입 직전 위치에 멈춰 iframe 내용 위에 겹쳐 보인다.
+       iframe 경계에서 숨겼다가, 다시 나오면(mouseover 로 복귀 감지) 보여준다. */
+    Array.prototype.forEach.call(document.querySelectorAll('iframe'), function (frame) {
+      frame.addEventListener('mouseenter', function () {
+        cursor.classList.remove('is-visible');
+      });
+    });
+    document.addEventListener('mouseover', function (e) {
+      if (e.target.tagName !== 'IFRAME' && hasPosition) {
+        cursor.classList.add('is-visible');
       }
     });
   }

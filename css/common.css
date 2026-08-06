@@ -165,12 +165,22 @@ p { margin: 0; }
 .arr {
   display: inline-block;
   margin-left: 6px;
+  vertical-align: middle;
   transition: margin-left 0.3s ease;
 }
 /* 원본 호버: 글자와 화살표 사이가 6 → 12 로 벌어진다.
    실측(VIEW PROJECT) 앵커 폭 123.6 → 129.6, 화살표 x 138.8 → 144.8.
    transform: translateX 로 옮기면 화살표만 움직이고 앵커 폭이 안 변한다. */
 a:hover .arr { margin-left: 12px; }
+
+/* VIEW PROJECT / SEE ALL WORKS 류 링크의 화살표 자리에 쓰는 곰 아이콘.
+   텍스트 색과 맞춰 bear-black/-white/-pink 중 하나를 골라 쓴다. */
+.bear-icon {
+  display: block;
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+}
 
 /* ---------- Page shell ---------- */
 .page { position: relative; }
@@ -216,7 +226,32 @@ a:hover .arr { margin-left: 12px; }
   text-transform: uppercase;
   color: var(--pink);
 }
-.menu-btn { font-size: 14px; line-height: 24px; text-transform: uppercase; color: var(--pink); }
+.menu-btn {
+  display: inline-flex;
+  align-items: center;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 24px;
+  text-transform: uppercase;
+  color: var(--pink);
+}
+/* .arr 의 hover 확장(margin-left 6→12)은 원래 a:hover 전용이라 버튼에는 안 먹는다 */
+.menu-btn:hover .arr { margin-left: 12px; }
+/* 버튼을 누르면(.is-opening) 곰 아이콘이 커지면서 옅어진다 — 아이콘 색이
+   메뉴 오버레이 배경(--pink)과 같아서, 이 확대가 곧 아래 clip-path 로
+   퍼지는 배경과 이어지는 것처럼 보인다. transform-origin 을 오른쪽 위로
+   둬서 아이콘이 있는 자리(우상단)에서부터 커지는 느낌을 준다. */
+.menu-btn-bear .bear-icon {
+  transform-origin: 100% 0%;
+  transition: transform 0.6s cubic-bezier(0.7, 0, 0.25, 1), opacity 0.6s ease;
+}
+.menu-btn.is-opening .menu-btn-bear .bear-icon {
+  transform: scale(4);
+  opacity: 0;
+}
 
 /* ============================================================
    Menu overlay
@@ -232,12 +267,21 @@ a:hover .arr { margin-left: 12px; }
   z-index: 200;
   background: var(--pink);
   color: var(--black1);
-  transform: translateY(-100%);
-  transition: transform 0.55s cubic-bezier(0.7, 0, 0.25, 1);
+  /* 헤더의 곰 아이콘(우상단)이 있는 자리에서부터 원이 커지며 화면을 채운다
+     — 화면 반대쪽 끝(왼쪽 아래)까지 퍼지는 방향이라 "우상단 → 좌하단으로
+     퍼지는" 느낌을 만든다. 닫힌 상태에서는 클릭이 안 통과하도록 pointer-
+     events 도 같이 끈다(clip-path 만으로는 브라우저마다 히트테스트가
+     다를 수 있어 확실히 막는다). */
+  clip-path: circle(0% at 100% 0%);
+  pointer-events: none;
+  transition: clip-path 0.6s cubic-bezier(0.7, 0, 0.25, 1);
   display: flex;
   flex-direction: column;
 }
-.menu-overlay.open { transform: translateY(0); }
+.menu-overlay.open {
+  clip-path: circle(150% at 100% 0%);
+  pointer-events: auto;
+}
 .menu-head {
   display: flex;
   justify-content: space-between;
@@ -288,19 +332,8 @@ a:hover .arr { margin-left: 12px; }
   padding: 12px 16px 11px;
   border-top: 1px solid transparent;
 }
-.menu-nav a::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: -1px;
-  height: 1px;
-  background-image: var(--menu-dot);
-  background-repeat: repeat-x;
-  background-size: 4px 1px;
-}
-/* 첫 항목 위와 마지막 항목 아래에는 선이 없다 — 높이(1px)는 유지해야 피치가 안 깨진다 */
-.menu-nav a:first-child::before { display: none; }
+/* menu-nav 항목 사이 점선 제거 */
+.menu-nav a::before { display: none; }
 .menu-nav a:hover { font-style: italic; }
 /* 원본은 하단 MENU 위에도 점선이 있다 (y780, 글자 788, 뷰포트 812) */
 .menu-foot {

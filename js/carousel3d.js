@@ -54,8 +54,8 @@ const CFG = {
   cameraDistance: 20,
   cameraHeight: 1,
   parallaxAmount: 2,
-  scrollSpeed: 0.0014,
-  damping: 0.01,
+  scrollSpeed: 0.0032,
+  damping: 0.025,
   hoverScale: 1.4,
   hoverYOffset: 0.6
 };
