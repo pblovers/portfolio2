@@ -180,6 +180,10 @@
        잡힌다. pointer-events 와 무관하게 항상 맞는 결과를 내도록, 배경이
        핑크인 요소들을 로드 시 한 번만 스캔해 두고 매번은 좌표 포함 여부만
        (getBoundingClientRect, 히트테스트 아님) 확인한다. */
+    /* 네이티브 브라우저라면 cursor:pointer 로 바뀌었을 요소들 — 여기 위에서는
+       커서가 커진다(css 의 #customCursor.is-hover). */
+    var HOVER_SELECTOR = 'a[href], button, input, select, textarea, label, summary, [role="button"]';
+
     var PINK = 'rgb(255, 74, 138)';
     var pinkEls = Array.prototype.filter.call(document.querySelectorAll('*'), function (el) {
       return getComputedStyle(el).backgroundColor === PINK;
@@ -257,6 +261,12 @@
       cursorX = e.clientX; cursorY = e.clientY;
       hasPosition = true;
       cursor.classList.add('is-visible');
+      /* e.target 은 브라우저가 이미 pointer-events 를 감안해 찾아준 실제
+         타깃이라(elementFromPoint 를 따로 부를 필요 없다) closest 한 번으로
+         충분하다 — 네이티브 cursor:pointer 가 됐을 자리(링크·버튼 등)에서
+         커서를 키워 눌러볼 수 있다는 걸 알린다. */
+      cursor.classList.toggle('is-hover', !!(e.target && e.target.closest &&
+        e.target.closest(HOVER_SELECTOR)));
       scheduleUpdate();
     });
 

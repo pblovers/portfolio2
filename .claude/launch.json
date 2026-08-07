@@ -4,7 +4,7 @@
     {
       "name": "static",
       "runtimeExecutable": "node",
-      "runtimeArgs": ["C:\\Users\\SOHYUN\\AppData\\Local\\Temp\\claude\\D---------portfolio2\\a6b145c9-8530-4485-8a31-86c4e4128f75\\scratchpad\\static-server.cjs"],
+      "runtimeArgs": ["C:\\Users\\EZEN\\AppData\\Local\\Temp\\claude\\D------portfolio2-new\\3a20536d-3555-4cc6-9143-4963c5aa75b1\\scratchpad\\static-server.cjs"],
       "port": 8080
     }
   ]

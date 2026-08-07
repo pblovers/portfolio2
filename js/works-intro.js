@@ -168,9 +168,19 @@
 
     /* 모바일에서는 iframe 을 아예 안 쓴다 — 좁은 화면에서 남의 사이트를 통째로
        띄워봐야 읽히지도 않고, 그 사이트의 데스크톱 3D 까지 켜져 프레임만 잡아먹는다.
-       대신 .work-window-link(css 에서 이때만 보인다)로 새 탭에서 열게 한다. */
+       대신 .work-window-link(css 에서 이때만 보인다)로 새 탭에서 열게 한다.
+       태블릿은 쓴다 — 단 세로 태블릿 화면(820x1180)으로 렌더한다(js/index.js). */
     function iframeDisabled() {
       return window.matchMedia('(max-width: 809.98px)').matches;
+    }
+
+    /* 클릭 전 표지를 다시 씌운다(index.html 의 .work-window-poster / index.js 참고).
+       표지가 없는 카드(work-2·3)에서는 아무 일도 안 한다. */
+    function relock(frame) {
+      var body = frame.parentElement;
+      if (body && body.querySelector('.work-window-poster')) {
+        body.classList.remove('is-live');
+      }
     }
 
     function syncFrames() {
@@ -184,6 +194,7 @@
             live[i] = false;
             frame.removeAttribute('src');
           }
+          relock(frame);
           continue;
         }
 
@@ -208,6 +219,9 @@
             frame.setAttribute('src', 'about:blank');
           }
           frame.style.pointerEvents = 'none';
+          /* 클릭해서 살려둔 창이라도 여기서 사이트를 떼면 빈 창만 남는다 —
+             표지(히어로 이미지)를 되돌려 놓고 다시 클릭받는다. */
+          relock(frame);
         }
       }
     }

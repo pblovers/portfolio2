@@ -733,5 +733,9 @@ a:hover .arr { margin-left: 12px; }
   }
   #customCursor.is-visible { opacity: 1; }
   #customCursor.is-white { background-image: url("../assets/images/bear-white.png"); }
+  /* 링크·버튼 위에서는 네이티브 cursor:pointer 였을 자리 — 눌러볼 수 있다는
+     걸 알리려면 그만큼 커져야 한다. is-down(눌림) 이 아래에 와야 클릭
+     순간에는 커짐보다 눌림이 이긴다(같은 특정도, 순서로 갈린다). */
+  #customCursor.is-hover { transform: translate(-50%, -50%) scale(1.4); }
   #customCursor.is-down { transform: translate(-50%, -50%) scale(0.8); }
 }

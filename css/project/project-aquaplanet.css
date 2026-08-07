@@ -62,7 +62,7 @@
 .aq-hero-meta,
 .aq-hero-desc {
   font-family: var(--mono);
-  font-weight: 300;
+  font-weight: 200;
   font-size: 16px;
   line-height: 2;
   text-transform: uppercase;
