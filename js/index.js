@@ -41,14 +41,14 @@
     heroParallax();
   }
 
-  /* ---------- About ticket cycle (typewriter) ---------- */
+  /* ---------- About ticket cycle (typewriter) ----------
+     원래 있던 6개(motion/branding/editorial/photography/illustration/3D tech)는
+     레퍼런스 사이트 에셋(about-obj-1~6.png)이라 걷어내고, 실제 작업물로 하나씩
+     채우는 중이다. 지금은 UI/UX(아쿠아플라넷) 하나뿐.
+     여기에 항목을 추가하면 카운터('01 / 0N')·자동순환·좌우 화살표가 전부
+     따라온다 — 아래 코드가 개수를 이 배열에서만 읽는다. */
   var disciplines = [
-    { num: '01', name: 'MOTION DESIGN',    word: 'motion design' },
-    { num: '02', name: 'BRANDING',         word: 'branding' },
-    { num: '03', name: 'EDITORIAL DESIGN', word: 'editorial design' },
-    { num: '04', name: 'PHOTOGRAPHY',      word: 'photography' },
-    { num: '05', name: 'ILLUSTRATION',     word: 'illustration' },
-    { num: '06', name: '3D TECH',          word: '3D tech' }
+    { num: '01', name: 'UI/UX', word: 'UI/UX' }
   ];
   var idx = 0;
   var tpNum = document.querySelector('.tp-num');
@@ -79,13 +79,20 @@
     var d = disciplines[idx];
     tpNum.textContent = d.num;
     tpName.textContent = d.name;
-    tpCounter.textContent = d.num + ' / 06';
-    tpImg.classList.add('switching');
-    var next = 'assets/images/about-obj-' + (idx + 1) + '.png';
-    setTimeout(function () {
-      tpImg.src = next;
-      tpImg.classList.remove('switching');
-    }, 180);
+    /* 총 개수는 배열에서 읽는다 — '/ 06' 로 박아두면 항목을 늘리거나 줄일 때마다
+       카운터만 거짓말을 한다. 두 자리로 맞춘다(01 / 01). */
+    var total = disciplines.length < 10 ? '0' + disciplines.length : '' + disciplines.length;
+    tpCounter.textContent = d.num + ' / ' + total;
+    /* 오브젝트가 이미지인 항목만 갈아끼운다 — UI/UX 는 이미지가 아니라
+       3D 유리 로고(.js-logo3d)를 그 자리에 상시로 띄우고 있어서 tpImg 가 없다. */
+    if (tpImg) {
+      tpImg.classList.add('switching');
+      var next = 'assets/images/about-obj-' + (idx + 1) + '.png';
+      setTimeout(function () {
+        tpImg.src = next;
+        tpImg.classList.remove('switching');
+      }, 180);
+    }
     renderWord(d.word);
   }
 
@@ -94,30 +101,46 @@
     cycleTimer = setInterval(function () { applyIndex(idx + 1); }, 1600);
   }
 
-  if (tpNum && tpName && tpCounter && tpImg && wordEl) {
-    document.querySelector('.word-prev').addEventListener('click', function (e) {
-      e.stopPropagation();
-      applyIndex(idx - 1);
-      startCycle();
-    });
-    document.querySelector('.word-next').addEventListener('click', function (e) {
-      e.stopPropagation();
-      applyIndex(idx + 1);
-      startCycle();
-    });
+  /* tpImg 는 이제 필수가 아니다 — 3D 로고를 쓰는 항목에는 <img> 자체가 없다.
+     여기에 넣어두면 그 경우 티켓 전체가 초기화되지 않는다. */
+  if (tpNum && tpName && tpCounter && wordEl) {
+    var prevBtn = document.querySelector('.word-prev');
+    var nextBtn = document.querySelector('.word-next');
     applyIndex(0);
-    startCycle();
+    if (disciplines.length > 1) {
+      prevBtn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        applyIndex(idx - 1);
+        startCycle();
+      });
+      nextBtn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        applyIndex(idx + 1);
+        startCycle();
+      });
+      startCycle();
+    } else {
+      /* 항목이 하나면 넘길 데가 없다 — 화살표를 숨기고 자동순환도 안 건다.
+         안 그러면 1.6초마다 같은 단어의 타자 애니메이션만 반복돼 산만하고,
+         누를 수 없는 화살표만 남는다. 항목이 늘면 저절로 되살아난다. */
+      prevBtn.style.display = 'none';
+      nextBtn.style.display = 'none';
+    }
   }
 
-  /* ---------- Ticket flip on touch devices ---------- */
-  var ticket = document.getElementById('ticket');
-  if (ticket) {
-    ticket.addEventListener('click', function () {
-      if (window.matchMedia('(hover: none)').matches && window.innerWidth >= 1280) {
-        ticket.classList.toggle('flipped');
-      }
-    });
-  }
+  /* ---------- Ticket flip on touch devices ----------
+     [임시 잠금] 티켓 앞면을 수정하는 동안 뒤집히면 불편해서 꺼둔 상태다.
+     css/index.css 의 .ticket:hover 규칙도 같은 이유로 주석 처리돼 있으니,
+     되살릴 때 둘 다 함께 풀어야 한다(여기만 풀면 .flipped 가 붙어도 CSS 가
+     없어서 아무 일도 안 일어난다). */
+  // var ticket = document.getElementById('ticket');
+  // if (ticket) {
+  //   ticket.addEventListener('click', function () {
+  //     if (window.matchMedia('(hover: none)').matches && window.innerWidth >= 1280) {
+  //       ticket.classList.toggle('flipped');
+  //     }
+  //   });
+  // }
 
   /* ---------- Work window (works 섹션 폴더탭) ----------
      ① .work-window-body 를 안에 담을 화면과 정확히 같은 비율로 만든다(데스크톱
@@ -168,6 +191,22 @@
 
   function wwIsTablet() {
     return window.matchMedia('(min-width: 810px) and (max-width: 1279.98px)').matches;
+  }
+
+  /* 이 브라우저의 "자리를 차지하는" 스크롤바 폭. 윈도우 크롬은 15px,
+     맥/모바일의 오버레이 스크롤바는 0 이다(콘텐츠 위에 겹쳐 그려서 레이아웃
+     폭을 안 먹는다). iframe 안쪽도 같은 규칙이라 부모 문서에서 한 번 재두고
+     쓴다 — cross-origin 이라 안쪽을 직접 물어볼 수가 없다. */
+  var wwSbwCache = null;
+  function wwScrollbarWidth() {
+    if (wwSbwCache !== null) return wwSbwCache;
+    var probe = document.createElement('div');
+    probe.style.cssText =
+      'position:absolute;top:-9999px;width:100px;height:100px;overflow:scroll';
+    document.body.appendChild(probe);
+    wwSbwCache = probe.offsetWidth - probe.clientWidth;
+    probe.parentNode.removeChild(probe);
+    return wwSbwCache;
   }
 
   /* 태블릿에서 아이폰 목업으로 바뀌는 카드인지 — work-2/work-3 만 해당 */
@@ -251,8 +290,19 @@
        넓혀 데스크톱(웹버전)으로 가면 이 px 값이 그대로 남아 work-2/3 브라우저
        창에도 둥근 모서리가 새어 들어갔었다. */
     body.style.borderRadius = isPhone ? (rect.width * WW_PHONE_SCREEN_RADIUS_FRAC) + 'px' : '';
+
+    /* 세로로 넘치는 사이트(data-site-scrolls)는 iframe 안에 스크롤바가 생겨
+       레이아웃 폭을 그만큼 먹는다 — 그러면 사이트가 siteW 가 아니라
+       (siteW - 스크롤바) 로 배치돼 화면 오른쪽에 빈 띠가 남는다.
+       실측(430x932 iframe 에 빨간 배경): Layer 는 15px 띠가 남고, 세로로
+       안 넘치는 Hanne 은 안 남았다 — "Layer 만 안 맞는다" 의 정체가 이거다.
+       iframe 을 스크롤바 폭만큼 더 넓게 잡으면 안쪽 레이아웃 폭이 정확히
+       siteW 로 돌아온다. 배율은 siteW 기준 그대로라, 늘어난 스크롤바 몫은
+       화면 구멍 오른쪽 바깥으로 밀려 .work-window-body 의 overflow:hidden
+       에 잘린다. 오버레이 스크롤바(맥)면 폭이 0 이라 아무 일도 안 일어난다. */
+    var gutter = frame.hasAttribute('data-site-scrolls') ? wwScrollbarWidth() : 0;
     var scale = (rect.width + 0.5) / siteW;
-    frame.style.width = siteW + 'px';
+    frame.style.width = (siteW + gutter) + 'px';
     frame.style.height = ((rect.height + 0.5) / scale) + 'px';
     frame.style.transform = 'scale(' + scale + ')';
   }
